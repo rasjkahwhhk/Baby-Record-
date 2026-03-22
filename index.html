@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0" name="viewport"/>
+<title>四叶草宝宝成长助手 Library Feed Pro</title>
+<style>
+:root{--bg:#f6fcf8;--card:#fff;--primary:#8ed8a8;--primary-dark:#49795d;--primary-soft:#e8f8ee;--line:#d8eadc;--text:#1f3a2d;--muted:#688170;--shadow:0 8px 24px rgba(73,121,93,.08);--radius:18px}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#f4fbf7 0%,#fbfefc 100%);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang SC","Microsoft YaHei",sans-serif;color:var(--text)}
+.app{max-width:920px;margin:0 auto;padding:6px 8px 18px}.toolbar{position:sticky;top:0;z-index:20;background:rgba(246,252,248,.96);backdrop-filter:blur(10px);padding:3px 0 5px}.tabs{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:5px}.tab{border:1px solid var(--line);background:#fff;color:var(--primary-dark);padding:7px 3px;border-radius:11px;font-size:10.5px;font-weight:800;min-height:36px;cursor:pointer}.tab.active{background:var(--primary);color:#fff;border-color:var(--primary)}.panel{display:none}.panel.active{display:block}.card,details.fold{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}details.fold{overflow:hidden}details.fold+details.fold{margin-top:8px}.fold summary{list-style:none;cursor:pointer;padding:9px 10px;display:flex;justify-content:space-between;align-items:center;font-weight:800;font-size:13px}details.fold summary::-webkit-details-marker{display:none}.fold-body{padding:0 10px 10px}details.fold[open] summary{border-bottom:1px solid var(--line);background:#fbfffc}.right{display:flex;align-items:center;gap:6px;color:var(--muted);font-size:11px}.badge{display:inline-flex;align-items:center;padding:3px 7px;border-radius:999px;background:var(--primary-soft);color:var(--primary-dark);font-size:9px;font-weight:800}.hero{position:relative;overflow:hidden;background:linear-gradient(135deg,#dff6e8 0%,#f8fdf9 100%);border:1px solid var(--line);border-radius:18px;padding:9px 10px;box-shadow:var(--shadow);margin:6px 0 8px;min-height:58px}.hero h1{margin:0;font-size:16px;line-height:1.15;padding-right:70px}.hero .sub{display:none}.clover-wrap{position:absolute;right:10px;top:8px;width:92px;height:92px;display:flex;align-items:center;justify-content:center;font-size:58px;filter:drop-shadow(0 4px 10px rgba(73,121,93,.12))}.hero:before{display:none}.hero:after{display:none}.emoji-clover.small{display:none}.emoji-clover.c1{display:none}.emoji-clover.c2{display:none}
+.grid{display:grid;gap:8px}.grid-2{grid-template-columns:repeat(2,minmax(0,1fr))}.grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.full{grid-column:1/-1}.small-label,label{display:block;margin-bottom:4px;font-size:10px;font-weight:700;color:var(--muted)}input,select,button{font:inherit}.input-like,input,select,textarea{width:100%;padding:8px 10px;border-radius:10px;border:1px solid var(--line);background:#fff;color:var(--text);font-size:12px}.btn-like,button,.mini-btn{border:1px solid var(--line);background:#fff;color:var(--primary-dark);padding:7px 9px;border-radius:10px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;font-size:11px}.primary{background:var(--primary);color:#fff;border-color:var(--primary)}.warn{background:#fff7eb;color:#9a7a31;border-color:#efd7a0}.btn-row{display:flex;gap:5px;flex-wrap:wrap;margin-top:6px}.hint,.small{display:none}.tip-card,.feed-card,.month-card,.record-item,.plan-item,.video-card,.photo-item{border:1px solid var(--line);border-radius:14px;padding:12px;background:#fcfffd}.tip-card h3,.feed-card h3,.month-card h3,.record-title,.video-card h3{margin:0 0 6px;font-size:15px;font-weight:800}.tip-card ul,.feed-card ul,.month-card ul{margin:6px 0 0;padding-left:18px}.tip-card li,.feed-card li,.month-card li{margin:3px 0;line-height:1.4;font-size:12px}.subhead{font-size:12px;color:var(--primary-dark);font-weight:800;margin-top:6px}.month-nav{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:6px}.month-chip{padding:7px 3px;border-radius:9px;border:1px solid var(--line);background:#fff;color:var(--primary-dark);font-size:10px;font-weight:800;cursor:pointer}.month-chip.active{background:var(--primary);color:#fff;border-color:var(--primary)}.timeline{display:grid;gap:8px}.plan-item.done{background:#f1fbf3;border-color:#c0e7c9}.plan-item.skipped{background:#fff8f1;border-color:#efd9b8}.plan-row{display:flex;justify-content:space-between;gap:8px}.plan-time{font-size:12px;color:var(--primary-dark);font-weight:800}.plan-check{width:18px;height:18px;accent-color:var(--primary-dark)}.plan-actions,.record-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}.table-wrap{overflow:auto}.feed-table{width:100%;border-collapse:separate;border-spacing:0 8px}.feed-table th,.feed-table td{background:#fff;border:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top;font-size:14px}.feed-table th{background:var(--primary-soft);color:var(--primary-dark)}.photo-grid,.video-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:10px}.photo-item img{width:100%;height:130px;object-fit:cover;border-radius:10px;display:block}.video-frame{width:100%;height:188px;border:0;border-radius:12px;background:#eaf6ee}.footer-note{margin-top:14px;text-align:center;color:var(--muted);font-size:12px;line-height:1.55}
+@media (max-width:860px){.grid-2,.grid-3,.form-grid,.month-nav,.photo-grid,.video-grid{grid-template-columns:1fr}.tabs{grid-template-columns:repeat(6,minmax(0,1fr))}}
+.more-modal{position:fixed;inset:0;background:rgba(31,58,45,.42);display:none;align-items:center;justify-content:center;padding:18px;z-index:60}.more-modal.show{display:flex}.more-sheet{width:min(520px,100%);background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:0 18px 48px rgba(31,58,45,.18);padding:14px}.more-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}.more-title{font-size:16px;font-weight:800;color:var(--primary-dark)}.more-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.more-option{border:1px solid var(--line);background:#fcfffd;border-radius:14px;padding:12px;cursor:pointer;text-align:left}.more-option .t{font-size:14px;font-weight:800;color:var(--primary-dark);margin-bottom:4px}.more-option .d{font-size:12px;color:var(--muted);line-height:1.45}.close-btn{min-width:auto;padding:7px 10px}@media (max-width:860px){.more-grid{grid-template-columns:1fr}}
+.term-note-wrap{display:inline-flex;align-items:center;gap:4px;white-space:normal;flex-wrap:wrap}.term-note-btn{width:18px;height:18px;border:none;border-radius:999px;background:#eef7f0;color:var(--primary-dark);font-size:12px;line-height:18px;text-align:center;padding:0;cursor:pointer;vertical-align:middle}.term-note-btn:hover{background:#dff1e5}.term-en{color:#2457d6;text-decoration:underline;cursor:pointer;font-weight:700}.pron-line{margin-top:8px;font-size:13px;color:var(--muted);display:flex;align-items:center;gap:8px;flex-wrap:wrap}.pron-chip{border:1px solid var(--line);border-radius:999px;background:#f7faff;padding:4px 8px;color:#3156a3;cursor:pointer}.term-note-modal{position:fixed;inset:0;background:rgba(31,58,45,.42);display:none;align-items:center;justify-content:center;padding:18px;z-index:70}.term-note-modal.show{display:flex}.term-note-sheet{width:min(460px,100%);background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:0 18px 48px rgba(31,58,45,.18);padding:16px}#bookTermsIndex .subhead{margin-top:14px}#bookTermsIndex ul{margin:8px 0 0;padding-left:18px}#bookTermsIndex li{margin:6px 0}.glossary-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:8px}.glossary-card{border:1px solid var(--line);border-radius:14px;background:#fcfffd;padding:12px}.glossary-term{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;font-weight:800;color:var(--primary-dark);line-height:1.45}.glossary-plain{margin-top:6px;font-size:13px;line-height:1.6;color:var(--muted)}.tool-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:8px}.tool-card{border:1px solid var(--line);border-radius:16px;background:linear-gradient(180deg,#fcfffd 0%,#f7fbf8 100%);padding:12px}.tool-title{font-size:14px;font-weight:800;color:var(--primary-dark);margin-bottom:6px}.tool-chip-row{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 8px}.tool-chip{display:inline-flex;align-items:center;border:1px solid #dbe9df;border-radius:999px;padding:3px 8px;font-size:12px;color:var(--muted);background:#fff}.tool-body{font-size:13px;line-height:1.65;color:var(--text)}.tool-body p{margin:0 0 8px}.tool-note{margin-top:10px;border-top:1px dashed #dbe9df;padding-top:8px;font-size:12px;color:var(--muted)}.learn-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:8px}.learn-card{border:1px solid var(--line);border-radius:16px;background:linear-gradient(180deg,#fffdfa 0%,#f9faf6 100%);padding:12px}.learn-title{font-size:14px;font-weight:800;color:var(--primary-dark);margin-bottom:6px}.learn-body{font-size:13px;line-height:1.65;color:var(--text)}.learn-body p{margin:0 0 8px}.learn-list{margin:0;padding-left:18px}.learn-list li{margin:6px 0}.learn-soft{border:1px dashed #dbe9df;border-radius:14px;padding:10px;background:#fcfffd;margin-top:10px}.learn-soft .t{font-size:13px;font-weight:800;color:var(--primary-dark);margin-bottom:6px}.guide-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:8px}.guide-block{border:1px solid var(--line);border-radius:16px;background:linear-gradient(180deg,#fff 0%,#fbfcfa 100%);padding:12px}.guide-block h4{margin:0 0 8px;font-size:14px;color:var(--primary-dark)}.guide-block ul{margin:0;padding-left:18px}.guide-block li{margin:6px 0}.guide-highlight{border:1px solid #dbe9df;border-radius:14px;background:#f7fbf8;padding:12px;margin-top:8px}.guide-highlight .t{font-size:13px;font-weight:800;color:var(--primary-dark);margin-bottom:6px}.info-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:8px}.info-card{border:1px solid var(--line);border-radius:16px;background:linear-gradient(180deg,#fff 0%,#f9fbf8 100%);padding:12px}.info-card h4{margin:0 0 8px;font-size:14px;color:var(--primary-dark)}.info-card ul{margin:0;padding-left:18px}.info-card li{margin:6px 0}.info-soft{border:1px dashed #dbe9df;border-radius:14px;background:#fcfffd;padding:10px;margin-top:10px}.info-soft .t{font-size:13px;font-weight:800;color:var(--primary-dark);margin-bottom:6px}.quick-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:8px}.quick-card{border:1px solid var(--line);border-radius:16px;background:linear-gradient(180deg,#fff 0%,#f7fbf8 100%);padding:12px}.quick-card h4{margin:0 0 8px;font-size:14px;color:var(--primary-dark)}.quick-card ul{margin:0;padding-left:18px}.quick-card li{margin:6px 0}.quick-chip-row{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0 0}.quick-chip{display:inline-flex;align-items:center;border:1px solid #dbe9df;border-radius:999px;padding:4px 8px;font-size:12px;color:var(--muted);background:#fff}.today-hero{border:1px solid #dbe9df;border-radius:18px;background:linear-gradient(180deg,#fcfffd 0%,#f4faf6 100%);padding:14px;margin-bottom:10px}.today-hero h3{margin:0 0 8px;font-size:18px;color:var(--primary-dark)}.today-hero p{margin:0;color:var(--muted);line-height:1.65}.today-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:10px}.today-box{border:1px solid var(--line);border-radius:16px;background:#fff;padding:12px}.today-box h4{margin:0 0 8px;font-size:14px;color:var(--primary-dark)}.today-box ul{margin:0;padding-left:18px}.today-box li{margin:6px 0}.milk-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:8px}.milk-card{border:1px solid var(--line);border-radius:16px;background:linear-gradient(180deg,#fff 0%,#f7fbf8 100%);padding:12px}.milk-card .k{font-size:12px;color:var(--muted);margin-bottom:6px}.milk-card .v{font-size:18px;font-weight:800;color:var(--primary-dark);line-height:1.3}.milk-card .s{font-size:12px;color:var(--muted);margin-top:6px}.milk-note{border:1px dashed #dbe9df;border-radius:14px;background:#fcfffd;padding:10px;margin-top:10px}.milk-note .t{font-size:13px;font-weight:800;color:var(--primary-dark);margin-bottom:6px}.nap-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:8px}.nap-card{border:1px solid var(--line);border-radius:16px;background:linear-gradient(180deg,#fff 0%,#f7fbf8 100%);padding:12px}.nap-card .k{font-size:12px;color:var(--muted);margin-bottom:6px}.nap-card .v{font-size:18px;font-weight:800;color:var(--primary-dark);line-height:1.3}.nap-card .s{font-size:12px;color:var(--muted);margin-top:6px}.nap-note{border:1px dashed #dbe9df;border-radius:14px;background:#fcfffd;padding:10px;margin-top:10px}.nap-note .t{font-size:13px;font-weight:800;color:var(--primary-dark);margin-bottom:6px}@media (max-width:860px){.tool-grid,.learn-grid,.guide-grid,.info-grid,.quick-grid,.today-grid,.milk-grid,.nap-grid{grid-template-columns:1fr}}.glossary-tip{border:1px solid #dbe9df;background:#f7fbf8;border-radius:14px;padding:12px;margin-top:8px}.glossary-tip .t{font-weight:800;color:var(--primary-dark);margin-bottom:6px}@media (max-width:860px){.glossary-grid{grid-template-columns:1fr}}.term-note-title{font-size:18px;font-weight:800;color:var(--primary-dark);margin-bottom:8px}.term-note-desc{font-size:14px;color:var(--text);line-height:1.65}.term-note-close{min-width:auto;padding:7px 10px}
+.clover-banner{position:relative;overflow:hidden;border:1px solid #dbe9df;border-radius:22px;background:linear-gradient(135deg,#f8fff9 0%,#eef8f1 45%,#fdfefb 100%);padding:16px 16px 14px;margin-bottom:12px;box-shadow:0 10px 24px rgba(92,138,110,.08)}
+.clover-banner:before,.clover-banner:after{content:'🍀';position:absolute;font-size:28px;opacity:.14}
+.clover-banner:before{top:10px;right:14px;transform:rotate(8deg)}
+.clover-banner:after{bottom:10px;left:14px;transform:rotate(-10deg)}
+.clover-title{display:flex;align-items:center;gap:8px;font-size:20px;font-weight:800;color:var(--primary-dark);margin:0 0 6px}
+.clover-kicker{display:inline-flex;align-items:center;gap:6px;border:1px solid #dbe9df;border-radius:999px;background:#fff;padding:4px 10px;font-size:12px;color:var(--muted);margin-bottom:8px}
+.clover-banner p{margin:0;color:var(--muted);line-height:1.7}
+.app{position:relative}
+.app:before{content:'';position:fixed;inset:0;pointer-events:none;background:radial-gradient(circle at 15% 10%, rgba(140,196,160,.08), transparent 22%),radial-gradient(circle at 85% 18%, rgba(140,196,160,.07), transparent 24%),radial-gradient(circle at 50% 92%, rgba(140,196,160,.06), transparent 26%)}
+.feed-card,.tip-card,.month-card,.tool-card,.learn-card,.guide-block,.info-card,.quick-card,.today-box,.milk-card,.nap-card{box-shadow:0 8px 20px rgba(92,138,110,.05)}
+.badge{background:linear-gradient(180deg,#ffffff 0%,#eef8f1 100%);border-color:#dbe9df}
+
+
+.toolbar{position:sticky;top:0;z-index:20;backdrop-filter:blur(10px);background:rgba(255,255,255,.78);border:1px solid #e6efe9;border-radius:18px;padding:8px 10px;margin:10px 0 14px;box-shadow:0 10px 24px rgba(92,138,110,.06)}
+.tabs{gap:8px;flex-wrap:wrap}
+.tab{border-radius:999px;padding:10px 14px;border:1px solid #d5e5db;background:#fff;color:#4d725a;font-weight:700;transition:all .2s ease}
+.tab:hover{transform:translateY(-1px);border-color:#b8d3c2;background:#f6fcf8;color:#406650}
+.tab.active{background:linear-gradient(180deg,#9bcab0 0%,#7fb091 100%);border-color:#7fb091;color:#fff;box-shadow:0 8px 18px rgba(127,176,145,.14)}
+.fold{border:1px solid #e6efe9;border-radius:18px;overflow:hidden;box-shadow:0 8px 22px rgba(92,138,110,.04)}
+.fold+ .fold,.panel .fold+.fold{margin-top:10px}
+.fold summary{background:linear-gradient(180deg,#fff 0%,#fbfdfb 100%);padding:14px 16px;transition:background .2s ease}
+.fold summary:hover{background:linear-gradient(180deg,#fcfffd 0%,#f6fbf8 100%)}
+.fold-body{padding-top:2px}
+input,select,textarea{border:1px solid #dbe9df;border-radius:14px;background:#fff;box-shadow:inset 0 1px 0 rgba(255,255,255,.9)}
+input:focus,select:focus,textarea:focus{outline:none;border-color:#b9d4c0;box-shadow:0 0 0 4px rgba(185,212,192,.18)}
+button{border-radius:14px;transition:transform .18s ease, box-shadow .18s ease, background .18s ease}
+button:hover{transform:translateY(-1px);box-shadow:0 8px 18px rgba(92,138,110,.08)}
+button.primary{background:linear-gradient(180deg,#74b28a 0%,#5f9a74 100%);border:none;color:#fff}
+button.primary:hover{background:linear-gradient(180deg,#7aba91 0%,#5a936f 100%)}
+.feed-card,.month-card,.tip-card{border-radius:18px;border-color:#e3eee7}
+.subhead{color:#5f876a;letter-spacing:.1px}
+.small,.hint{line-height:1.7}
+.plan-item{border:1px solid #e6efe9;border-radius:18px;box-shadow:0 8px 18px rgba(92,138,110,.04)}
+.plan-item.done{background:#f8fcf9}
+.plan-item.skipped{background:#fcfbf8}
+@media (max-width:860px){.toolbar{padding:8px}.tab{padding:9px 12px;font-size:13px}.fold summary{padding:13px 14px}}
+
+
+.photo-preview-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:8px}.photo-preview-item{border:1px solid var(--line);border-radius:14px;background:#fff;padding:8px}.photo-preview-item img{width:100%;height:110px;object-fit:cover;border-radius:10px;display:block}.photo-preview-meta{font-size:12px;color:var(--muted);margin-top:6px;line-height:1.5}@media (max-width:860px){.photo-preview-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.photo-preview-actions{display:flex;justify-content:flex-end;margin-top:6px}.photo-preview-actions .mini-btn{padding:6px 10px}
+</style>
+</head>
+<body>
+<div class="app">
+<div class="clover-banner"><div class="clover-kicker">🍀 Clover Baby Companion</div><h1 class="clover-title">四叶草宝宝成长页</h1><p>把喂养、日程、月龄指导和家庭陪伴建议放在同一页，帮助你每天只抓住最重要的 1-2 个重点。</p></div>
+<details class="fold" id="profileFold">
+<summary><span>宝宝信息</span><span class="right"><span class="badge" id="ageBadge">等待填写生日</span></span></summary>
+<div class="fold-body">
+<div class="form-grid"><div><label for="babyName">宝宝昵称</label><input id="babyName" placeholder="例如：小豆包"/></div><div><label for="birthDate">出生日期</label><input id="birthDate" type="date"/></div></div>
+<div class="form-grid" style="margin-top:8px"><div><label for="babyWeightKg">当前体重（kg）</label><input id="babyWeightKg" type="text" inputmode="decimal" placeholder="例如：6.8"/></div><div><label for="babyFeedCount">每日喂奶次数</label><input id="babyFeedCount" type="number" min="1" step="1" placeholder="例如：8"/></div></div><div class="hint" style="margin-top:6px">输入后会自动刷新奶量推荐；如果顿数和默认不一样，比如一天 7 顿，也可以自己改。</div>
+<div class="btn-row"><button class="primary" id="saveProfileBtn">保存宝宝信息</button></div>
+<p class="hint" id="ageText" style="margin-top:10px;">填写生日后自动匹配月龄内容。</p>
+<div class="feed-card" id="milkRecommendCard" style="margin-top:8px"></div>
+</div>
+</details>
+
+<div class="toolbar"><div class="tabs">
+<button class="tab active" data-tab="today">主页</button>
+<button class="tab" data-tab="planner">今日活动</button>
+<button class="tab" data-tab="record">今日记录</button>
+<button class="tab" data-tab="music">音乐</button>
+<button class="tab" data-tab="library">视频库</button>
+<button class="tab" data-tab="more">更多</button>
+</div></div>
+<section class="panel active" id="today">
+
+<details class="fold">
+<summary><span>今日总览</span><span class="right"><span class="badge">今日先看</span></span></summary>
+<div class="fold-body"><div class="grid grid-2" id="todayDashboardGrid"></div></div>
+</details>
+<details class="fold">
+<summary><span>今日重点</span><span class="right"><span class="badge">合并展示</span></span></summary>
+<div class="fold-body"><div class="feed-card" id="todayCompactCard"></div></div>
+</details>
+<details class="fold">
+<summary><span>本月快读</span><span class="right"><span class="badge">今日也能看</span></span></summary>
+<div class="fold-body"><div class="feed-card" id="todayMonthQuickCard"></div></div>
+</details>
+<details class="fold">
+<summary><span>今日记录摘要</span><span class="right"><span class="badge">自动汇总</span></span></summary>
+<div class="fold-body"><div class="feed-card" id="todaySummaryCard"></div>
+    <div class="quick-card" id="growthQuickCard" style="margin-top:8px;">
+      <h4>📸 成长册快捷入口</h4>
+      <ul>
+        <li>上传今日宝宝照片</li>
+        <li>按 本日/本周/本月 筛选并导出成长册</li>
+      </ul>
+      <div class="btn-row" style="margin-top:10px;">
+        <button class="primary" type="button" data-openpanel="growth" data-tabjump="growth" style="width:100%;">打开成长册</button>
+      </div>
+    </div></div>
+</details>
+
+</section>
+<section class="panel" id="planner">
+
+<details class="fold">
+<summary><span>日程设置</span><span class="right"><span class="badge">按月龄</span></span></summary>
+<div class="fold-body">
+<div class="form-grid">
+<div><label for="wakeTime">起床时间</label><input id="wakeTime" type="time" value="07:00"/></div>
+<div><label for="bedTime">夜间入睡时间</label><input id="bedTime" type="time" value="20:00"/></div>
+</div>
+<div style="display:none"><select id="planStyle"><option selected="" value="professional">professional</option></select><select id="sleepyCue"><option selected="" value="none">none</option></select></div>
+<div class="btn-row"><button class="primary" id="generatePlanBtn">生成计划</button></div>
+<div class="feed-card" id="napRecommendCard" style="margin-top:8px"></div>
+<div class="feed-card" id="plannerMilkPlanCard" style="margin-top:8px"></div>
+<div class="feed-card" id="plannerEnvironmentCard" style="margin-top:8px"></div>
+</div>
+</details>
+<details class="fold">
+<summary><span>今日时间表</span><span class="right"><span id="planSummary">等待生成</span></span></summary>
+<div class="fold-body"><div class="btn-row"><button id="resetDoneBtn">清空已完成</button></div><div class="timeline" id="planList"></div></div>
+</details>
+<details class="fold">
+<summary><span>今日完成</span><span class="right"><span class="badge" id="doneSummary">0 项</span></span></summary>
+<div class="fold-body"><div class="grid" id="doneList"></div></div>
+</details>
+</section>
+<section class="panel" id="guide">
+
+<details class="fold"><summary><span>月龄选择</span><span class="right"><span class="badge">按月查看</span></span></summary><div class="fold-body"><div class="month-nav" id="monthNav"></div></div></details>
+<details class="fold"><summary><span>详细月龄指导</span><span class="right"><span id="guideText">当前月龄</span></span></summary><div class="fold-body"><div class="month-card" id="guideCard"></div></div></details>
+<details class="fold"><summary><span>0-6月龄家庭早教补充</span><span class="right"><span class="badge">去重补充</span></span></summary><div class="fold-body"><div class="month-card" id="earlyLearningGuideCard"></div></div></details>
+<details class="fold"><summary><span>0-6月龄教具建议</span><span class="right"><span class="badge">按月简选</span></span></summary><div class="fold-body"><div class="month-card" id="earlyToolGuideCard"></div></div></details>
+<details class="fold"><summary><span>Montessori 原则</span><span class="right"><span class="badge">家庭可执行</span></span></summary><div class="fold-body"><div class="month-card" id="montessoriGuideCard"></div></div></details>
+<details class="fold"><summary><span>家庭环境设置</span><span class="right"><span class="badge">空间准备</span></span></summary><div class="fold-body"><div class="month-card" id="environmentGuideCard"></div></div></details>
+<details class="fold"><summary><span>Montessori 月龄重点</span><span class="right"><span class="badge">本月执行</span></span></summary><div class="fold-body"><div class="month-card" id="montessoriMonthGuideCard"></div></div></details>
+</section>
+<section class="panel" id="feeding">
+
+<details class="fold"><summary><span>辅食建议表</span><span class="right"><span class="badge">按月份看</span></span></summary><div class="fold-body"><div class="table-wrap"><table class="feed-table" id="feedTable"></table></div></div></details>
+<details class="fold"><summary><span>详细添加步骤</span><span class="right"><span class="badge">从何时开始</span></span></summary><div class="fold-body"><div class="grid" id="feedingStageGrid"></div></div></details>
+</section>
+<section class="panel" id="record">
+
+<details class="fold"><summary><span>奶量记录</span><span class="right"><span class="badge" id="milkCount">0 条</span></span></summary><div class="fold-body"><div class="form-grid"><div><label for="milkTime">时间</label><input id="milkTime" type="datetime-local"/></div><div><label for="milkAmount">奶量（ml）</label><input id="milkAmount" min="0" type="number"/></div></div><div class="btn-row"><button class="primary" id="addMilkBtn">添加奶量</button></div><p class="hint" id="milkHint" style="margin-top:10px;">今日奶量提示会显示在这里。</p><div class="grid" id="milkList"></div></div></details>
+<details class="fold"><summary><span>睡眠记录</span><span class="right"><span class="badge" id="sleepCount">0 条</span></span></summary><div class="fold-body"><div class="form-grid"><div><label for="sleepStart">开始时间</label><input id="sleepStart" type="datetime-local"/></div><div><label for="sleepEnd">结束时间</label><input id="sleepEnd" type="datetime-local"/></div></div><div class="btn-row"><button class="primary" id="addSleepBtn">添加睡眠</button></div><p class="hint" id="sleepHint" style="margin-top:10px;">今日睡眠提示会显示在这里。</p><div class="grid" id="sleepList"></div></div></details>
+<details class="fold"><summary><span>大便记录</span><span class="right"><span class="badge" id="poopCount">0 条</span></span></summary><div class="fold-body"><div class="form-grid"><div><label for="poopTime">时间</label><input id="poopTime" type="datetime-local"/></div><div><label for="poopNote">备注</label><input id="poopNote" placeholder="例如：偏稀 / 正常"/></div></div><div class="btn-row"><button class="primary" id="addPoopBtn">添加大便</button></div><p class="hint" id="poopHint" style="margin-top:10px;">今日排便提示会显示在这里。</p><div class="grid" id="poopList"></div></div></details>
+<details class="fold"><summary><span>Montessori 观察记录</span><span class="right"><span class="badge" id="observationCount">0 条</span></span></summary><div class="fold-body"><div class="form-grid"><div><label for="observationTime">时间</label><input id="observationTime" type="datetime-local"/></div><div><label for="observationArea">观察领域</label><select id="observationArea"><option value="movement">动作发展</option><option value="language">语言互动</option><option value="concentration">专注重复</option><option value="environment">环境匹配</option><option value="care">照护配合</option><option value="social">社交情绪</option></select></div><div class="full"><label for="observationNote">观察内容</label><input id="observationNote" placeholder="例如：会反复把积木放进盒子里，对同一本书很有兴趣"/></div></div><div class="btn-row"><button class="primary" id="addObservationBtn">添加观察</button></div><p class="hint" id="observationHint" style="margin-top:10px;">今天的 Montessori 观察提示会显示在这里。</p><div class="grid" id="observationList"></div></div></details>
+</section>
+<section class="panel" id="history">
+
+<details class="fold"><summary><span>最近 7 天历史</span><span class="right"><span class="badge">自动统计</span></span></summary><div class="fold-body"><div class="grid grid-2" id="historyCards"></div></div></details>
+</section>
+<section class="panel" id="growth">
+
+<details class="fold"><summary><span>今日照片记录</span><span class="right"><span class="badge">可拍照上传</span></span></summary><div class="fold-body"><div class="form-grid"><div><label for="photoInput">从图库选择</label><input accept="image/*" id="photoInput" multiple="" type="file"/></div><div><label for="cameraInput">直接拍摄</label><input accept="image/*" capture="environment" id="cameraInput" type="file"/></div><div class="full"><label for="photoNote">照片备注</label><input id="photoNote" placeholder="例如：第一次翻身 / 今天去公园"/></div></div><div class="small" style="display:block">拍摄或从图库选择后，先看下面的待保存预览，再点击“保存今天照片”；系统会自动压缩图片，减少无法保存的问题。</div><div class="feed-card" id="photoPreviewCard" style="margin-top:8px"></div><div class="btn-row"><button class="primary" id="savePhotosBtn">保存今天照片</button></div><div class="photo-grid" id="todayPhotoGrid"></div></div></details>
+<details class="fold"><summary><span>本月成长记录</span><span class="right"><span class="badge">自动生成</span></span></summary><div class="fold-body"><div class="btn-row">
+    <div class="form-grid" style="margin-bottom:12px; border: 1px solid var(--line); padding: 12px; border-radius: 12px; background: #fcfffd;">
+      <div class="full">
+        <label for="growthExportMode" class="small-label" style="font-weight:800; font-size:12px;">📅 选择导出时间范围</label>
+        <select id="growthExportMode" style="margin-top:6px; margin-bottom:8px; font-weight:bold;">
+          <option value="today">今日</option>
+          <option value="week">本周</option>
+          <option value="month" selected>本月</option>
+        </select>
+        <div id="growthExportLabel" class="small" style="color:var(--primary-dark);font-weight:bold; font-size:11px;"></div>
+      </div>
+    </div>
+    <button id="exportMonthHtmlBtn" style="display:none">HTML</button><button class="primary" id="printMonthBtn">导出为PDF</button><button id="downloadMonthPhotosBtn" style="display:none">长图</button></div><div class="month-card" id="monthlyCard"></div><div class="photo-grid" id="monthlyPhotoGrid"></div></div></details>
+<details class="fold"><summary><span>观察成长卡</span><span class="right"><span class="badge">Montessori</span></span></summary><div class="fold-body"><div class="month-card" id="observationSummaryCard"></div><div class="grid" id="observationTrendCard"></div></div></details>
+</section>
+
+
+<section class="panel" id="music">
+
+<details class="fold"><summary><span>睡前舒缓</span><span class="right"><button class="mini-btn" id="refreshSoothingBtn" type="button">换一组推荐</button></span></summary><div class="fold-body"><div style="display:none"><select id="musicAgeGroup"><option value="auto">自动按当前月龄</option><option value="0-3">0-3 个月</option><option value="4-6">4-6 个月</option><option value="7-12">7-12 个月</option></select><select id="musicMode"><option value="calm">舒缓安静</option><option value="active">互动律动</option></select><select id="musicTimeSlot"><option value="auto">自动判断</option><option value="morning">早上激活</option><option value="pre-nap">午睡前</option><option value="evening">傍晚收尾</option></select></div><div class="video-grid" id="soothingGrid"></div></div></details>
+<div class="feed-card" id="whiteNoiseQuickCard" style="margin:10px 0 14px"><div style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap"><div><h3 style="margin:0 0 4px">婴儿白噪音</h3><div class="small">点一下就播放，再点一次停止；音量直接用手机控制。</div></div><div class="btn-row" style="margin:0"><button class="primary" id="toggleWhiteNoiseBtn" type="button">播放白噪音</button></div></div></div>
+<details class="fold"><summary><span>开心互动</span><span class="right"><button class="mini-btn" id="refreshOrffBtn" type="button">换一组推荐</button></span></summary><div class="fold-body"><div style="display:none"><select id="orffDuration"><option value="10-15">10-15 分钟</option><option value="8-20">8-20 分钟</option><option value="all">全部时长</option></select></div><div class="video-grid" id="orffGrid"></div></div></details>
+</section>
+<section class="panel" id="library">
+
+<details class="fold"><summary><span>添加视频</span><span class="right"><span class="badge">只填名字</span></span></summary><div class="fold-body"><div class="form-grid"><div class="full"><label for="libraryTitle">视频名字</label><input id="libraryTitle" placeholder="例如：睡前舒缓音乐 / 开心互动视频"/></div><div class="full"><label for="libraryUrl">YouTube 链接</label><textarea autocapitalize="off" autocomplete="off" autocorrect="off" id="libraryUrl" placeholder="先复制 YouTube 链接，再点下面按钮自动填入" readonly="" rows="3" spellcheck="false"></textarea></div></div><div class="btn-row"><button id="pasteLibraryBtn">从剪贴板粘贴</button><button class="primary" id="saveLibraryBtn">加入视频库</button></div><p class="hint">你只需要手动改视频名字；链接还是用“从剪贴板粘贴”，避免输入时被弹出去。</p></div></details>
+<details class="fold"><summary><span>已收藏视频</span><span class="right"><span class="badge">卡片打开</span></span></summary><div class="fold-body"><p class="hint">已收藏内容改成 YouTube 视频卡片，点卡片直接打开。</p><div class="grid" id="videoLibraryList"></div></div></details>
+</section>
+<section class="panel" id="bookTerms">
+<details class="fold" open>
+<summary><span>书中术语索引</span><span class="right"><span class="badge">便于理解</span></span></summary>
+<div class="fold-body"><div class="feed-card"><p class="hint">这里集中整理《The Montessori Baby》里在页面中反复出现的环境词、活动词、互动词和双语相关概念。每个词先给一句白话解释，再用小星星补充更接近原书的解释，方便完全没有接触过这些概念的人理解。蓝色英文部分可以直接点读英文发音。</p><div id="bookTermsIndex"></div></div></div>
+</details>
+</section>
+<p class="footer-note">本地保存于当前浏览器。</p>
+<div class="more-modal" id="moreModal" aria-hidden="true">
+  <div class="more-sheet" role="dialog" aria-modal="true" aria-label="更多功能">
+    <div class="more-head"><div class="more-title">更多功能</div><button class="mini-btn close-btn" id="closeMoreModalBtn" type="button">关闭</button></div>
+    <div class="more-grid">
+      <button class="more-option" data-openpanel="guide" type="button"><div class="t">月龄指导</div><div class="d">按月份查看发展重点和家庭支持。</div></button>
+      <button class="more-option" data-openpanel="growth" type="button"><div class="t">成长册</div><div class="d">查看月报、照片和观察趋势。</div></button>
+      <button class="more-option" data-openpanel="history" type="button"><div class="t">历史</div><div class="d">快速回看最近几天的记录。</div></button>
+      <button class="more-option" data-openpanel="feeding" type="button"><div class="t">辅食建议</div><div class="d">按月份查看辅食添加节奏。</div></button>
+      <button class="more-option" data-openpanel="bookTerms" type="button"><div class="t">书中术语</div><div class="d">集中查看这本书里的重点概念和原文解释。</div></button>
+    </div>
+  </div>
+</div>
+</div>
+<div class="term-note-modal" id="termNoteModal" aria-hidden="true">
+  <div class="term-note-sheet" role="dialog" aria-modal="true" aria-label="术语说明">
+    <div class="more-head"><div class="term-note-title" id="termNoteTitle">术语说明</div><button class="mini-btn term-note-close" id="closeTermNoteBtn" type="button">关闭</button></div>
+    <div class="term-note-desc" id="termNoteDesc">点小星星即可查看原书里的说明。</div>
+  </div>
+</div>
+<script>
+const STORE_KEY='clover-baby-mobile-clean-v1';
+const state=loadState();
+let selectedMonth=null;
+const monthGuides=[
+{month:1,title:'第 1 个月',focus:'建立喂养和睡眠节奏，先看吃、睡、安抚和精神状态。',motor:['短时清醒趴卧，先少量多次。','抱起时注意头颈支撑。'],language:['多对视、多轻声说话。','听熟悉声音会更安静。'],social:['会看人脸，开始偏好熟悉照护者。'],support:['先做稳定照护流程。','吃奶、拍嗝、抱读、睡觉反复重复。'],red:['吃奶无力、难叫醒、呼吸费力要尽快联系医生。'],feeding:'这个月以母乳或配方奶为主，不安排辅食。'},
+{month:2,title:'第 2 个月',focus:'开始更多注视、微笑和对声音的反应。',motor:['趴着时尝试抬头。','手脚活动更有力。'],language:['会听熟悉声音。','适合面对面说话。'],social:['开始出现社交性微笑。'],support:['每天多次短时趴玩。','看脸、唱歌、回应宝宝发声。'],red:['对声音或人脸反应很少需要留意。'],feeding:'仍以奶为主，不安排辅食。'},
+{month:3,title:'第 3 个月',focus:'头控进步，白天清醒时间开始拉长。',motor:['趴玩时头抬得更稳。','更主动踢腿挥手。'],language:['会发出简单喉音。'],social:['会更明显等待互动。'],support:['形成吃奶—玩—睡的大致节奏。','每次清醒窗安排一段短互动。'],red:['持续不愿吃奶或头控完全没进步时应咨询。'],feeding:'仍以奶为主，不安排辅食。'},
+{month:4,title:'第 4 个月',focus:'探索欲增强，可能准备翻身。',motor:['趴着更稳地撑起上身。','会抓玩具和尝试翻身。'],language:['会用声音表达开心。'],social:['看到熟悉人会更兴奋。'],support:['安排抓握、追视、躲猫猫、唱歌。','给更多地面活动时间。'],red:['不看人、不笑、对声音反应少时要留意。'],feeding:'通常仍以奶为主，4 个月前不建议添加辅食。'},
+{month:5,title:'第 5 个月',focus:'翻身和抓握意愿增强。',motor:['更想翻身和够物。','口欲期增强。'],language:['咿呀发声增多。'],social:['更主动找人互动。'],support:['镜子互动、布书、抓握游戏很适合。'],red:['吞咽困难或吃奶越来越差时要咨询。'],feeding:'多数宝宝这个月仍未正式开始辅食，可提前了解 6 个月左右的准备信号。'},
+{month:6,title:'第 6 个月',focus:'很多宝宝进入辅食起步期，也更会翻身、拿物和发声。',motor:['会翻身，坐时可用手支撑。','会主动伸手拿东西。'],language:['重复发音增多。'],social:['更明显认识熟人。'],support:['加入拍手模仿、镜子、指图。'],red:['不会翻身且几乎不主动拿物时要留意。'],feeding:'通常可在发育准备好时开始辅食，奶仍是主要营养来源。'},
+{month:7,title:'第 7 个月',focus:'坐姿更稳，辅食可逐渐丰富。',motor:['独坐能力继续进步。','会双手传递玩具。'],language:['对名字更敏感。'],social:['开始表现熟人与陌生人的差异反应。'],support:['加入传递玩具、拍桌、翻翻书。'],red:['持续腹泻、便血、进食困难要咨询。'],feeding:'已开始辅食后可逐渐增加种类和质地，继续观察反应。'},
+{month:8,title:'第 8 个月',focus:'探索空间变大，分离焦虑可能出现。',motor:['可能开始爬行。','手部操作更主动。'],language:['更专注听常听到的话。'],social:['更依赖熟悉照护者。'],support:['躲猫猫、地面探索、翻翻书很适合。'],red:['几乎完全不愿承重或移动时要留意。'],feeding:'辅食可更丰富，注意大小、软硬和呛咳风险。'},
+{month:9,title:'第 9 个月',focus:'手部精细动作和自主探索更明显。',motor:['坐得更稳，可能扶站。','更主动抓小东西。'],language:['叫名字时更容易有反应。'],social:['会伸手要抱。'],support:['加入捏取、装放、藏玩具。'],red:['不会独坐或几乎不用双手探索，应咨询。'],feeding:'可增加不同食物组和纹理，进食时全程看护。'},
+{month:10,title:'第 10 个月',focus:'模仿和站立意愿更明显。',motor:['会更常扶站或沿家具移动。'],language:['会模仿拍手、语音和简单动作。'],social:['喜欢有来回感的互动。'],support:['容器装放、拍手、音乐律动很适合。'],red:['出现明显发育退步要尽快咨询。'],feeding:'继续推进家庭餐桌前的过渡，但食物形态要符合吞咽能力。'},
+{month:11,title:'第 11 个月',focus:'表达需求和模仿能力继续增强。',motor:['站立和移动尝试增多。'],language:['会更清楚用声音和动作表达想要。'],social:['会主动把大人拉进互动。'],support:['多做命名、装放、简单规则游戏。'],red:['持续不会抓小物或很少表达需求时要留意。'],feeding:'逐渐接近一日三餐结构，但奶仍然重要。'},
+{month:12,title:'第 12 个月',focus:'从婴儿期过渡到幼儿期，理解力和模仿能力明显增加。',motor:['可能扶走或独站几秒。'],language:['能理解更多简单词和指令。'],social:['会更主动参与日常流程。'],support:['把互动嵌进生活，如收玩具、指东西、挥手。'],red:['不会扶站、不回应名字、明显退步要留意。'],feeding:'12 个月后再考虑把牛奶作为主要饮品之一，12 个月前仍以母乳或配方奶为主。'}
+];
+const feedingTable=[
+{month:'4-5 月',status:'通常不作为正式辅食期',ready:['仍以奶为主。','看是否出现坐稳支持、头颈控制、对食物感兴趣等准备信号。'],foods:['暂不主张为了练习而提前吃辅食。'],note:'4 个月前不建议添加。'},
+{month:'6 月',status:'常见辅食起步期',ready:['能较好控制头颈。','坐时有支撑。','看到食物会张口。'],foods:['从安全质地开始。','奶仍是主要营养来源。'],note:'少量、单一食物、观察反应。'},
+{month:'7-8 月',status:'逐渐丰富种类',ready:['吞咽更成熟。','愿意尝试不同质地。'],foods:['逐渐加入不同食物组。'],note:'留意过敏反应和呛咳风险。'},
+{month:'9-10 月',status:'质地和自主进食继续推进',ready:['会抓取。','愿意自己拿食物。'],foods:['练习手抓食物和家庭餐桌过渡前的食物。'],note:'大小、软硬度和看护很重要。'},
+{month:'11-12 月',status:'接近一日三餐结构',ready:['能参与更多餐桌互动。','会表达要不要继续吃。'],foods:['继续增加多样性。','练习杯子和规律餐次。'],note:'12 个月前不把牛奶作为主要饮品。'}
+];
+const feedingStages=[
+{title:'4-5 个月：先观察，不急着吃',when:'4 个月前不建议添加辅食；4-5 个月更适合先观察准备信号。',ready:['能较稳控制头颈。','坐着时有一定支撑。','看到食物会张口或靠近。'],how:['仍以母乳或配方奶为主。','先不为“练习”而提前正式加辅食。'],foods:['暂不作为正式辅食期。'],note:'如果还不会吞咽、总把食物往外顶，更说明可以再等等。'},
+{title:'约 6 个月：开始尝试第一口',when:'多数宝宝大约 6 个月可以开始添加辅食。',ready:['可以坐着并较好控制头颈。','会把食物从舌前送到后方吞下。','对大人吃东西有兴趣。'],how:['从一天 1 次、1-2 勺开始。','先吃少量，再继续奶。','一次先加一种新食物。'],foods:['铁强化婴儿米粉。','肉泥、豆泥、蛋类等富含铁食物。','蔬菜泥、水果泥。'],note:'奶仍是主要营养来源。'},
+{title:'7-8 个月：增加种类和质地',when:'已经能接受第一阶段食物后，可逐步加更多种类。',ready:['吞咽更熟练。','愿意尝试不同口感。'],how:['从每天 1 次增加到 2 次。','继续单次少量，观察反应。','开始从泥状过渡到更粗一点的质地。'],foods:['谷物、肉、蛋、豆类。','水果、蔬菜、酸奶、奶酪。'],note:'不需要严格按某个固定顺序添加。'},
+{title:'9-10 个月：练习抓取和自主进食',when:'这个阶段通常可以把“会自己拿着吃”慢慢加进去。',ready:['会抓取小块食物。','坐姿更稳。'],how:['安排手抓食物和勺子练习。','逐渐过渡到家庭餐桌前的软烂食物。'],foods:['软烂蔬菜条、软水果、小块蛋、豆腐、面、粥、软饭。'],note:'全程看护，注意大小和呛咳风险。'},
+{title:'11-12 个月：更接近三餐节奏',when:'逐渐建立早餐、午餐、晚餐加点心的结构。',ready:['能更主动表达要不要吃。','能参与更多餐桌互动。'],how:['三餐加 1-2 次加餐逐渐形成。','继续练习杯子和多样食材。'],foods:['各类谷物、蔬菜、水果、肉蛋豆鱼、全脂酸奶和奶酪。'],note:'12 个月前不把普通牛奶作为主要饮品。'}
+];
+const plannerProfiles={1:{wakeMin:60,acts:['对视说话','抚触','短时趴卧']},2:{wakeMin:75,acts:['看脸说话','黑白卡','短时趴玩']},3:{wakeMin:90,acts:['摇铃追声','回应发声','踢腿游戏']},4:{wakeMin:105,acts:['看图说话','抓握','躲猫猫']},5:{wakeMin:120,acts:['镜子互动','抓握拍打','儿歌']},6:{wakeMin:135,acts:['拍手模仿','镜子游戏','指物命名']},7:{wakeMin:150,acts:['名字回应','传递玩具','翻翻书']},8:{wakeMin:165,acts:['躲猫猫','地面探索','指图']},9:{wakeMin:180,acts:['装放游戏','自主进食练习','命名']},10:{wakeMin:190,acts:['模仿拍手','容器装放','音乐律动']},11:{wakeMin:200,acts:['指图命名','推拉玩具','简单指令']},12:{wakeMin:210,acts:['收放游戏','推玩具','动作模仿']}};
+const montessoriPrinciples=[
+{key:'observe',title:'先观察，再介入',summary:'先看宝宝在表达什么，再决定要不要帮。',bullets:['哭闹先判断是饿、困、尿布还是需要连接。','看到重复动作时，不急着打断或代劳。']},
+{key:'respect',title:'尊重式照护',summary:'换尿布、抱起、喂奶和洗澡都先提醒宝宝。',bullets:['从正面接近，告诉宝宝接下来会发生什么。','照护过程尽量慢一点，让宝宝有回应空间。']},
+{key:'movement',title:'自由运动',summary:'不给过多摆拍式帮助，让身体自己发展。',bullets:['不急着扶坐、扶站、扶走。','给地面活动和伸展的时间，比长时间容器更重要。']},
+{key:'environment',title:'准备好的环境',summary:'让环境替你说话，而不是靠反复说不。',bullets:['只放少量、当下适合的物品。','尽量做 可自由探索安全区（yes space），让宝宝能安全探索。']},
+{key:'order',title:'秩序与参照点',summary:'固定的位置和节律会让宝宝更安心。',bullets:['睡觉、吃奶、换尿布尽量有稳定线索。','熟悉的声音、位置和流程能帮助定向。']},
+{key:'concentration',title:'保护专注',summary:'宝宝正在专注时，先不要急着逗或换项目。',bullets:['同一个动作反复做，通常是在练习。','东西少一点，反而更容易进入专注。']},
+{key:'attachment',title:'安全依恋',summary:'稳定回应需求，宝宝才更敢探索。',bullets:['回应不是宠坏，而是在建立信任。','被理解的宝宝，更容易慢慢走向独立。']},
+{key:'adult',title:'成人是引导者',summary:'成人负责准备环境、示范和观察，不是一直娱乐。',bullets:['不是每个清醒时段都要塞满活动。','短时高质量互动，比不停刺激更有效。']}
+];
+function montessoriPack(month){if(month<=3)return ['respect','observe','movement','attachment'];if(month<=6)return ['observe','movement','order','concentration'];if(month<=9)return ['environment','movement','concentration','adult'];return ['environment','order','attachment','adult']}
+function principleByKey(key){return montessoriPrinciples.find(x=>x.key===key)||montessoriPrinciples[0]}
+
+const montessoriMonthDetails={
+1:{title:'1 月龄 Montessori 重点',focus:['建立安全感与稳定参照点。','多做面对面交流和轻柔照护。'],environment:['固定吃奶、睡觉和换尿布的位置。','准备简单地面活动区与低镜子（low mirror）。'],activities:['短时对视说话。','轻柔抚触与慢节奏抱放。','清醒时短时地面伸展。'],adult:['动作放慢，先说再做。','不急着用很多玩具刺激。']},
+2:{title:'2 月龄 Montessori 重点',focus:['继续建立秩序感与熟悉感。','支持抬头、看脸和声音定位。'],environment:['保持视觉环境简单。','让双手尽量自由，不长期包住。'],activities:['看脸说话与轮流回应。','短时趴玩。','黑白或简单对比视觉材料。'],adult:['观察困倦与过度刺激信号。','重复同样流程帮助定向。']},
+3:{title:'3 月龄 Montessori 重点',focus:['支持追视、回应和更稳定的清醒窗。','开始更明显地观察重复动作。'],environment:['活动区保留少量可观察物。','继续给地面活动连续时间。'],activities:['追视和追声。','回应发音。','脚踢、抓握前准备活动。'],adult:['宝宝重复时先别急着换项目。','保护短暂专注。']},
+4:{title:'4 月龄 Montessori 重点',focus:['支持翻身准备、抓握和共同注意。','开始让环境更可看见、可接近。'],environment:['低处摆少量适龄活动。','保留宽松翻身空间。'],activities:['抓握和拍打。','看图命名。','镜子互动和躲猫猫。'],adult:['少量陈列，比堆很多玩具更有效。','先观察目前在练什么。']},
+5:{title:'5 月龄 Montessori 重点',focus:['支持主动抓握、拍打和手眼协调。','增加语言节律与模仿机会。'],environment:['把最常用的活动放在固定位置。','保持背景整洁，减少视觉噪音。'],activities:['抓握拍打。','儿歌和节奏句。','镜子里做表情互动。'],adult:['短时重复比一次玩很久更好。','不急着不断换新项目。']},
+6:{title:'6 月龄 Montessori 重点',focus:['支持坐姿准备、命名和更主动的探索。','开始从完全依赖走向更多合作。'],environment:['低架上只留少量可探索物。','如果开始辅食，准备更稳定的进食位置。'],activities:['拍手模仿。','指物命名。','抓握、转移和简单装放前活动。'],adult:['让宝宝参与照护过程。','描述你正在做什么。']},
+7:{title:'7 月龄 Montessori 重点',focus:['支持独坐、传递玩具和名字回应。','逐渐形成更明确的 可自由探索安全区（yes space）。'],environment:['扩大安全探索范围。','准备低篮、低架和取放空间。'],activities:['名字回应。','传递玩具。','翻翻书和简单指图。'],adult:['开始更多从环境上预防，而不是频繁说不。','给自主拿取机会。']},
+8:{title:'8 月龄 Montessori 重点',focus:['支持爬行前后地面探索和物体关系理解。','让宝宝通过移动自己解决问题。'],environment:['预留可连续移动的地面空间。','危险物提前移开。'],activities:['地面探索。','躲猫猫。','容器和物体进出观察。'],adult:['不要总把东西递到手里。','让宝宝自己过去拿。']},
+9:{title:'9 月龄 Montessori 重点',focus:['支持装放、手指食物和理解简单指令。','环境开始服务于独立取放和参与。'],environment:['低处准备少量可装放材料。','进食区尽量固定。'],activities:['装放游戏。','自主进食练习。','命名熟悉物品。'],adult:['给尝试时间，不急着代劳。','允许慢一点、乱一点。']},
+10:{title:'10 月龄 Montessori 重点',focus:['支持模仿、站立准备和更主动表达。','让日常生活成为学习场景。'],environment:['提供稳固可扶站家具。','低架物品位置保持一致。'],activities:['模仿拍手。','音乐律动。','简单取放和推拉。'],adult:['多示范少指挥。','固定流程帮助预期。']},
+11:{title:'11 月龄 Montessori 重点',focus:['支持简单指令理解、推拉和收放。','宝宝更需要有秩序的独立练习空间。'],environment:['收纳位置更清晰。','常用生活物可逐步放低。'],activities:['推拉玩具。','指图命名。','简单一收一放。'],adult:['先给机会，再给帮助。','保持边界清楚但语气温和。']},
+12:{title:'12 月龄 Montessori 重点',focus:['支持动作模仿、命名理解和更稳定作息。','从被照护走向更多合作与初步独立。'],environment:['强化固定位置与取放逻辑。','保留安全行走和探索空间。'],activities:['收放游戏。','动作模仿。','真实生活中的命名与参与。'],adult:['让宝宝参与更多日常动作。','继续用秩序、尊重和观察来支持成长。']}
+};
+function monthMontessori(month){return montessoriMonthDetails[month]||montessoriMonthDetails[12]}
+function renderTodayMontessoriMonth(){const m=currentMonth();const data=monthMontessori(m);todayMontessoriMonthCard.innerHTML=`<h3>${data.title}</h3><div class="subhead">本月重点</div><ul>${data.focus.map(x=>`<li>${x}</li>`).join('')}</ul><div class="subhead">今天最适合做</div><ul>${data.activities.slice(0,3).map(x=>`<li>${x}</li>`).join('')}</ul><div class="subhead">家长提醒</div><ul>${data.adult.slice(0,2).map(x=>`<li>${x}</li>`).join('')}</ul>`}
+function renderMontessoriMonthGuide(){const m=selectedMonth||currentMonth();const data=monthMontessori(m);montessoriMonthGuideCard.innerHTML=`<h3>${data.title}</h3><div class="subhead">发展重点</div><ul>${data.focus.map(x=>`<li>${x}</li>`).join('')}</ul><div class="subhead">环境准备</div><ul>${data.environment.map(x=>`<li>${x}</li>`).join('')}</ul><div class="subhead">互动建议</div><ul>${data.activities.map(x=>`<li>${x}</li>`).join('')}</ul><div class="subhead">成人角色</div><ul>${data.adult.map(x=>`<li>${x}</li>`).join('')}</ul>`}
+const earlyLearningPlan={
+1:{title:'0-1个月补充重点',background:'这个阶段更接近反射期和情绪调节网络建立期。宝宝会通过“哭泣—被回应—平静”的反复经验，逐渐学到世界是可预测、可依靠的。',tips:['这个月不用追求“训练感”，先把抱、喂、安抚、睡前流程做稳定。','喂奶时保留近距离对视，20-30 厘米的人脸就是最自然的视觉刺激。','黑白高对比图可以有，但简单、清晰、安静就够了。'],tools:['高对比度黑白卡，可放在固定位置短时看。','安静、无刺耳电子声的睡眠与观察环境，比复杂玩具更重要。']},
+2:{title:'1-2个月补充重点',background:'这个阶段开始进入视觉追踪更明显的时期，社交性微笑也会慢慢出现。宝宝会更愿意看脸、看缓慢移动的物体，并把回应和愉快感联系起来。',tips:['追视时速度宁慢勿快，左右或上下缓慢移动即可。','真实人脸仍然优先，家人的脸常常比玩具更有吸引力。','趴卧可以少量多次，用镜子或简单目标吸引抬头。'],tools:['缓慢转动、颜色柔和、没有噪声的吊饰。','安全镜子，可用于趴卧和观察自己。']},
+3:{title:'2-3个月补充重点',background:'这个月社交互动和声音游戏价值很高。宝宝发出“啊、哦、嗯”类声音时，大脑正在为后续语言连接做准备。',tips:['你说一句、停一下，等宝宝回应，会比连续逗说更有效。','夸张但温和的表情、短暂停顿、再回应，能帮助宝宝理解“轮流互动”。','躲猫猫可以很短，很轻柔，不需要刺激太强。'],tools:['小型手摇铃或轻巧抓握摇铃，帮助宝宝发现“我能让声音出现”。','材质尽量选可入口、安全、容易清洁的类型。']},
+4:{title:'3-4个月补充重点',background:'这个阶段运动探索明显增加，抓握反射会逐渐转向主动抓握，翻身前的身体协调也在建立。',tips:['趴卧时间可以慢慢增加，但核心仍是宝宝愿意参与。','球、丝带或轻微会移动的目标，常常比复杂玩具更能引发伸手和抬头。','引导翻身时以侧面吸引为主，辅助要轻，不要替宝宝完成。'],tools:['感知球或黑白球，可用于追视、触摸和趴卧引导。','不倒翁或轻推会动的小物，帮助延长趴卧兴趣。']},
+5:{title:'4-5个月补充重点',background:'这个月手眼协调和“我的动作会带来结果”的因果体验更明显。前庭觉和身体稳定性也继续成熟。',tips:['给宝宝一点时间自己拍、拨、抓、换手，不要太快帮忙。','命名时把声音、物品和触摸放在一起，更容易形成联系。','短暂支撑坐姿可以体验，但不要长时间固定。'],tools:['可轻拨转动、反馈清楚的纺织鼓或滚筒类玩具。','轻巧、尺寸适合单手抓握再换手的摇铃类玩具。']},
+6:{title:'5-6个月补充重点',background:'这个阶段物体恒存和更明确的因果关系理解开始萌芽。宝宝会更想知道“东西去哪了”“我的手还能做什么”。',tips:['遮住玩具后稍等一下，给宝宝自己寻找的机会。','指物命名可以放在日常生活里，不需要专门上课。','翻页、摸不同材质、双手换物，都是很好的学习。'],tools:['洞洞书、触感书或厚纸板书，适合翻、摸、啃和探索。','双手都能拿、能换手、能发出自然声音的抓握玩具。']}
+};
+const earlyLearningCore=['最好的早教不一定在课程里，很多关键发展都发生在日常高质量互动中。','对 0-6 个月宝宝来说，怀抱、眼神、声音、回应和少量合适的探索材料，常常比复杂课程更重要。','这一栏只补充脑科学背景、陪伴小贴士和教具思路，不重复前面已经有的月龄活动清单。'];
+const earlyLearningPrinciples=['视觉上先简单再丰富，0-2 个月以高对比和人脸为主，之后再逐步加入柔和彩色。','声音上优先自然、安静、不过度刺激的反馈，尽量少依赖刺耳电子音。','玩具以适龄、可入口安全、可多种玩法、材质有温度感为先。','任何活动都以宝宝愉悦和可持续参与为前提，不强迫、不追求表演感。'];
+function renderEarlyLearningGuide(){if(!window.earlyLearningGuideCard)return;const month=selectedMonth||currentMonth();if(month>6){earlyLearningGuideCard.innerHTML=`<h3>0-6月龄家庭早教补充</h3><div class="subhead">当前说明</div><ul><li>这一部分根据你提供的方案，只额外补充 0-6 月龄内容。</li><li>7 个月以后建议继续以现有月龄指导、Montessori 原则和环境设置为主。</li></ul>`;return}const data=earlyLearningPlan[month];earlyLearningGuideCard.innerHTML=`<h3>${data.title}</h3><div class="subhead">核心理念</div><ul>${earlyLearningCore.map(x=>`<li>${x}</li>`).join('')}</ul><div class="learn-grid"><div class="learn-card"><div class="learn-title">脑科学背景</div><div class="learn-body"><p>${data.background}</p></div></div><div class="learn-card"><div class="learn-title">陪伴小贴士</div><ul class="learn-list">${data.tips.map(x=>`<li>${x}</li>`).join('')}</ul></div></div><div class="subhead">可补充的小工具</div><div class="learn-soft"><div class="t">按需补充，不追求一次买齐</div><ul class="learn-list">${data.tools.map(x=>`<li>${x}</li>`).join('')}</ul></div><div class="subhead">实施原则</div><ul>${earlyLearningPrinciples.map(x=>`<li>${x}</li>`).join('')}</ul><div class="subhead">执行提醒</div><ul><li>这一栏是对原有月龄指导的补充，不需要和前面的建议逐条重复执行。</li><li>同一天里选 1-2 个重点更好，宝宝愿意参与、愿意重复，比做得多更重要。</li></ul>`}
+const earlyToolPlan={
+1:{title:'0-1个月教具建议',tools:[
+{name:'高对比度黑白卡',why:'适合最早期的视觉刺激，清晰、简单、安静即可。',pick:'选大图形、对比强、圆角、安全纸材。'},
+{name:'固定位置的人脸与照护场景',why:'这个月最重要的“教具”其实是照护者的脸、声音和稳定流程。',pick:'比起买很多东西，更重要的是稳定抱、喂、安抚和睡前顺序。'}],avoid:['避免声光电刺激太强的玩具。','避免一次放很多视觉材料。']},
+2:{title:'1-2个月教具建议',tools:[
+{name:'黑白卡或高对比图',why:'支持短时间注视和视觉追踪。',pick:'可以固定放一两张，不需要频繁更换。'},
+{name:'安静吊饰或简单 mobile',why:'适合缓慢追视，不需要音乐和闪光。',pick:'颜色柔和、转动慢、无噪声更合适。'},
+{name:'低镜子',why:'可用于趴卧和观察，增加看脸与看自己的兴趣。',pick:'确保固定牢靠、边缘安全。'}],avoid:['避免过亮颜色和过快转动。','避免长时间连续练习，短而愉快更重要。']},
+3:{title:'2-3个月教具建议',tools:[
+{name:'轻巧抓握摇铃',why:'宝宝开始把抓握和声音联系起来，能体验“我让它响了”。',pick:'尺寸适合小手，全手握住不费力，材质可入口更安心。'},
+{name:'小毛巾或轻柔遮挡布',why:'适合做很轻柔的躲猫猫和互动游戏。',pick:'布料柔软、透气、容易清洗。'}],avoid:['避免太重的摇铃。','避免声音过尖锐或持续过久。']},
+4:{title:'3-4个月教具建议',tools:[
+{name:'感知球或黑白球',why:'适合趴卧时追视、抬头、伸手和触摸。',pick:'表面有纹理、易抓握、重量轻。'},
+{name:'不倒翁玩具',why:'能支持趴卧兴趣、简单因果体验和侧向引导。',pick:'底部稳定、圆润无棱角、推动反馈清楚。'},
+{name:'丝带或轻移动目标',why:'常用于侧面吸引，帮助翻身前准备和手眼协调。',pick:'避免过长，防缠绕，必须在陪同下使用。'}],avoid:['不要因为想练翻身而频繁替宝宝完成动作。']},
+5:{title:'4-5个月教具建议',tools:[
+{name:'纺织鼓或滚筒类玩具',why:'宝宝轻拍或拨动就能看到旋转、听到反馈，适合因果体验。',pick:'转动平稳、不眩晕、重量轻、边缘安全。'},
+{name:'换手用摇铃',why:'适合从单手抓握慢慢过渡到双手传递。',pick:'直径和粗细要适合当前抓握能力。'}],avoid:['支撑坐姿体验要短，不把坐姿玩成长期固定姿势。']},
+6:{title:'5-6个月教具建议',tools:[
+{name:'双手抓握摇响器',why:'适合双手协调、换手和继续练习“动作会带来声音”。',pick:'两只手都容易拿，声音自然不过刺。'},
+{name:'洞洞书或触感书',why:'适合翻页、摸不同材质、抓洞和口欲期探索。',pick:'撕不烂、易清洁、材质安全、边角圆润。'},
+{name:'遮挡游戏小布巾',why:'适合开始做简单物体恒存游戏。',pick:'轻薄、柔软、不会遮挡呼吸。'}],avoid:['不要把“找东西”变成反复考验，轻松玩几次就够。']}
+};
+const earlyToolPrinciples=['教具不是越多越好，少量、适龄、安静、能重复玩更重要。','优先选能一物多用的简单材料，而不是功能过满的电子玩具。','凡是会入口的物品，都先按“可啃咬安全”标准来筛选。'];
+function renderEarlyToolGuide(){if(!window.earlyToolGuideCard)return;const month=selectedMonth||currentMonth();if(month>6){earlyToolGuideCard.innerHTML=`<h3>0-6月龄教具建议</h3><div class="subhead">当前说明</div><ul><li>这部分只整理 0-6 月龄更适合补充的教具思路。</li><li>6 个月以后建议继续以低架、低篮、真实生活物和动作探索空间为主。</li></ul>`;return}const data=earlyToolPlan[month];earlyToolGuideCard.innerHTML=`<h3>${data.title}</h3><div class="subhead">推荐简选</div><div class="tool-grid">${data.tools.map(x=>`<div class="tool-card"><div class="tool-title">${x.name}</div><div class="tool-chip-row"><span class="tool-chip">适合 ${month}-${month===6?'6':month} 月观察与陪玩</span><span class="tool-chip">少量就够</span></div><div class="tool-body"><p><strong>为什么适合：</strong>${x.why}</p><p><strong>挑选时看：</strong>${x.pick}</p></div></div>`).join('')}</div><div class="subhead">选择原则</div><ul>${earlyToolPrinciples.map(x=>`<li>${x}</li>`).join('')}</ul><div class="subhead">这个月不必急着买</div><ul>${data.avoid.map(x=>`<li>${x}</li>`).join('')}</ul><div class="subhead">使用提醒</div><ul><li>教具只是辅助，真正有效的仍然是你和宝宝之间的回应、等待和一起探索。</li><li>一次拿出 1-2 样就够，观察宝宝是不是愿意看、愿意摸、愿意重复。</li></ul>`}
+const environmentProfiles={
+'0-3':{title:'0-3 月环境重点',today:['给宝宝留一块固定地面活动区。','减少摇椅、围栏和长时间容器使用。','用熟悉的声音、位置和流程做参照点。'],home:['准备 活动垫（movement mat）（movement mat）、低镜子（low mirror）和简单 mobile 区域。','保持视觉环境简单，避免一次出现太多刺激。','换尿布、吃奶、睡觉尽量在相对固定的位置进行。'],rotate:['这个阶段重点不是玩具多，而是身体和感官体验稳定。']},
+'4-6':{title:'4-6 月环境重点',today:['开始明显需要抓握、翻身和够取空间。','把常用物品减少到少量、可看见、可接近。','给翻身和地面探索留出连续时间。'],home:['低处放少量当下适合的活动。','继续保留镜子、地面活动区和清爽背景。','观察宝宝正在练什么，再决定加什么。'],rotate:['不再专注的、太简单的先收起来，换成下一步挑战。']},
+'7-12':{title:'7-12 月环境重点',today:['重点是 可自由探索安全区（yes space），让宝宝能安全移动和探索。','预留爬行、扶站、巡走和取放的空间。','用低架、低篮（low shelf / low basket）和固定位置支持自主拿取。'],home:['活动区尽量开放、安全、可移动。','家中危险物提前移走，而不是频繁说不。','书、玩具、餐具可逐步放到更低更易拿的位置。'],rotate:['保持少量陈列，观察是否太难、太易或已经失去兴趣。']}
+};
+function environmentGroup(month){if(month<=3)return '0-3';if(month<=6)return '4-6';return '7-12'}
+function renderEnvironmentToday(){const group=environmentGroup(currentMonth());const data=environmentProfiles[group];environmentTodayCard.innerHTML=`<h3>${data.title}</h3><div class="subhead">今天可以先检查</div><ul>${data.today.map(x=>`<li>${x}</li>`).join('')}</ul><div class="subhead">环境布置提醒</div><ul>${data.home.slice(0,2).map(x=>`<li>${x}</li>`).join('')}</ul>`}
+function renderEnvironmentGuide(){const month=selectedMonth||currentMonth();const group=environmentGroup(month);const data=environmentProfiles[group];const extras=month<=3?['活动区可加入 活动垫（movement mat）、低镜子（low mirror）和简单 吊饰挂点（mobile hanger）。','睡眠区尽量安静，不把工作材料放到睡眠区上方。','从宝宝视角趴下来看看，移除线材和视觉杂乱。']:month<=6?['准备低处篮子或低架，只陈列少量正在练习的材料。','可以把图书、球、抓握材料分开放，帮助定向。','观察是否需要把活动区从垫子扩展到更大地面空间。']:['为爬行、扶站、巡走留出连续路线，不要被大型家具打断。','可以准备一格厨房或生活小区，放安全真实物供探索。','家里若不能处处 可自由探索安全区（yes space），至少保留一大块稳定可自由探索区域。'];environmentGuideCard.innerHTML=`<h3>${data.title}</h3><div class="info-grid"><div class="info-card"><h4>家庭布置</h4><ul>${data.home.map(x=>`<li>${x}</li>`).join('')}</ul></div><div class="info-card"><h4>参考书补充</h4><ul>${extras.map(x=>`<li>${x}</li>`).join('')}</ul></div></div><div class="info-grid"><div class="info-card"><h4>观察与轮换</h4><ul>${data.rotate.map(x=>`<li>${x}</li>`).join('')}</ul></div><div class="info-card"><h4>执行原则</h4><ul><li>少量陈列，比满地玩具更能保护专注。</li><li>先改环境，再减少不断提醒和制止。</li><li>看宝宝正在练什么，而不是一次塞很多新东西。</li></ul></div></div><div class="info-soft"><div class="t">环境提醒</div><ul><li>${data.today[0]}</li><li>${data.today[1]||'先看环境，再看活动安排。'}</li></ul></div>`}
+function renderPlannerEnvironment(){const group=environmentGroup(currentMonth());const data=environmentProfiles[group];plannerEnvironmentCard.innerHTML=`<h3>活动前准备</h3><ul><li>活动前先确认地面区、安全边界和可用材料。</li><li>每个清醒窗只需准备 1-2 个可探索项目即可。</li><li>${data.today[0]}</li></ul><div class="subhead">家庭环境建议</div><ul><li>${data.home[0]}</li><li>${data.home[1]||data.today[1]||''}</li></ul>`}
+
+function renderMontessoriToday(){const month=currentMonth();const items=montessoriPack(month).map(principleByKey);montessoriTodayCard.innerHTML=`<h3>今天这样用 Montessori 更实用</h3><ul>${items.map(x=>`<li><strong>${x.title}</strong>：${x.summary}</li>`).join('')}</ul><div class="subhead">今日提醒</div><ul><li>先看状态，再决定要不要安排新活动。</li><li>把清醒时段留一点空白，给宝宝自由观察和重复练习。</li></ul>`}
+function renderMontessoriGuide(){const month=selectedMonth||currentMonth();const items=montessoriPack(month).map(principleByKey);const extras=month<=3?['观察宝宝是否已经开始适应环境，再增加材料。','移动垫、镜子、mobile 和安静背景比大量玩具更重要。','抱放、换尿布、喂养时都可以成为有预告的合作时刻。']:month<=6?['抓握材料、球、可拍打可拉动材料更有意义。','活动最好按兴趣轮换，而不是一次全部拿出来。','宝宝反复做同一动作时，往往是在建构能力。']:['环境重点转向 可自由探索安全区（yes space）、低架、低篮（low shelf / low basket）和真实参与。','宝宝可以开始更多收放、传递、开合和简单因果工作。','外出、进餐、换衣都可以加入合作和选择感。'];montessoriGuideCard.innerHTML=`<h3>${month} 月龄适合重点执行的原则</h3>${items.map(x=>`<div class="subhead">${x.title}</div><ul>${x.bullets.map(b=>`<li>${b}</li>`).join('')}</ul>`).join('')}<div class="subhead">参考书补充</div><ul>${extras.map(x=>`<li>${x}</li>`).join('')}</ul><div class="subhead">应用方式</div><ul><li>先从一两条开始，不需要一天内全部做到。</li><li>原则不是口号，而是落在照护动作、环境和节律里。</li></ul>`}
+const knowledgeBank=[{tag:'环境准备',title:'预备好的环境（prepared environment）不是摆设风格',text:'重点是先把安全、顺序、可选择材料和动线准备好，让环境本身帮助宝宝发展。'},{tag:'环境准备',title:'可自由探索安全区（yes space）先解决“不停制止”',text:'把危险和不想让宝宝碰的东西先移开，再让宝宝在安全区域自由探索，会比一直说“不”更一致。'},{tag:'动作发展',title:'自由运动（free movement）比被摆姿势更重要',text:'不要急着把宝宝放进他还不能自己进入的姿势里，给地面时间和安全空间更关键。'},{tag:'动作发展',title:'身体图式（body schema）靠看见和移动慢慢建立',text:'低镜子、活动垫和重复动作，会帮助宝宝认识身体各部分及它们如何一起工作。'},{tag:'材料准备',title:'观察、收纳、轮换（observe, store, rotate）',text:'先看宝宝现在在练什么，再只留少量合适材料，其他先收起来，保护专注也更方便选择。'},{tag:'视觉材料',title:'视觉吊饰（visual mobiles）一次一个就够',text:'它们主要支持视觉追踪、聚焦和定向，不需要同时挂很多，也不需要加音乐。'},{tag:'睡眠习惯',title:'睡眠参照点（point of reference）很重要',text:'固定的睡眠区、熟悉的气味、相似的流程和照护语言，会帮助宝宝建立定向感和安全感。'},{tag:'睡眠习惯',title:'地面床（floor bed）强调看见空间与逐步独立',text:'它的意义不只是低，而是让宝宝更早建立睡眠地点感，并在发展到位后自己进出。'},{tag:'语言发展',title:'等待时间（tarry time）能把独白变对话',text:'成人说完后稍微停一下，宝宝更有机会用表情、动作或发声来回应。'},{tag:'语言发展',title:'儿向语调（parentese）不等于 baby talk',text:'可以温柔、有节奏地说，但仍使用正确、丰富的词汇，而不是故意说错词。'},{tag:'双语输入',title:'一人一语（OPOL）与语言使用场域（Domains of Use）',text:'书里建议双语家庭尽量让输入保持稳定，按照照护者或情境分配语言会更清楚。'},{tag:'阅读选择',title:'真实主题图书（real-theme books）更适合第一年',text:'优先选现实生活能遇到的人、物和场景，帮助宝宝把图书内容和真实世界连起来。'},{tag:'亲子互动',title:'照护本身就是学习',text:'换尿布、穿衣、进餐和洗漱都可以慢下来、先预告、再邀请宝宝参与。'},{tag:'语言引导',title:'积极语言（positive language）重在教做法',text:'比起只说不要，更适合告诉宝宝可以怎么做，这就是书里说的 teach by teaching instead of correcting。'}];
+const soothingVideos=[
+{id:'W-vBu2rf8TI',title:'2 Hours Super Relaxing Baby Music',note:'长时轻柔摇篮曲，适合安静放松。',link:'https://www.youtube.com/watch?v=W-vBu2rf8TI',ages:['0-3','4-6','7-12'],modes:['calm'],slots:['pre-nap','evening']},
+{id:'LdQJw5S4nAQ',title:'Bedtime Lullabies and Calming Undersea Animation',note:'安静视觉配合舒缓音乐，适合睡前。',link:'https://www.youtube.com/watch?v=LdQJw5S4nAQ',ages:['0-3','4-6','7-12'],modes:['calm'],slots:['pre-nap','evening']},
+{id:'oewj_XEM1js',title:'婴儿白噪音 White Noise',note:'适合安静收尾、哄睡和环境降刺激。',link:'https://youtu.be/oewj_XEM1js?feature=shared',ages:['0-3','4-6','7-12'],modes:['calm'],slots:['pre-nap','evening']},
+{id:'2aAT8euWT_Y',title:'You Are My Sunshine | Baby Sleep Music',note:'适合安静抱抱和睡前陪伴。',link:'https://www.youtube.com/watch?v=2aAT8euWT_Y',ages:['0-3','4-6'],modes:['calm'],slots:['pre-nap','evening']},
+{id:'fQozqfVTpa0',title:'20 Minute Calming Songs For Kids',note:'较短时长，适合午睡前和收尾时间。',link:'https://www.youtube.com/watch?v=fQozqfVTpa0',ages:['4-6','7-12'],modes:['calm'],slots:['pre-nap','evening']},
+{id:'dF8zZAlfSNI',title:'The Music Class: Music and Movement Education',note:'偏温和的亲子音乐活动，可做背景陪伴。',link:'https://www.youtube.com/watch?v=dF8zZAlfSNI',ages:['4-6','7-12'],modes:['active','calm'],slots:['morning','pre-nap']},
+{id:'6MV1hSxZvrM',title:'Baby & Toddler Music Class',note:'节奏更明显，适合亲子互动。',link:'https://www.youtube.com/watch?v=6MV1hSxZvrM',ages:['4-6','7-12'],modes:['active'],slots:['morning']}
+];
+const orffVideoBank=[
+{id:'eNuZN3GSm8U',title:'10 MIN Exercise with Baby Shark',note:'10 分钟，节奏清楚，适合短时亲子律动。',link:'https://www.youtube.com/watch?v=eNuZN3GSm8U',ages:['4-6','7-12'],slots:['morning'],minutes:10},
+{id:'6Tv-OEv6Vvo',title:'15 Minute Fall Music Class for Kids',note:'约 15 分钟，家长可以直接跟视频做。',link:'https://www.youtube.com/watch?v=6Tv-OEv6Vvo',ages:['4-6','7-12'],slots:['morning','pre-nap'],minutes:15},
+{id:'msVOgYCdJuQ',title:'10 Minutes To Sing and Dance',note:'10 分钟左右，适合快节奏活动段。',link:'https://www.youtube.com/watch?v=msVOgYCdJuQ',ages:['4-6','7-12'],slots:['morning'],minutes:10},
+{id:'2MoQId702nY',title:'10 Minutes of Songs for Kids',note:'约 11 分钟，适合温和互动与小节奏活动。',link:'https://www.youtube.com/watch?v=2MoQId702nY',ages:['4-6','7-12'],slots:['pre-nap','evening'],minutes:11},
+{id:'ARSveXp-Nj8',title:'The Ultimate 10-Minute Kids Movement Break!',note:'10 分钟左右，更适合活跃一点的运动段。',link:'https://www.youtube.com/watch?v=ARSveXp-Nj8',ages:['7-12'],slots:['morning'],minutes:10},
+{id:'VBVuau2W39o',title:'Baby Music Class 2022',note:'适合更小月龄做温和音乐互动。',link:'https://www.youtube.com/watch?v=VBVuau2W39o',ages:['0-3','4-6'],slots:['morning','pre-nap'],minutes:12},
+{id:'dF8zZAlfSNI',title:'The Music Class: Music and Movement Education',note:'动作比较温和，适合从轻柔互动开始。',link:'https://www.youtube.com/watch?v=dF8zZAlfSNI',ages:['4-6','7-12'],slots:['pre-nap','evening'],minutes:12}
+];
+function loadState(){const defaults={profile:{babyName:'',birthDate:'',weightKg:'',feedCount:''},planner:{wakeTime:'07:00',bedTime:'20:00',actualWakeTime:'',lastFeedTime:'',sleepyCue:'none',style:'gentle',lastPlan:[],doneMap:{}},milk:[],sleep:[],poop:[],photos:[],videoLibrary:[],orffSeed:'',soothingSeed:'',knowledgeSeed:'',musicAgeGroup:'auto',musicMode:'calm',musicTimeSlot:'auto',orffDuration:'10-15',observations:[]};const raw=localStorage.getItem(STORE_KEY);if(!raw)return defaults;try{const parsed=JSON.parse(raw)||{};return{...defaults,...parsed,profile:{...defaults.profile,...(parsed.profile||{})},planner:{...defaults.planner,...(parsed.planner||{})},milk:Array.isArray(parsed.milk)?parsed.milk:[],sleep:Array.isArray(parsed.sleep)?parsed.sleep:[],poop:Array.isArray(parsed.poop)?parsed.poop:[],photos:Array.isArray(parsed.photos)?parsed.photos:[],videoLibrary:Array.isArray(parsed.videoLibrary)?parsed.videoLibrary:[],observations:Array.isArray(parsed.observations)?parsed.observations:[]}}catch{return defaults}}
+function saveState(){localStorage.setItem(STORE_KEY,JSON.stringify(state));renderAll()}
+function uid(){return `${Date.now()}-${Math.random().toString(36).slice(2,8)}`}
+function hostOf(url){try{return new URL(url).hostname.replace('www.','')}catch{return ''}}
+function isYouTubeUrl(url){const u=String(url||'').toLowerCase();return u.includes('youtube.com/watch')||u.includes('youtu.be/')||u.includes('youtube.com/shorts/')}
+function autoLibraryTitle(url){try{const u=new URL(url);const host=u.hostname.replace('www.','');const now=new Date();const stamp=`${pad(now.getMonth()+1)}/${pad(now.getDate())} ${pad(now.getHours())}:${pad(now.getMinutes())}`;if(host.includes('xhslink')||host.includes('xiaohongshu'))return `小红书收藏 ${stamp}`;if(host.includes('youtube')||host.includes('youtu'))return `视频收藏 ${stamp}`;return `${host} ${stamp}`}catch{return `视频收藏 ${new Date().toLocaleString('zh-CN',{month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'})}`}}
+function pad(n){return String(n).padStart(2,'0')}
+function nowLocal(){const d=new Date();return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`}
+function nowTime(){const d=new Date();return `${pad(d.getHours())}:${pad(d.getMinutes())}`}
+function parseTime(s){const [h,m]=String(s||'00:00').split(':').map(Number);return (h||0)*60+(m||0)}
+function toTime(mins){mins=((mins%1440)+1440)%1440;return `${pad(Math.floor(mins/60))}:${pad(mins%60)}`}
+function startOfDay(date){const d=new Date(date);d.setHours(0,0,0,0);return d}
+function isToday(v){return startOfDay(v).getTime()===startOfDay(new Date()).getTime()}
+function fmt(v){const d=new Date(v);if(isNaN(d))return v||'';return d.toLocaleString('zh-CN',{month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'})}
+function getAgeInfo(){const b=state.profile.birthDate;if(!b)return null;const birth=new Date(b+'T00:00:00');const now=new Date();if(isNaN(birth)||birth>now)return null;let months=(now.getFullYear()-birth.getFullYear())*12+(now.getMonth()-birth.getMonth());if(now.getDate()<birth.getDate())months-=1;months=Math.max(0,months);const thisMonthDate=new Date(birth);thisMonthDate.setMonth(birth.getMonth()+months);const days=Math.max(0,Math.floor((startOfDay(now)-startOfDay(thisMonthDate))/86400000));return{months,days}}
+function currentMonth(){const age=getAgeInfo();return Math.min(12,Math.max(1,age?age.months||1:1))}
+function milkGuideByMonth(month){if(month<=1)return {mlPerKg:[150,180],feeds:[8,10],label:'0-1 月'};if(month===2)return {mlPerKg:[140,170],feeds:[7,9],label:'1-2 月'};if(month===3)return {mlPerKg:[140,160],feeds:[6,8],label:'2-3 月'};if(month===4)return {mlPerKg:[130,150],feeds:[5,7],label:'3-4 月'};if(month===5)return {mlPerKg:[120,150],feeds:[5,6],label:'4-5 月'};if(month===6)return {mlPerKg:[120,150],feeds:[5,6],label:'5-6 月'};return {mlPerKg:[null,null],feeds:[null,null],label:'6 月以上'} }
+function napGuideByMonth(month){if(month<=1)return {count:'4-6 次',minutes:'每次约 60-120 分钟',wake:'清醒窗约 45-60 分钟',planNap:90,maxCycles:6};if(month===2)return {count:'4-5 次',minutes:'每次约 60-120 分钟',wake:'清醒窗约 60-75 分钟',planNap:90,maxCycles:5};if(month===3)return {count:'4-5 次',minutes:'每次约 45-90 分钟',wake:'清醒窗约 75-90 分钟',planNap:75,maxCycles:5};if(month===4)return {count:'3-4 次',minutes:'每次约 45-90 分钟',wake:'清醒窗约 90-120 分钟',planNap:75,maxCycles:4};if(month===5)return {count:'3-4 次',minutes:'每次约 45-90 分钟',wake:'清醒窗约 1.5-2 小时',planNap:75,maxCycles:4};if(month===6)return {count:'3 次',minutes:'每次约 45-90 分钟',wake:'清醒窗约 2-2.5 小时',planNap:75,maxCycles:3};if(month<=8)return {count:'2-3 次',minutes:'每次约 45-75 分钟',wake:'清醒窗约 2-3 小时',planNap:75,maxCycles:3};return {count:'2 次左右',minutes:'每次约 30-90 分钟',wake:'清醒窗约 2.5-3.5 小时',planNap:60,maxCycles:2}}
+function parseWeightKg(value){const n=Number(String(value||'').replace(/,/g,'.').trim());return Number.isFinite(n)&&n>0?n:0}
+function ageTotalDays(){const b=state.profile.birthDate;if(!b)return null;const birth=new Date(b+'T00:00:00');const now=new Date();if(isNaN(birth)||birth>now)return null;return Math.max(1,Math.floor((startOfDay(now)-startOfDay(birth))/86400000)+1)}
+function defaultFeedCountByAge(){const days=ageTotalDays();const month=currentMonth();if(days&&days<=10)return 8;if(days&&days<=30)return 8;if(month<=2)return 7;return 6}
+function getFeedCount(){const user=Number(state.profile.feedCount||0);if(Number.isFinite(user)&&user>0)return Math.round(user);return defaultFeedCountByAge()}
+function roundDown10(n){return Math.floor(n/10)*10}
+function roundUp10(n){return Math.ceil(n/10)*10}
+function calcMilkRecommendation(){const weight=parseWeightKg(state.profile.weightKg||0);const month=currentMonth();const days=ageTotalDays();const feeds=getFeedCount();if(!(weight>0))return null;if(days&&days<=10){const perMap={1:[10,10],2:[20,20],3:[30,30],4:[35,35],5:[45,45],6:[55,55],7:[55,55],8:[60,60],9:[65,65],10:[70,70]};const p=perMap[Math.min(days,10)]||[70,70];return {stage:'住院前 10 天参考',days,month,weight,feeds,perMin:p[0],perMax:p[1],totalMin:p[0]*8,totalMax:p[1]*8,note:'按你提供的住院前 10 天单据整理，默认按一天 8 顿显示。',formula:'固定日龄表'} }
+if(days&&days>=11&&days<=30){const base=(weight*1000)/5/feeds;const perMin=roundDown10(base);const perMax=roundUp10(base);return {stage:'第 11 天到满月前',days,month,weight,feeds,perMin,perMax,totalMin:perMin*feeds,totalMax:perMax*feeds,note:'每次加量尽量先稳定 3-5 天，再增加 10 ml，不要一下子加太多。',formula:'体重(g) ÷ 5 ÷ 每日顿数'} }
+if(month<=2){const totalMin=Math.min(1000,Math.round(weight*150));const totalMax=Math.min(1000,Math.round(weight*180));const perMin=roundDown10(totalMin/feeds);const perMax=roundUp10(totalMax/feeds);return {stage:weight>=5?'满月至 2 月（5kg 以上优先参考）':'满月至 2 月',days,month,weight,feeds,perMin,perMax,totalMin,totalMax,note:'这阶段也建议每 3-7 天再加 10 ml，观察宝宝适应情况。',formula:'体重(kg) × 150-180 ÷ 每日顿数'} }
+const totalMin=800,totalMax=1000,perMin=roundDown10(totalMin/feeds),perMax=roundUp10(totalMax/feeds);return {stage:'3 个月以后',days,month,weight,feeds,perMin,perMax,totalMin,totalMax,note:'3 个月以后可先把一日总奶量放在 800-1000 ml 范围内，偶尔达不到也不用太焦虑。',formula:'一日总量 800-1000 ml ÷ 每日顿数'} }
+function renderMilkRecommend(){if(!window.milkRecommendCard)return;const rec=calcMilkRecommendation();const month=currentMonth();const feeds=getFeedCount();if(!state.profile.weightKg){milkRecommendCard.innerHTML=`<h3>奶量推荐</h3><div class="small" style="display:block">输入当前体重后，会按日龄、月龄、体重和每日顿数自动刷新推荐。</div><div class="milk-note"><div class="t">当前说明</div><ul><li>当前自动匹配月龄：${month} 月。</li><li>当前默认顿数：${feeds} 顿/天；如果实际是 7 顿或别的次数，可以直接改。</li><li>这一栏按你提供的四阶段规则整理，适合作为日常参考。</li></ul></div>`;return}if(!rec){milkRecommendCard.innerHTML=`<h3>奶量推荐</h3><div class="milk-note"><div class="t">当前说明</div><ul><li>当前体重：${state.profile.weightKg} kg。</li><li>需要同时结合宝宝日龄或月龄来计算奶量。</li></ul></div>`;return}milkRecommendCard.innerHTML=`<h3>奶量推荐</h3><div class="small" style="display:block">当前阶段：${rec.stage}；按体重 ${rec.weight} kg、每日 ${rec.feeds} 顿估算。</div><div class="milk-grid"><div class="milk-card"><div class="k">一日总奶量</div><div class="v">${rec.totalMin}-${rec.totalMax} ml</div><div class="s">当前阶段总量参考</div></div><div class="milk-card"><div class="k">每次奶量</div><div class="v">${rec.perMin}-${rec.perMax} ml</div><div class="s">按当前顿数折算</div></div><div class="milk-card"><div class="k">每日次数</div><div class="v">${rec.feeds} 顿</div><div class="s">可以按实际情况改</div></div></div><div class="milk-note"><div class="t">当前使用公式</div><ul><li>${rec.formula}</li><li>${rec.note}</li></ul></div>`}
+function renderNapRecommend(){if(!window.napRecommendCard)return;const month=currentMonth();const nap=napGuideByMonth(month);napRecommendCard.innerHTML=`<h3>小睡建议</h3><div class="small" style="display:block">按当前第 ${month} 个月节律整理，先看次数、单次时长和清醒窗，再决定今天怎么排。</div><div class="nap-grid"><div class="nap-card"><div class="k">白天小睡次数</div><div class="v">${nap.count}</div><div class="s">按月龄给的参考范围</div></div><div class="nap-card"><div class="k">单次小睡时长</div><div class="v">${nap.minutes}</div><div class="s">不是每次都要睡到一样久</div></div><div class="nap-card"><div class="k">参考清醒窗</div><div class="v">${nap.wake}</div><div class="s">看困倦信号灵活提前收尾</div></div></div><div class="nap-note"><div class="t">生成计划时会怎么用</div><ul><li>系统会按当前月龄，把小睡次数和单次小睡时长一起纳入今日日程建议。</li><li>生成后的时间表里，小睡会直接标成“第 1 次小睡”“第 2 次小睡”这类名称，更方便看顺序。</li><li>如果今天已经少睡、很累，仍然要优先看宝宝状态，不必硬套计划。</li></ul></div>`}
+function guide(month){return monthGuides.find(x=>x.month===month)||monthGuides[0]}
+function cueAdjust(cue){if(cue==='mild')return -10;if(cue==='medium')return -20;if(cue==='strong')return -35;return 0}
+
+function monthWakeWindow(month){if(month<=1)return '清醒窗约 45-60 分钟';if(month===2)return '清醒窗约 60-75 分钟';if(month===3)return '清醒窗约 75-90 分钟';if(month<=5)return '清醒窗约 1.5-2 小时';if(month<=8)return '清醒窗约 2-3 小时';return '清醒窗约 2.5-3.5 小时'}
+function monthNapMinutes(month){if(month<=2)return '单次小睡约 60-90 分钟';if(month<=5)return '单次小睡约 45-90 分钟';if(month<=8)return '单次小睡约 45-75 分钟';return '单次小睡约 30-90 分钟'}
+function plannerItemMeta(item,month,style){const title=item.title||'';const isLang=style==='language';const isMotor=style==='motor';if(title.includes('起床')||title.includes('醒来'))return {tag:'照护起点',goal:'建立这个清醒窗的状态观察基线',duration:'约 5-10 分钟',watch:'精神、皮肤状态、尿布、体温感受',coach:'先看宝宝状态，再决定先喂还是先互动'};if(title.includes('吃奶')){const rec=calcMilkRecommendation();return {tag:'喂养观察',goal:'保证能量补给并观察饥饿与饱足信号',duration:rec?`每次可先参考 ${rec.perMin}-${rec.perMax} ml`:'按宝宝节奏',watch:'吞咽、拍嗝、吃奶专注度、吐奶情况',coach:'吃奶后避免立即高刺激活动'}};if(title.includes('安静收尾'))return {tag:'过渡准备',goal:'降低刺激，让神经系统进入收尾状态',duration:'约 10-20 分钟',watch:'揉眼、发呆、转头躲刺激、肢体变慢',coach:'及时收尾通常比硬撑清醒更专业'};if(title.includes('小睡'))return {tag:'睡眠窗口',goal:'顺着清醒窗入睡，减少过度疲劳',duration:monthNapMinutes(month),watch:'入睡难度、惊醒次数、起床精神',coach:'关键不是睡多久，而是醒来后的状态'};if(title.includes('次小睡'))return {tag:'睡眠窗口',goal:'顺着清醒窗入睡，减少过度疲劳',duration:monthNapMinutes(month),watch:'入睡难度、惊醒次数、起床精神',coach:'关键不是睡多久，而是醒来后的状态'};if(title.includes('睡前流程'))return {tag:'固定流程',goal:'建立可预期的睡前信号与低刺激环境',duration:'约 15-30 分钟',watch:'洗漱后情绪、吃奶后困倦变化',coach:'固定项最好每天尽量保持同一节奏'};if(title.includes('看图')||title.includes('命名')||title.includes('说话')||title.includes('儿歌'))return {tag:'语言输入',goal:'增加面对面语言输入与共同注意',duration:'约 3-8 分钟',watch:'是否看脸、是否停下来听、是否尝试回应',coach:'少量多次比放很久更有效'};if(title.includes('趴')||title.includes('翻身')||title.includes('抓握')||title.includes('地面')||title.includes('坐姿'))return {tag:'动作发展',goal:'支持大动作与精细动作练习',duration:'约 3-10 分钟',watch:'是否能短时坚持、是否偏头、是否烦躁',coach:'动作练习以愉快结束为主'};return {tag:isLang?'语言互动':isMotor?'动作训练':'发展互动',goal:isLang?'增强语言输入、轮流回应和命名经验':isMotor?'支持姿势控制、抓握与地面探索':'在清醒时段安排合适互动，服务当月发育重点',duration:month<=3?'约 3-5 分钟':'约 5-15 分钟',watch:'专注时长、情绪变化、是否出现疲劳或烦躁',coach:'看状态及时停，比把项目做满更专业'}}
+function plannerSummaryCard(month,style,plan){const styleText=style==='language'?'语言输入优先':style==='motor'?'动作发展优先':style==='professional'?'专业照护节律':style==='gentle'?'舒缓照护节律':'日常节律';const focusMap={1:'安全感、观察基础状态、短时趴卧',2:'抬头、对视互动、昼夜节律',3:'抬头控制、追视回应、喂养与小睡节律',4:'翻身准备、抓握、共同注意',5:'主动抓握、镜子互动、儿歌模仿',6:'坐姿准备、指物命名、喂养体验',7:'独坐、传递玩具、名字回应',8:'地面探索、躲猫猫、模仿互动',9:'装放、手指食物、理解简单指令',10:'站立准备、拍手、指物表达',11:'简单指令、推拉玩具、收放游戏',12:'动作模仿、命名理解、稳定作息'};return `<div class="plan-item" style="border-style:dashed;background:#f8fcfa"><div class="record-title">今日专业指导</div><div class="small" style="display:block;color:#49795d;margin-top:4px">${month} 月龄 · ${styleText}</div><div class="subhead">本日重点</div><div class="small" style="display:block">${focusMap[month]||focusMap[3]}</div><div class="subhead">节律参考</div><div class="small" style="display:block">${monthWakeWindow(month)}；${monthNapMinutes(month)}；今天共生成 ${plan.length} 个护理节点。</div><div class="subhead">执行提示</div><div class="small" style="display:block">优先看宝宝状态，再看时钟；同类练习短时重复，比一次做很久更专业。</div></div>`}
+
+function plannerActivityBank(month){
+const bank={
+1:[{title:'对视说话与慢回应',detail:'面对面轻声说话，留出等待回应的停顿。',goalHint:'建立安全感、声音熟悉感与双向交流起点',durationHint:'约 2-4 分钟',observeHint:'是否会停下来听、看脸或安静下来',env:'选择光线柔和、背景简单的位置，先让宝宝舒服平躺或被稳定抱持。',role:'成人放慢语速，少说一点、等一等，让宝宝有机会用表情和动作回应。'},
+{title:'短时趴卧与身体伸展',detail:'在状态好的时候短时趴卧，观察抬头与四肢伸展。',goalHint:'支持颈背力量与身体地图建立',durationHint:'约 1-3 分钟，可少量多次',observeHint:'是否能短时抬头、是否很快烦躁、是否偏头',env:'地面活动垫（movement mat）保持平整安全，周围只留少量视觉刺激。',role:'不急着扶动，主要负责陪伴、观察和及时结束。'},
+{title:'抚触与节律安抚',detail:'用稳定、可预期的触碰帮助转换状态。',goalHint:'帮助身体放松并建立被温柔照护的感受',durationHint:'约 2-5 分钟',observeHint:'肢体是否放松、呼吸是否更平稳',env:'温暖安静、物品提前备好，减少中途打断。',role:'动作先告知再进行，让照护变成连接时刻。'}],
+2:[{title:'看脸说话与轮流回应',detail:'说一句、停一下，给宝宝看脸和回应时间。',goalHint:'支持共同注意与早期语言节律',durationHint:'约 3-5 分钟',observeHint:'是否看脸、发声或尝试模仿口型',env:'抱姿或平躺位都可以，背景尽量简单。',role:'用真实语言，不需要连续逗弄。'},
+{title:'黑白卡或简单视觉追踪',detail:'慢慢移动对比材料，留意眼神追随。',goalHint:'支持视觉聚焦与追视',durationHint:'约 2-4 分钟',observeHint:'是否能短时追视、是否过快疲劳',env:'一次只给一个视觉材料，距离不要太近太乱。',role:'移动速度放慢，看到分神就收尾。'},
+{title:'短时趴玩',detail:'在清醒状态好时进行短时趴卧。',goalHint:'支持抬头与上肢承重准备',durationHint:'约 1-4 分钟，可重复',observeHint:'抬头角度、耐受时间、情绪变化',env:'地面安全、温度舒适，前方可有人脸或简单参照物。',role:'重点是陪伴和观察，不追求坚持很久。'}],
+3:[{title:'追声与回应发音',detail:'用熟悉声音和简短回应做轮流交流。',goalHint:'支持听觉定位与发声回应',durationHint:'约 3-5 分钟',observeHint:'是否会朝声音方向找、是否尝试回应',env:'减少环境噪音，留出安静互动片段。',role:'回应宝宝已有的声音，而不是一直主导。'},
+{title:'脚踢与身体发现游戏',detail:'让宝宝有空间观察和活动自己的四肢。',goalHint:'支持身体觉察与重复练习',durationHint:'约 3-5 分钟',observeHint:'是否反复踢腿、抓衣物、看自己的手脚',env:'衣物尽量不妨碍活动，地面区保持空余。',role:'少帮忙，多让宝宝自己发现身体和动作结果。'},
+{title:'短时抓握准备',detail:'提供容易接近的小物或手部接触机会。',goalHint:'为主动抓握做准备',durationHint:'约 2-4 分钟',observeHint:'手是否更常张开、会不会尝试碰触',env:'一次只准备一个容易看见的对象。',role:'不要直接塞到手里，给够取时间。'}],
+4:[{title:'抓握与拍打探索',detail:'提供可拍打、可抓握的简单材料。',goalHint:'支持手眼协调与主动伸手',durationHint:'约 4-6 分钟',observeHint:'是否主动伸手、能否短时握住',env:'低处或胸前可及位置即可，一次只放少量。',role:'让宝宝先尝试，不急着示范太多。'},
+{title:'看图命名',detail:'用真实图片或简单图卡命名熟悉对象。',goalHint:'支持语言输入与共同注意',durationHint:'约 3-5 分钟',observeHint:'是否看图、看脸、停下来听',env:'画面简单、背景干净，避免同时拿很多卡。',role:'语句短而真实，重复关键词。'},
+{title:'镜子互动与躲猫猫',detail:'用镜子和短暂遮挡进行有节律互动。',goalHint:'支持社会互动与自我观察兴趣',durationHint:'约 3-5 分钟',observeHint:'是否期待重复、是否会笑或寻找',env:'镜子稳定安全，互动时间不要太长。',role:'在宝宝兴致最高点结束，保留下次兴趣。'}],
+5:[{title:'镜子表情互动',detail:'在镜前做简单表情和停顿互动。',goalHint:'支持模仿兴趣与社会回应',durationHint:'约 3-5 分钟',observeHint:'是否看自己、看你、尝试做表情',env:'镜子前空间安全，避免太多旁边物品干扰。',role:'成人做慢一点，让宝宝看清并有回应机会。'},
+{title:'抓握拍打练习',detail:'提供可抓、可拍、声音不过强的材料。',goalHint:'支持重复动作与手部控制',durationHint:'约 4-6 分钟',observeHint:'是否重复敲打、会不会双手换手',env:'桌面或垫面都可，材料数量保持少量。',role:'不打断重复，除非明显疲劳。'},
+{title:'儿歌和节奏句',detail:'用节律短句和简单动作配合。',goalHint:'支持语言节律感与情绪连接',durationHint:'约 3-5 分钟',observeHint:'是否会安静听、摆动身体或发声',env:'尽量在安静时段进行，减少背景音。',role:'不必很热闹，重点是稳定和重复。'}],
+6:[{title:'拍手模仿',detail:'示范简单动作，等待宝宝观察和尝试。',goalHint:'支持模仿与互动轮流',durationHint:'约 3-6 分钟',observeHint:'是否看动作、尝试重复、是否会笑着等待',env:'面对面位置稳定，环境不需要复杂。',role:'示范后暂停，不连着给太多指令。'},
+{title:'指物命名',detail:'在真实生活里命名熟悉的人和物。',goalHint:'支持词汇输入与物品对应',durationHint:'约 3-5 分钟',observeHint:'是否看向被命名物、是否有期待反应',env:'优先用正在看的真实物，不必额外准备很多材料。',role:'边做边说，帮助宝宝把语言和现实连接。'},
+{title:'抓握转移与简单装放前活动',detail:'给可双手探索和转移的小物。',goalHint:'支持双手协调与问题解决起点',durationHint:'约 4-6 分钟',observeHint:'是否会换手、敲打、反复研究',env:'准备 1-2 个安全物即可，留出桌面或地面空间。',role:'少代劳，让宝宝自己试。'}],
+7:[{title:'名字回应游戏',detail:'在近距离呼唤名字，等待转头和回应。',goalHint:'支持社会回应与听觉注意',durationHint:'约 3-5 分钟',observeHint:'是否会停下、转头、看向你',env:'先降低背景噪音，避免一边很多刺激。',role:'名字后留停顿，不要连续叫很多次。'},
+{title:'传递玩具',detail:'用一来一回的方式练习接收与传递。',goalHint:'支持轮流、手部控制和互动规则',durationHint:'约 4-6 分钟',observeHint:'是否愿意放手、等待、再拿回',env:'选一个容易抓握的物品即可。',role:'轻轻示范轮流，不急着纠正。'},
+{title:'翻翻书与指图',detail:'一起看简洁图书并命名熟悉内容。',goalHint:'支持注意力与词汇积累',durationHint:'约 3-6 分钟',observeHint:'是否会翻页、拍图、盯着某页看',env:'书篮保持少量，先选 1 本当前感兴趣的。',role:'跟着宝宝翻页节奏，而不是自己快速讲完。'}],
+8:[{title:'地面探索',detail:'让宝宝靠移动自己去接近想要的对象。',goalHint:'支持爬行与空间问题解决',durationHint:'约 5-10 分钟',observeHint:'是否会主动移动、绕开障碍、重复尝试',env:'预留连续地面空间，提前清掉危险物。',role:'不要总把东西递过去，让宝宝自己去拿。'},
+{title:'躲猫猫',detail:'用短暂遮挡和再出现做关系游戏。',goalHint:'支持期待感和物体持续性萌芽',durationHint:'约 3-5 分钟',observeHint:'是否会等待、寻找、开心重复',env:'视觉背景不要太复杂，互动对象保持单一。',role:'节奏稳定、停顿明确。'},
+{title:'容器进出观察',detail:'让宝宝看见和尝试物体进出容器。',goalHint:'支持因果关系和手部探索',durationHint:'约 4-6 分钟',observeHint:'是否会反复拿出放入、敲打研究',env:'选口径大的容器和少量物品。',role:'示范一次就够，后面让宝宝自己练。'}],
+9:[{title:'装放游戏',detail:'提供可装入取出的简单组合。',goalHint:'支持手部精细动作与顺序感',durationHint:'约 5-8 分钟',observeHint:'是否会重复装放、专注多久',env:'低桌或地面都可，材料 1 组即可。',role:'允许反复做同一动作，不急着教新玩法。'},
+{title:'自主进食练习',detail:'在固定位置尝试手指食物或自喂。',goalHint:'支持独立参与与手口协调',durationHint:'约 5-10 分钟',observeHint:'会不会自己拿、送入口中、是否容易挫败',env:'餐位固定，周围准备好清洁物品。',role:'给时间尝试，少一点催促。'},
+{title:'熟悉物命名',detail:'在真实环境里反复命名常见物。',goalHint:'支持理解简单词语',durationHint:'约 3-5 分钟',observeHint:'是否会看向熟悉物、等待下一次命名',env:'用家里真实物最自然。',role:'说得简短、重复、对应现实。'}],
+10:[{title:'模仿拍手与动作回应',detail:'用简单动作和节律等待模仿。',goalHint:'支持模仿与社交互动',durationHint:'约 4-6 分钟',observeHint:'是否看动作、会不会主动重复',env:'面对面、低干扰即可。',role:'多示范，少催促。'},
+{title:'音乐律动',detail:'用短时节律活动配合身体动作。',goalHint:'支持节律感和身体协调',durationHint:'约 4-6 分钟',observeHint:'是否会摆动、期待重复、跟着停顿',env:'空间留出活动范围，音量柔和。',role:'活动短一点，保持愉快收尾。'},
+{title:'简单取放与推拉',detail:'练习拿起、放下、推动和拉动。',goalHint:'支持手部控制与因果理解',durationHint:'约 5-8 分钟',observeHint:'是否会重复、是否尝试不同方法',env:'给稳固、安全、可操作的材料。',role:'先让宝宝自己发现功能。'}],
+11:[{title:'简单指令互动',detail:'在真实情境中给一条清楚简短的指令。',goalHint:'支持理解与合作',durationHint:'约 3-5 分钟',observeHint:'是否会停下、看你、尝试执行',env:'一次一个指令，环境尽量简洁。',role:'语气温和而明确，不重复很多遍。'},
+{title:'推拉玩具',detail:'用稳定的推拉活动支持动作控制。',goalHint:'支持大动作计划与重复练习',durationHint:'约 5-8 分钟',observeHint:'是否更稳、会不会反复来回',env:'地面留出直线活动空间。',role:'站在旁边守护，不急着扶持太多。'},
+{title:'一收一放',detail:'把简单收放活动接到日常生活里。',goalHint:'支持秩序感与参与感',durationHint:'约 4-6 分钟',observeHint:'是否会模仿放回、是否愿意重复',env:'固定一个篮子或盒子，位置清楚。',role:'先做给宝宝看，再邀请一起做。'}],
+12:[{title:'收放游戏',detail:'用真实或简单材料练习拿出和放回。',goalHint:'支持秩序感和初步独立',durationHint:'约 5-8 分钟',observeHint:'是否知道物品去处、愿不愿意重复',env:'低篮、低架位置固定，材料数量少。',role:'给参与机会，不要替宝宝一口气做完。'},
+{title:'动作模仿',detail:'示范生活动作或简单手势等待模仿。',goalHint:'支持理解、模仿和合作',durationHint:'约 4-6 分钟',observeHint:'是否会跟做、看动作细节、主动再来',env:'真实场景最好，如擦桌、递物、拍手。',role:'示范清楚，动作放慢。'},
+{title:'生活中的命名与参与',detail:'把命名和参与放进日常流程里。',goalHint:'支持语言理解与生活协作',durationHint:'约 5-10 分钟',observeHint:'是否听得懂熟悉词、会不会主动参与',env:'用固定流程和固定位置建立秩序。',role:'边做边说，让日常生活本身成为课程。'}]
+};
+return bank[month]||bank[12]}
+function plannerExtraMeta(item,month){const title=item.title||'';const monthData=monthMontessori(month);if(title.includes('起床')||title.includes('醒来'))return {env:'换尿布区与需要的物品提前备好，动作区保持安静整洁。',adult:'从正面接近，先说接下来要做什么，再抱起或换尿布。'};if(title.includes('吃奶'))return {env:'喂养位置尽量固定，减少边喂边换场景。',adult:'顺着饥饿与饱足信号，不急着在吃奶时加入过多刺激。'};if(title.includes('安静收尾'))return {env:'提前降低灯光、声音和玩具数量，让环境进入低刺激。',adult:'节奏放慢，说话变少，帮助宝宝从活动过渡到休息。'};if(title.includes('小睡'))return {env:'睡眠区保持稳定、简单、可预期。',adult:'顺着困倦信号及时收尾，比硬撑更重要。'};if(title.includes('睡前流程'))return {env:'洗漱、喂奶、安静陪伴尽量按固定顺序进行。',adult:'固定流程、稳定情绪，帮助宝宝预期接下来会睡觉。'};return {env:(item.env||monthData.environment[0]||'准备安全、简单、可探索的环境。'),adult:(item.role||monthData.adult[0]||'成人负责准备环境、观察和适时协助。')}}
+
+function plannerActs(month,style){const base=[...(plannerProfiles[month]||plannerProfiles[12]).acts];if(style==='language')return ['看图说话','儿歌和重复词','指物命名'];if(style==='motor')return ['趴玩 / 翻身 / 坐姿练习','抓握或装放','地面探索'];return base}
+function currentAgeGroup(){const m=currentMonth();if(m<=3)return '0-3';if(m<=6)return '4-6';return '7-12'}
+function autoTimeSlot(){const h=new Date().getHours();if(h<11)return 'morning';if(h<16)return 'pre-nap';return 'evening'}
+function activeMusicAgeGroup(){const sel=document.getElementById('musicAgeGroup')?.value||'auto';return sel==='auto'?currentAgeGroup():sel}
+function activeMusicTimeSlot(){const sel=document.getElementById('musicTimeSlot')?.value||'auto';return sel==='auto'?autoTimeSlot():sel}
+function seededPick(arr,seed,count){const list=[...arr];let n=0;for(const c of String(seed||''))n=(n*31+c.charCodeAt(0))%2147483647;function rnd(){n=(n*48271)%2147483647;return (n-1)/2147483646}for(let i=list.length-1;i>0;i--){const j=Math.floor(rnd()*(i+1));[list[i],list[j]]=[list[j],list[i]]}return list.slice(0,count)}
+function setDefaults(){['milkTime','sleepStart','sleepEnd','poopTime','observationTime'].forEach(id=>{const el=document.getElementById(id);if(el&&!el.value)el.value=nowLocal()});babyName.value=state.profile.babyName||'';birthDate.value=state.profile.birthDate||'';if(window.babyWeightKg)babyWeightKg.value=state.profile.weightKg||'';if(window.babyFeedCount)babyFeedCount.value=state.profile.feedCount||'';wakeTime.value=state.planner.wakeTime||'07:00';bedTime.value=state.planner.bedTime||'20:00';sleepyCue.value=state.planner.sleepyCue||'none';planStyle.value=state.planner.style||'gentle';if(window.musicAgeGroup)musicAgeGroup.value=state.musicAgeGroup||'auto';if(window.musicMode)musicMode.value=state.musicMode||'calm';if(window.musicTimeSlot)musicTimeSlot.value='auto';if(window.orffDuration)orffDuration.value='10-15'}
+
+function syncProfileFold(){if(!window.profileFold)return;const hasProfile=!!(state.profile.birthDate||state.profile.babyName||state.profile.weightKg||state.profile.feedCount);if(hasProfile){profileFold.removeAttribute('open')}else{profileFold.setAttribute('open','')}}
+
+
+function homepagePriority(month){if(month<=3)return ['先保证稳定照护流程和足够地面时间。','今天重点看对视、回应和身体舒展。'];if(month<=6)return ['先给抓握、翻身和短时互动空间。','今天重点看是否出现重复动作和更长专注。'];if(month<=9)return ['先准备 可自由探索安全区（yes space） 和连续移动空间。','今天重点看自主靠近、拿取和装放兴趣。'];return ['先把日常生活变成可参与的练习。','今天重点看模仿、收放和合作意愿。']}
+function renderTodayDashboard(){const month=currentMonth();const monthData=monthMontessori(month);const obs=todayObservations();const priorities=homepagePriority(month);const nextAct=plannerActivityBank(month)[0];const env=environmentProfiles[environmentGroup(month)];todayDashboardGrid.innerHTML=`<div class="today-hero"><h3>${month} 月龄今日首页重点</h3><p>先抓 1-2 个重点就够了，今天先看状态、环境和一个合适活动，不需要把所有建议一次做完。</p></div><div class="today-grid"><div class="today-box"><h4>今天先看</h4><ul><li>${priorities[0]}</li><li>${priorities[1]}</li><li>${monthData.focus[0]}</li></ul></div><div class="today-box"><h4>今天状态</h4><ul><li>今日观察：${obs.length} 条。</li><li>推荐起手活动：${nextAct.title}。</li><li>环境提醒：${env.today[0]}</li></ul></div></div>`}
+function renderTodayActionCard(){const month=currentMonth();const monthData=monthMontessori(month);const act=plannerActivityBank(month)[0];const env=environmentProfiles[environmentGroup(month)];todayActionCard.innerHTML=`<h3>${month} 月龄今天建议先做</h3><ul><li>先完成基础照护，再安排 1 个短时高质量互动。</li><li>优先活动：${act.title}。</li><li>互动建议：${act.detail}</li></ul><div class="subhead">环境准备</div><ul><li>${act.env}</li><li>${env.home[0]}</li></ul><div class="subhead">家长动作</div><ul><li>${act.role}</li><li>${monthData.adult[0]}</li></ul>`}
+function renderTodayObserveCard(){const month=currentMonth();const monthData=monthMontessori(month);const obs=todayObservations();const trend=obs.length?`${observationLabel(obs[0].area)}：${obs[0].note}`:'今天还没有新的观察记录。';todayObserveCard.innerHTML=`<h3>今天建议先观察</h3><ul>${monthData.activities.slice(0,3).map(x=>`<li>${x}</li>`).join('')}</ul><div class="subhead">观察提醒</div><ul><li>先看宝宝是否在重复某个动作或兴趣点。</li><li>先记现象，再决定要不要帮或换活动。</li></ul><div class="subhead">最近记录</div><ul><li>${trend}</li></ul>`}
+
+function openPanel(target,activeTab){closeMoreMenu();document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.panel').forEach(x=>x.classList.remove('active'));const panel=document.getElementById(target);if(panel)panel.classList.add('active');const tab=document.querySelector(`.tab[data-tab="${activeTab||target}"]`)||document.querySelector(`.tab[data-tab="${target}"]`);if(tab)tab.classList.add('active')}
+function openMoreMenu(){if(!window.moreModal)return;moreModal.classList.add('show');moreModal.setAttribute('aria-hidden','false')}
+function closeMoreMenu(){if(!window.moreModal)return;moreModal.classList.remove('show');moreModal.setAttribute('aria-hidden','true')}
+function bindQuickJump(){document.querySelectorAll('[data-tabjump]').forEach(btn=>btn.onclick=()=>{const target=btn.dataset.tabjump;openPanel(target,target);renderBookTermsIndex();enhanceTermNotes()});document.querySelectorAll('[data-openpanel]').forEach(btn=>btn.onclick=()=>{const target=btn.dataset.openpanel;openPanel(target,'more');renderBookTermsIndex();enhanceTermNotes()});if(window.closeMoreModalBtn)closeMoreModalBtn.onclick=closeMoreMenu;if(window.moreModal)moreModal.onclick=e=>{if(e.target===moreModal)closeMoreMenu()};document.onkeydown=e=>{if(e.key==='Escape'){closeMoreMenu();closeTermNote()}}}
+const termNoteMap={
+  '吸收性心智（absorbent mind）':'原书写的是：孩子从出生到大约 6 岁拥有吸收性心智，会不费力地把周围环境中的语言、动作、态度和文化吸收到自己身上。对婴儿来说，这意味着他们不仅吸收我们教的内容，也吸收我们每天怎么说话、怎么做事、怎么对待别人。',
+  '人类倾向（human tendencies）':'原书写的是：人从出生就有一些自然倾向，比如定向、秩序、沟通、探索、解决问题和重复。理解这些倾向后，成人更容易看懂宝宝的行为，不会把很多正常发展需求误解成“难带”。',
+  '定向（orientation）':'原书写的是：宝宝需要知道自己在哪里、周围发生什么、什么东西是熟悉的。照护者的声音、固定的睡眠位置、熟悉的图片、mobile 和固定流程，都可以成为帮助宝宝定向的参照。',
+  '秩序（order）':'原书写的是：宝宝需要环境和流程的稳定感。固定的地方、固定的顺序、固定的提示，会帮助他们更有安全感，也更容易理解接下来会发生什么。',
+  '敏感期（sensitive periods）':'原书写的是：敏感期是宝宝对某个能力或环境元素表现出强烈、重复兴趣的时期，例如动作、语言、秩序、进食或小物。成人不是去推动，而是看见兴趣高峰并及时支持。',
+  '观察（observation）':'原书写的是：观察是把 Montessori 真正用起来的关键。通过观察，我们才知道宝宝在练什么、被什么吸引、哪里有障碍、何时需要帮助，以及怎样调整环境才合适。',
+  '专注（concentration）':'原书写的是：当宝宝反复看、反复摸、反复做某个动作时，他们常常不是无聊，而是在建立专注。书里提醒成人尽量不要打断这种专注，因为专注本身就是发展的基础。',
+  '独立（independence）':'原书写的是：独立不是让宝宝什么都自己来，而是帮助他们从完全依赖，逐步走向合作，再走向更多自己能做。环境和照护方式都应支持这种渐进的独立。',
+  '合作（collaboration）':'原书写的是：在婴儿期，很多照护活动都可以变成合作，而不是成人单方面完成。比如换尿布、穿衣、抱起、放下时先预告、等待回应、邀请参与，这些都在建立合作。',
+  '环境是老师（environment as teacher）':'原书强调环境能做很多“教学”工作。也就是说，成人不必不停提醒，而是先把空间、材料和顺序设计好，让宝宝在环境中自然学习。',
+  '预备好的环境（prepared environment）':'原书写的是：prepared environment 指成人先把空间、材料、顺序和安全准备好，让环境本身支持宝宝发展，而不是完全依赖成人不断提醒或干预。',
+  '可自由探索安全区（yes space）':'原书写的是：yes space 是一个提前准备好的安全区域，宝宝可以在里面自由探索，成人基本不用频繁说“不”；里面放的是安全可碰可到的物品，并尽量减少线材和危险障碍。',
+  '活动区（movement area）':'原书写的是：movement area 是宝宝在家里专门用来自由活动、观察、看 mobile、看镜子和练习身体动作的区域；在小月龄时，它通常包含活动垫、低镜子和 mobile。',
+  '活动垫（movement mat）':'原书写的是：movement mat 是给宝宝躺下自由伸展和活动四肢的地方，宝宝可以在上面看自己的脚、看 mobile、看镜子；等开始爬行后，这块垫子可以移开，让整个房间成为活动区。',
+  '低镜子（low mirror）':'原书写的是：在活动区放一面横向悬挂的低镜子，用来帮助宝宝发展完整的身体图式，也就是逐渐理解身体由哪些部分组成，以及整体看起来是什么样子。',
+  '横向镜子（horizontal mirror）':'原书写的是：活动区里适合放一面横向的镜子，支持宝宝发展完整的视觉身体图式；等更大、开始拉站后，书里也提到可以再根据需要改成竖向使用。',
+  '吊饰挂点（mobile hanger）':'原书写的是：要有一个可以悬挂 mobile 的位置，这个挂点可以来自墙面、家具，或悬在宝宝上方的木架。重点不是装饰，而是给视觉追踪和早期活动区使用。',
+  '低架、低篮（low shelf / low basket）':'原书写的是：可以把简单活动放在低架或低篮里，让宝宝慢慢学会自己选择；等更大一点后，宝宝还能自己滚过去、扭过去或爬过去拿想用的东西。',
+  '地面床（floor bed）':'原书写的是：floor bed 是贴近地面的睡床，让宝宝能清楚看到整个房间，并在更大一些时自己爬上爬下；书里把它看作婴儿床的 Montessori 替代选择。',
+  '睡眠参照点（point of reference）':'原书反复强调 familiar point of reference，意思是熟悉的空间、物品、流程和感觉会帮助宝宝建立安全感、定向感和秩序感。',
+  '无遮挡视野（unobstructed vision）':'原书提到宝宝从出生起就需要 free movement and unobstructed vision，也就是既能自由活动，也能清楚看到周围空间，而不是总被栏杆或容器限制。',
+  '托蓬奇诺抱垫（topponcino）':'原书写的是：topponcino 是一种薄软的绗缝小抱垫，常用于把宝宝从怀里转移到床上或垫上，因为它能保留熟悉的温度、触感和气味，减少惊跳和被突然放下的不适。',
+  'Cestina 睡篮（cestina）':'原书写的是：cestina 是一种给新生儿到约 3 个月使用的 Moses basket 式小睡篮，可以直接放在地面床上，帮助宝宝把这里建立成固定的睡眠参照点。',
+  '视觉吊饰（visual mobiles）':'原书写的是：visual mobiles 是前几个月活动区里的核心材料，帮助宝宝练习视觉追踪、聚焦、定向和专注；它们通常一次只挂一个，并随着兴趣与发展阶段轮换。',
+  '触觉吊饰（tactile mobiles）':'原书在 3 个月后开始加入可触摸的悬挂材料，用来支持宝宝伸手、够取、抓握和手眼协调。重点是让宝宝主动去碰，而不是成人把东西塞到手里。',
+  '观察、收纳、轮换（observe, store, rotate）':'原书写的是：先观察宝宝现在在练什么、对什么失去兴趣，再把暂时不用的材料收起来，换出下一个挑战；不是材料越多越好，而是要保持少量、合适、可专注。',
+  '自由运动（free movement）':'原书写的是：自由运动不是把宝宝放着不管，而是让宝宝在安全环境里主动发起和练习动作，尽量不把他们摆进自己还进不去的姿势，也减少各种限制容器。',
+  '身体图式（body schema）':'原书写的是：body schema 指宝宝对自己身体部分、位置和整体样子的认识；低镜子、自由运动和重复动作都会帮助这种认识慢慢建立。',
+  '粗大动作（gross-motor skills）':'原书把全身大肌肉参与的动作，如翻身、爬行、站立、走路，归为粗大动作。环境是否允许宝宝自由移动，会明显影响这部分发展质量。',
+  '精细动作（fine-motor skills）':'原书把手、手腕、前臂的更细致动作归为精细动作，例如抓握、转动、放入、捏取。书里非常强调手的发展和智力发展之间的关系。',
+  '双指捏取（pincer grasp）':'原书说 10 到 12 个月会逐渐发展到 pincer grasp，也就是用拇指和手指更精细地捏取小物，是手部精细动作的重要阶段。',
+  '等待时间（tarry time）':'原书借用 RIE 的概念，意思是成人说完后先停一下，给宝宝处理信息和回应的时间；这能帮助真正的来回交流，而不是成人单向输出。',
+  '儿向语调（parentese）':'原书区分了 singsong tone 和 baby talk，意思是可以用温柔、有韵律的语调说话，但不需要故意说错误词或过度简化语言。',
+  '积极语言（positive language）':'原书建议尽量多说“可以怎么做”，少说空泛的“不可以”；例如不是只说不要扔食物，而是说食物放在盘子里或放进嘴巴里。',
+  '丰富语言（rich language）':'原书反复强调对宝宝说真实、准确、丰富的语言，而不是用大量含糊的婴儿语。这样做是在给宝宝建立真实的语言库。',
+  '真实主题图书（real-theme books）':'原书建议第一年的书尽量选择现实生活中能遇到的主题和角色，比如动物、家庭、季节、车辆，而不是过多拟人化幻想内容。',
+  '一人一语（OPOL）':'原书提到 One Person, One Language，意思是每个主要照护者相对稳定地使用一种语言，帮助宝宝形成更清楚、持续的语言输入。',
+  '语言使用场域（Domains of Use）':'原书提到 Domains of Use，意思是按时间、地点或情境分配语言，例如在家说一种、外出说另一种，让语言输入更稳定。',
+  '生活中的参与（practical life participation）':'原书多次强调让宝宝参与穿衣、进食、收放、洗漱和简单家务；这些不是附加训练，而是语言、动作与独立性的真实练习场。',
+  '对称期（symbiotic period）':'原书把最初约 6 到 8 周看作母婴高度联结、彼此适应的时期。这个阶段的重点不是训练独立，而是建立联结、信任、调节和定向。',
+  '清醒-喂养-活动-睡眠节律（wake-feed-play-sleep）':'原书强调的是跟随宝宝自然节律，并在日常里形成清楚的顺序和参照点；这个表达可理解为清醒后喂养、活动、再收尾进入睡眠的一种常见家庭节律。',
+  '帮助尽可能少、必要时尽可能多（as little help as possible, as much as necessary）':'这本书的核心态度之一是：不要替宝宝做掉他们正在学习的部分，但也不是放任不管，而是在真正需要时给到刚刚好的支持。'
+};
+function openTermNote(term){if(!window.termNoteModal||!termNoteMap[term])return;termNoteTitle.textContent=term;termNoteDesc.textContent=termNoteMap[term];termNoteModal.classList.add('show');termNoteModal.setAttribute('aria-hidden','false')}
+function closeTermNote(){if(!window.termNoteModal)return;termNoteModal.classList.remove('show');termNoteModal.setAttribute('aria-hidden','true')}function englishOfTerm(term){const m=(term||'').match(/\(([^()]+)\)/);return m?m[1].trim():''}
+function speakEnglishTerm(term){const english=englishOfTerm(term);if(!english)return;try{if(!('speechSynthesis' in window))return alert('当前浏览器暂不支持读音播放。');window.speechSynthesis.cancel();const utter=new SpeechSynthesisUtterance(english);utter.lang='en-US';utter.rate=.92;utter.pitch=1;window.speechSynthesis.speak(utter)}catch{alert('读音播放失败，请换一个浏览器再试。')}}
+function renderTermLabel(term){const english=englishOfTerm(term);if(!english)return term;return term.replace(/\(([^()]+)\)/,`(<span class="term-en" data-term-play="${term}">$1</span>)`)}
+function resetTermNoteWrappers(){document.querySelectorAll('.term-note-wrap').forEach(el=>{el.replaceWith(document.createTextNode(el.dataset.term||el.textContent||''))})}
+function enhanceTermNotes(){if(!window.termNoteModal)return;resetTermNoteWrappers();const terms=Object.keys(termNoteMap).sort((a,b)=>b.length-a.length);const root=document.querySelector('.app');if(!root)return;const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode(node){if(!node.nodeValue||!node.nodeValue.trim())return NodeFilter.FILTER_REJECT;const p=node.parentElement;if(!p)return NodeFilter.FILTER_REJECT;if(p.closest('script,style,textarea,button,input,select,iframe,.term-note-modal,.more-modal,#bookTerms,#bookTermsIndex,.glossary-card,.glossary-term'))return NodeFilter.FILTER_REJECT;return terms.some(t=>node.nodeValue.includes(t))?NodeFilter.FILTER_ACCEPT:NodeFilter.FILTER_REJECT}});const nodes=[];while(walker.nextNode())nodes.push(walker.currentNode);nodes.forEach(node=>{let t=node.nodeValue;const frag=document.createDocumentFragment();while(t){let match='',idx=-1;for(const term of terms){const i=t.indexOf(term);if(i!==-1&&(idx===-1||i<idx)){idx=i;match=term}}if(idx===-1){frag.appendChild(document.createTextNode(t));break}if(idx>0)frag.appendChild(document.createTextNode(t.slice(0,idx)));const wrap=document.createElement('span');wrap.className='term-note-wrap';wrap.dataset.term=match;const label=document.createElement('span');label.innerHTML=renderTermLabel(match);wrap.appendChild(label);const btn=document.createElement('button');btn.type='button';btn.className='term-note-btn';btn.dataset.term=match;btn.setAttribute('aria-label',`${match} 原书说明`);btn.textContent='★';wrap.appendChild(btn);frag.appendChild(wrap);t=t.slice(idx+match.length)}node.parentNode.replaceChild(frag,node)});document.querySelectorAll('.term-note-btn').forEach(btn=>btn.onclick=e=>{e.stopPropagation();openTermNote(btn.dataset.term)});document.querySelectorAll('[data-term-play]').forEach(el=>el.onclick=e=>{e.stopPropagation();speakEnglishTerm(el.dataset.termPlay)});if(window.closeTermNoteBtn)closeTermNoteBtn.onclick=closeTermNote;if(window.termNoteModal)termNoteModal.onclick=e=>{if(e.target===termNoteModal)closeTermNote()}}
+function renderToday(){const age=getAgeInfo();const m=currentMonth();if(age){ageBadge.textContent=`${state.profile.babyName||'宝宝'} · ${age.months} 个月 ${age.days} 天`;ageText.textContent=`已自动匹配到第 ${m} 个月内容。`;}else{ageBadge.textContent='等待填写生日';ageText.textContent='填写出生日期后自动匹配当前月龄。'}}
+function renderTodayCompact(){const month=currentMonth();const g=guide(month);const mData=monthMontessori(month);const act=plannerActivityBank(month)[0];const obs=todayObservations();const trend=obs.length?`${observationLabel(obs[0].area)}：${obs[0].note}`:'今天还没有新的观察记录。';const principles=montessoriPack(month).map(principleByKey);const rhythm=month<=3?'以短清醒窗、喂养后再观察状态为主。':month<=6?'开始形成更清楚的 清醒-喂养-活动-睡眠节律（wake-feed-play-sleep） 节律。':'白天节律更稳定，活动与进食可更有顺序。';const movement=month<=3?'多给地面时间、移动垫和简单视觉材料。':month<=6?'支持翻身、够取、抓握和手眼配合。':'支持爬行、扶站、收放和自主移动。';todayCompactCard.innerHTML=`<h3>${month} 月龄今天重点整合</h3><div class="subhead">本月儿童发展重点</div><ul><li>${g.focus}</li><li>${g.motor[0]}</li><li>${g.language[0]}</li></ul><div class="subhead">今天先做什么</div><ul><li>优先活动：${act.title}。</li><li>${act.detail}</li><li>家长动作：${act.role}</li></ul><div class="subhead">今天先观察什么</div><ul><li>${mData.activities[0]}</li><li>${mData.activities[1]||mData.focus[0]}</li><li>${trend}</li></ul><div class="subhead">本月 Montessori 重点</div><ul><li>${mData.focus[0]}</li><li>${mData.adult[0]}</li><li>${movement}</li></ul><div class="subhead">本月喂养阶段</div><ul><li>${g.feeding}</li></ul><div class="subhead">今日 Montessori 提醒</div><ul>${principles.slice(0,2).map(x=>`<li>${x.title}：${x.summary}</li>`).join('')}<li>${rhythm}</li></ul>`}
+function renderTodayMonthQuick(){if(!window.todayMonthQuickCard)return;const month=currentMonth();const g=guide(month);const mData=monthMontessori(month);const env=environmentProfiles[environmentGroup(month)];const principles=montessoriPack(month).map(principleByKey);const monthTerms=(month<=3?['活动区（movement area）','活动垫（movement mat）','低镜子（low mirror）']:(month<=6?['自由运动（free movement）','等待时间（tarry time）','儿向语调（parentese）']:['可自由探索安全区（yes space）','低架、低篮（low shelf / low basket）','积极语言（positive language）']));const learnExtra=(typeof earlyLearningPlan!=='undefined'&&earlyLearningPlan[month])?earlyLearningPlan[month]:null;todayMonthQuickCard.innerHTML=`<h3>${month} 月龄本月快读</h3><div class="today-hero"><p>把这块当作首页版月龄摘要：先看重点、术语和陪伴提醒，再决定今天只做哪一小步。</p></div><div class="quick-grid"><div class="quick-card"><h4>这个月先抓什么</h4><ul><li>${g.focus}</li><li>${g.support[0]}</li><li>${mData.focus[0]}</li></ul><div class="quick-chip-row"><span class="quick-chip">当前月龄 ${month} 月</span><span class="quick-chip">先少量重点</span></div></div><div class="quick-card"><h4>今天在首页先记住</h4><ul><li>${env.today[0]}</li><li>${principles[0].title}：${principles[0].summary}</li><li>${g.feeding}</li></ul></div></div><div class="quick-grid"><div class="quick-card"><h4>本月重点术语</h4><ul>${monthTerms.map(x=>`<li>${x}</li>`).join('')}</ul></div><div class="quick-card"><h4>陪伴提醒</h4><ul>${learnExtra?learnExtra.tips.slice(0,2).map(x=>`<li>${x}</li>`).join(''):`<li>先观察宝宝状态，再决定活动安排。</li><li>重复和留白，本身就是学习的一部分。</li>`}</ul></div></div>`}
+function renderPlannerMilkPlan(){if(!window.plannerMilkPlanCard)return;const rec=calcMilkRecommendation();const month=currentMonth();const feeds=getFeedCount();if(!rec){plannerMilkPlanCard.innerHTML=`<h3>喂奶节点参考</h3><ul><li>当前第 ${month} 个月。</li><li>输入体重后，这里会同步显示每次奶量参考，并接到今日时间表里的喂奶节点。</li></ul>`;return}plannerMilkPlanCard.innerHTML=`<h3>喂奶节点参考</h3><div class="subhead">生成时间表时会一起带入</div><ul><li>当前阶段：${rec.stage}。</li><li>当前按 ${rec.feeds} 顿/天计算，每次可先参考约 ${rec.perMin}-${rec.perMax} ml。</li><li>一日总奶量可先参考约 ${rec.totalMin}-${rec.totalMax} ml。</li></ul><div class="subhead">使用提醒</div><ul><li>时间表里的每个“吃奶 / 补喂”节点都会同步带上这个范围。</li><li>${rec.note}</li></ul>`}
+function renderMonthNav(){const m=selectedMonth||currentMonth();monthNav.innerHTML=monthGuides.map(x=>`<button class="month-chip ${m===x.month?'active':''}" data-month="${x.month}">${x.month} 月</button>`).join('');monthNav.querySelectorAll('[data-month]').forEach(btn=>btn.onclick=()=>{selectedMonth=Number(btn.dataset.month);renderAll()})}
+function renderGuide(){const month=selectedMonth||currentMonth();const g=guide(month);const rhythm=month<=3?['以安静定向、抱放和短时清醒观察为主。','多用固定话语和固定流程帮助宝宝建立参照点。']:month<=6?['延续 清醒-喂养-活动-睡眠节律（wake-feed-play-sleep） 的日常节律。','活动后留一点安静收尾，再进入喂养或休息。']:['白天可逐渐形成更稳定的进食、活动和休息顺序。','外出后尽量回到熟悉流程，帮助宝宝重新定向。'];const bookIdeas=month<=3?['准备 活动区（movement area），让宝宝在清醒时有安全地面活动机会。','视觉材料保持简单，不需要电动或过度刺激玩具。','睡眠区和活动区尽量分开，帮助建立功能感。']:month<=6?['开始加入抓握、够取、拍打和双手协作材料。','只保留少量正在练习的活动，其他先收起来。','宝宝专注时先观察，不急着逗或换项目。']:['准备更大的 可自由探索安全区（yes space），支持爬行、扶站、巡走和收放。','把常用物放到更低更容易拿的位置，支持自主拿取。','允许更多真实日常参与，比如拿勺子、摸碗、递物。'];const monthTerms=(month<=3?['活动区（movement area）','活动垫（movement mat）','低镜子（low mirror）','视觉吊饰（visual mobiles）','睡眠参照点（point of reference）']:(month<=6?['自由运动（free movement）','身体图式（body schema）','观察、收纳、轮换（observe, store, rotate）','等待时间（tarry time）','儿向语调（parentese）']:['可自由探索安全区（yes space）','低架、低篮（low shelf / low basket）','双指捏取（pincer grasp）','积极语言（positive language）','生活中的参与（practical life participation）']));guideText.textContent=`正在查看第 ${month} 个月`;guideCard.innerHTML=`<h3>${g.title}</h3><div class="guide-highlight"><div class="t">本月核心发展</div><div>${g.focus}</div></div><div class="guide-grid"><div class="guide-block"><h4>动作发展重点</h4><ul>${g.motor.map(x=>`<li>${x}</li>`).join('')}</ul></div><div class="guide-block"><h4>语言与认知重点</h4><ul>${g.language.map(x=>`<li>${x}</li>`).join('')}</ul></div><div class="guide-block"><h4>社交与情绪表现</h4><ul>${g.social.map(x=>`<li>${x}</li>`).join('')}</ul></div><div class="guide-block"><h4>家长可以怎么支持</h4><ul>${g.support.map(x=>`<li>${x}</li>`).join('')}</ul></div></div><div class="guide-grid"><div class="guide-block"><h4>参考书补充学习点</h4><ul>${bookIdeas.map(x=>`<li>${x}</li>`).join('')}</ul></div><div class="guide-block"><h4>本月重点术语</h4><ul>${monthTerms.map(x=>`<li>${x}</li>`).join('')}</ul></div></div><div class="guide-grid"><div class="guide-block"><h4>日常节律建议</h4><ul>${rhythm.map(x=>`<li>${x}</li>`).join('')}</ul></div><div class="guide-block"><h4>需要特别留意</h4><ul>${g.red.map(x=>`<li>${x}</li>`).join('')}</ul><div class="tool-note">喂养与辅食提示：${g.feeding}</div></div></div>`}
+function renderFeedTable(){feedTable.innerHTML=`<thead><tr><th>月份</th><th>阶段</th><th>怎么判断</th><th>怎么安排</th><th>提醒</th></tr></thead><tbody>${feedingTable.map(r=>`<tr><td>${r.month}</td><td>${r.status}</td><td>${r.ready.join('<br>')}</td><td>${r.foods.join('<br>')}</td><td>${r.note}</td></tr>`).join('')}</tbody>`}
+function renderFeedingStages(){feedingStageGrid.innerHTML=feedingStages.map(s=>`<div class="feed-card"><h3>${s.title}</h3><div class="subhead">什么时候开始</div><ul><li>${s.when}</li></ul><div class="subhead">准备信号</div><ul>${s.ready.map(x=>`<li>${x}</li>`).join('')}</ul><div class="subhead">怎么做</div><ul>${s.how.map(x=>`<li>${x}</li>`).join('')}</ul><div class="subhead">可以从这些开始</div><ul>${s.foods.map(x=>`<li>${x}</li>`).join('')}</ul><div class="small">${s.note}</div></div>`).join('')}
+function todayStats(){const milkItems=state.milk.filter(x=>isToday(x.time));const sleepItems=state.sleep.filter(x=>isToday(x.start)||isToday(x.end));const poopItems=state.poop.filter(x=>isToday(x.time));const milkTotal=milkItems.reduce((s,x)=>s+(Number(x.amount)||0),0);const sleepTotal=sleepItems.reduce((s,x)=>s+Math.max(0,(new Date(x.end)-new Date(x.start))/3600000),0);return{milkItems,milkTotal,sleepItems,sleepTotal,poopItems,poopCount:poopItems.length}}
+function sleepAssessment(month,hours){if(month<4)return `已记录 ${hours.toFixed(1)} 小时。4 个月前节律常常还不稳定，更重视精神状态、吃奶和尿量。`;if(hours<12)return `已记录 ${hours.toFixed(1)} 小时。4-12 月龄常见 24 小时总睡眠约 12-16 小时，今天目前记录偏少，也可能是夜里或白天记录还没补全。`;if(hours>16)return `已记录 ${hours.toFixed(1)} 小时。已高于 4-12 月龄常见 12-16 小时范围，建议结合精神状态和吃奶情况一起看。`;return `已记录 ${hours.toFixed(1)} 小时。按已录入数据看，目前落在 4-12 月龄常见范围内。`}
+function milkAssessment(month,count,total){if(month<6)return `今天已记录 ${count} 次奶、共 ${total} ml。这个阶段主要看是否按需喂养、精神状态和尿量，不建议只用奶量判断达标。`;return `今天已记录 ${count} 次奶、共 ${total} ml。6-12 月龄进入辅食期后，总进食常要把奶和辅食一起看，这里更适合作为记录参考。`}
+function poopAssessment(count){if(count===0)return '今天还没有大便记录，若有排便可补充记录。';if(count<=2)return `今天已记录 ${count} 次排便，先结合颜色、性状和精神状态一起看。`;return `今天已记录 ${count} 次排便，若明显比平时多或伴随水样、血便、精神差，需要进一步留意。`}
+function renderDailySummary(){const m=currentMonth();const s=todayStats();milkHint.textContent=milkAssessment(m,s.milkItems.length,s.milkTotal);sleepHint.textContent=sleepAssessment(m,s.sleepTotal);poopHint.textContent=poopAssessment(s.poopCount);todaySummaryCard.innerHTML=`<h3>今天的生理情况</h3><ul><li>奶量记录：${s.milkItems.length} 次，共 ${s.milkTotal} ml。</li><li>睡眠记录：${s.sleepItems.length} 段，共 ${s.sleepTotal.toFixed(1)} 小时。</li><li>排便记录：${s.poopCount} 次。</li></ul><div class="subhead">系统提示</div><ul><li>${milkAssessment(m,s.milkItems.length,s.milkTotal)}</li><li>${sleepAssessment(m,s.sleepTotal)}</li><li>${poopAssessment(s.poopCount)}</li></ul>`}
+function inferTodayFeedTime(base){const today=[...state.milk].filter(x=>isToday(x.time)).sort((a,b)=>new Date(b.time)-new Date(a.time));if(!today.length)return base;const d=new Date(today[0].time);return d.getHours()*60+d.getMinutes()}
+function inferTodayWakeTime(base){const today=[...state.sleep].filter(x=>isToday(x.end)).sort((a,b)=>new Date(b.end)-new Date(a.end));if(!today.length)return base;const d=new Date(today[0].end);return d.getHours()*60+d.getMinutes()}
+function generatePlan(){state.planner.wakeTime=wakeTime.value;state.planner.bedTime=bedTime.value;state.planner.sleepyCue=sleepyCue.value;state.planner.style=planStyle.value;const month=currentMonth();const wakeBase=parseTime(state.planner.wakeTime||'07:00');let bed=parseTime(state.planner.bedTime||'20:00');if(bed<=wakeBase)bed+=1440;const inferredFeed=inferTodayFeedTime(wakeBase);const start=wakeBase;const feed=Math.max(inferredFeed,wakeBase);const profile=plannerProfiles[month]||plannerProfiles[12];const s=todayStats();let wakeAdjust=cueAdjust(state.planner.sleepyCue);if(s.sleepTotal>0&&s.sleepTotal<1.5)wakeAdjust-=15;if(s.milkItems.length>0&&new Date()-new Date(s.milkItems[s.milkItems.length-1].time)<90*60000)wakeAdjust-=5;const wakeMin=Math.max(45,profile.wakeMin+wakeAdjust);const napGuide=napGuideByMonth(month);const napMin=napGuide.planNap;const acts=plannerActivityBank(month);const slots=[];let t=start;let cycle=0;while(t+45<bed&&cycle<napGuide.maxCycles){const feedTime=cycle===0?Math.max(feed,t):t;slots.push({id:uid(),time:toTime(t),title:cycle===0&&s.sleepItems.length?'最近一次醒来后':'起床 / 换尿布 / 观察状态',detail:'先看精神状态、皮肤、尿布和舒适度，作为这个清醒窗的起点。',phase:'care-start'});const milkRec=calcMilkRecommendation();slots.push({id:uid(),time:toTime(feedTime),title:'吃奶 / 补喂',detail:milkRec?`优先顺着饥饿信号，当前可先参考每次约 ${milkRec.perMin}-${milkRec.perMax} ml，并观察吞咽、拍嗝和吃奶后的精神变化。`:'优先顺着饥饿信号，观察吞咽、拍嗝和吃奶后的精神变化。',phase:'feeding',milkRange:milkRec?`${milkRec.perMin}-${milkRec.perMax} ml`:''});const actTime=Math.max(feedTime+15,t+20);const act=acts[cycle%acts.length];slots.push({id:uid(),time:toTime(actTime),title:act.title,detail:act.detail,phase:'activity',goalHint:act.goalHint,durationHint:act.durationHint,observeHint:act.observeHint,env:act.env,role:act.role,cycle});const wind=t+wakeMin-20;slots.push({id:uid(),time:toTime(wind),title:'安静收尾',detail:state.planner.sleepyCue==='none'?'开始降刺激，准备从活动转入休息。':'因为观察到困倦信号，系统已把收尾时间提前。',phase:'winddown'});const nap=t+wakeMin;if(nap+25<bed-30){slots.push({id:uid(),time:toTime(nap),title:`第 ${cycle+1} 次小睡`,detail:`参考 ${month} 月龄节律，今天建议白天小睡 ${napGuide.count}，当前先安排第 ${cycle+1} 次，时长可先按约 ${napMin} 分钟。`,phase:'nap',napIndex:cycle+1,napCount:napGuide.count});t=nap+napMin;cycle+=1}else break}slots.push({id:uid(),time:toTime(bed-20),title:'睡前流程',detail:'固定项，不跟着白天顺延；以洗漱、喂奶、低刺激陪伴为主。',phase:'bedtime'});state.planner.lastPlan=slots;state.planner.doneMap={};planHint.textContent=`系统已优先按你设置的起床时间生成日程，并把第 ${month} 个月的小睡次数、单次时长、Montessori 活动、环境准备和成人角色一起接进今天流程。`;saveState()}
+function isFixed(item){return item.title==='睡前流程'}
+function shiftFuture(idx,delta){state.planner.lastPlan=state.planner.lastPlan.map((x,i)=>{const st=state.planner.doneMap[x.id]||{};if(i>idx&&!st.done&&!st.skipped&&!isFixed(x))return {...x,time:toTime(parseTime(x.time)+delta)};return x})}
+function renderPlanner(){const plan=state.planner.lastPlan||[];const month=currentMonth();const style=state.planner.style||planStyle.value||'professional';planSummary.textContent=plan.length?`${month} 月 · ${plan.length} 项`:'等待生成';if(!plan.length){planList.innerHTML='<div class="hint">先填写作息，再生成今天的计划。</div>';doneSummary.textContent='0 项';doneList.innerHTML='<div class="hint">今天还没有记录执行状态。</div>';return}const ordered=plan.map((p,idx)=>{const meta=plannerItemMeta(p,month,style);const extra=plannerExtraMeta(p,month);return {p,idx,st:state.planner.doneMap[p.id]||{},meta,extra}}).sort((a,b)=>{const ad=(a.st.done||a.st.skipped)?1:0;const bd=(b.st.done||b.st.skipped)?1:0;if(ad!==bd)return ad-bd;return a.idx-b.idx});planList.innerHTML=plannerSummaryCard(month,style,plan)+ordered.map(({p,idx,st,meta,extra})=>`<div class="plan-item ${st.done?'done':''} ${st.skipped?'skipped':''}"><div class="plan-row"><div><div class="plan-time">${p.time}</div><div class="record-title">${p.title}${isFixed(p)?' · 固定':''}</div></div><input class="plan-check" type="checkbox" data-check="${p.id}" ${st.done?'checked':''}></div><div class="small" style="display:block">${p.detail}</div><div class="subhead">训练目标</div><div class="small" style="display:block">${p.goalHint||meta.goal}</div><div class="subhead">建议时长</div><div class="small" style="display:block">${p.durationHint||meta.duration}</div><div class="subhead">观察点</div><div class="small" style="display:block">${p.observeHint||meta.watch}</div><div class="subhead">环境准备</div><div class="small" style="display:block">${extra.env}</div><div class="subhead">成人角色</div><div class="small" style="display:block">${extra.adult}</div><div class="subhead">家长提示</div><div class="small" style="display:block">${meta.coach}</div><div class="btn-row" style="margin-top:8px"><span class="badge">${meta.tag}</span>${p.phase==='activity'?'<span class="badge">Montessori 活动</span>':''}</div>${st.doneTime?`<div class="small" style="display:block">完成时间：${st.doneTime}</div>`:''}${st.skippedTime?`<div class="small" style="display:block">跳过时间：${st.skippedTime}</div>`:''}<div class="plan-actions"><button class="mini-btn" data-now="${p.id}" data-idx="${idx}">现在完成并顺延</button><button class="mini-btn warn" data-skip="${p.id}">跳过</button></div></div>`).join('');const doneItems=ordered.filter(x=>x.st.done||x.st.skipped);doneSummary.textContent=`${doneItems.length} 项`;doneList.innerHTML=doneItems.length?doneItems.map(({p,st,meta})=>`<div class="record-item"><div class="record-title">${p.title}</div><div class="small" style="display:block">${meta.tag}${p.phase==='activity'?' · Montessori 活动':''} · ${st.done?`已完成：${st.doneTime}`:`已跳过：${st.skippedTime}`}</div></div>`).join(''):'<div class="hint">今天还没有记录执行状态。</div>';planList.querySelectorAll('[data-check]').forEach(box=>box.onchange=()=>{const id=box.dataset.check;state.planner.doneMap[id]={done:box.checked,skipped:false,doneTime:box.checked?((state.planner.doneMap[id]||{}).doneTime||nowTime()):'',skippedTime:''};saveState()});planList.querySelectorAll('[data-now]').forEach(btn=>btn.onclick=()=>{const id=btn.dataset.now;const idx=Number(btn.dataset.idx);const now=nowTime();const scheduled=parseTime(state.planner.lastPlan[idx].time);const actual=parseTime(now);state.planner.doneMap[id]={done:true,skipped:false,doneTime:now,skippedTime:''};if(actual!==scheduled)shiftFuture(idx,actual-scheduled);saveState()});planList.querySelectorAll('[data-skip]').forEach(btn=>btn.onclick=()=>{const id=btn.dataset.skip;state.planner.doneMap[id]={done:false,skipped:true,doneTime:'',skippedTime:nowTime()};saveState()})}
+function autoWake(){const today=state.sleep.filter(x=>isToday(x.end)).sort((a,b)=>new Date(b.end)-new Date(a.end));if(!today.length){alert('今天还没有睡眠结束记录。');return}const d=new Date(today[0].end);actualWakeTime.value=`${pad(d.getHours())}:${pad(d.getMinutes())}`;state.planner.actualWakeTime=actualWakeTime.value;saveState()}
+function autoFeed(){const today=state.milk.filter(x=>isToday(x.time)).sort((a,b)=>new Date(b.time)-new Date(a.time));if(!today.length){alert('今天还没有奶量记录。');return}const d=new Date(today[0].time);lastFeedTime.value=`${pad(d.getHours())}:${pad(d.getMinutes())}`;state.planner.lastFeedTime=lastFeedTime.value;saveState()}
+
+function observationLabel(area){return ({movement:'动作发展',language:'语言互动',concentration:'专注重复',environment:'环境匹配',care:'照护配合',social:'社交情绪'})[area]||'观察记录'}
+function todayObservations(){return state.observations.filter(x=>isToday(x.time)).sort((a,b)=>new Date(b.time)-new Date(a.time))}
+function observationInsight(items){if(!items.length)return '今天还没有观察记录，先记下宝宝反复在做什么、喜欢什么、在哪一步需要帮助。';const areas={};items.forEach(x=>areas[x.area]=(areas[x.area]||0)+1);const top=Object.entries(areas).sort((a,b)=>b[1]-a[1])[0];if(!top)return '先观察，再判断要不要调整活动和环境。';if(top[0]==='movement')return '今天更偏向动作发展观察，可以留出更多地面探索和重复练习时间。';if(top[0]==='language')return '今天更偏向语言互动观察，适合多做命名、停顿等待和轮流回应。';if(top[0]==='concentration')return '今天更偏向专注重复观察，尽量减少打断和频繁换项目。';if(top[0]==='environment')return '今天更偏向环境匹配观察，可以检查材料是否太多、太难或太刺激。';if(top[0]==='care')return '今天更偏向照护配合观察，适合把换尿布、喂养和洗漱做得更慢更可预期。';return '今天更偏向社交情绪观察，可以多看连接感、分离反应和是否需要更多稳定回应。'}
+function renderObservations(){const items=[...state.observations].sort((a,b)=>new Date(b.time)-new Date(a.time));const today=todayObservations();observationCount.textContent=`${state.observations.length} 条`;observationHint.textContent=observationInsight(today);observationList.innerHTML=items.length?items.map(x=>`<div class="record-item"><div class="record-title">${observationLabel(x.area)}</div><div class="small" style="display:block">${fmt(x.time)}</div><div class="small" style="display:block">${x.note}</div><div class="record-actions"><button class="mini-btn warn" data-observation-delete="${x.id}">删除</button></div></div>`).join(''):'<div class="hint">还没有观察记录。</div>';document.querySelectorAll('[data-observation-delete]').forEach(btn=>btn.onclick=()=>{const id=btn.dataset.observationDelete;state.observations=state.observations.filter(x=>x.id!==id);saveState()})}
+function renderObservationGrowth(){const month=currentMonth();const today=todayObservations();const monthKey=currentMonthKey();const monthItems=state.observations.filter(x=>String(x.time).slice(0,7)===monthKey);const monthData=monthMontessori(month);const areaCount={movement:0,language:0,concentration:0,environment:0,care:0,social:0};monthItems.forEach(x=>areaCount[x.area]=(areaCount[x.area]||0)+1);const sorted=Object.entries(areaCount).sort((a,b)=>b[1]-a[1]).filter(x=>x[1]>0);const topText=sorted.length?sorted.slice(0,3).map(x=>`${observationLabel(x[0])} ${x[1]} 次`).join('；'):'本月还没有形成观察趋势。';observationSummaryCard.innerHTML=`<h3>${month} 月龄观察成长卡</h3><div class="subhead">本月最常出现的观察</div><ul><li>${topText}</li></ul><div class="subhead">当前月龄建议重点观察</div><ul>${monthData.activities.slice(0,3).map(x=>`<li>${x}</li>`).join('')}</ul><div class="subhead">今日提示</div><ul><li>${observationInsight(today)}</li></ul>`;observationTrendCard.innerHTML=sorted.length?sorted.slice(0,3).map(x=>`<div class="feed-card"><h3>${observationLabel(x[0])}</h3><ul><li>本月记录 ${x[1]} 次。</li><li>${x[0]==='environment'?'优先检查材料数量、摆放和安全边界。':x[0]==='concentration'?'看到重复时先不要急着打断或换活动。':x[0]==='movement'?'给更连续的地面空间和动作练习机会。':x[0]==='language'?'多做命名、停顿等待和真实对话。':x[0]==='care'?'把照护动作变慢，增加可预期提示。':'多看宝宝在连接、分离和回应上的变化。'}</li></ul></div>`).join(''):'<div class="hint">先从每天 1 条简短观察开始，更容易看到趋势。</div>'}
+
+function renderCount(){milkCount.textContent=`${state.milk.length} 条`;sleepCount.textContent=`${state.sleep.length} 条`;poopCount.textContent=`${state.poop.length} 条`;if(window.observationCount)observationCount.textContent=`${state.observations.length} 条`}
+function renderRecordList(key,id,tmpl){const el=document.getElementById(id);const items=[...state[key]].sort((a,b)=>new Date(b.time||b.end)-new Date(a.time||a.end));el.innerHTML=items.length?items.map(tmpl).join(''):'<div class="hint">还没有记录。</div>';el.querySelectorAll('[data-delete]').forEach(btn=>btn.onclick=()=>{const {type,id}=btn.dataset;state[type]=state[type].filter(x=>x.id!==id);saveState()})}
+function renderRecords(){renderCount();renderRecordList('milk','milkList',x=>`<div class="record-item"><div class="record-title">${x.amount} ml</div><div class="small">${fmt(x.time)}</div><div class="record-actions"><button class="mini-btn warn" data-delete data-type="milk" data-id="${x.id}">删除</button></div></div>`);renderRecordList('sleep','sleepList',x=>`<div class="record-item"><div class="record-title">睡眠</div><div class="small">${fmt(x.start)} → ${fmt(x.end)}</div><div class="record-actions"><button class="mini-btn warn" data-delete data-type="sleep" data-id="${x.id}">删除</button></div></div>`);renderRecordList('poop','poopList',x=>`<div class="record-item"><div class="record-title">大便记录</div><div class="small">${fmt(x.time)}${x.note?' · '+x.note:''}</div><div class="record-actions"><button class="mini-btn warn" data-delete data-type="poop" data-id="${x.id}">删除</button></div></div>`)}
+function renderHistory(){const cards=[];for(let i=6;i>=0;i--){const d=new Date();d.setDate(d.getDate()-i);const day=startOfDay(d).getTime();const milk=state.milk.filter(x=>startOfDay(x.time).getTime()===day);const sleep=state.sleep.filter(x=>startOfDay(x.start).getTime()===day||startOfDay(x.end).getTime()===day);const poop=state.poop.filter(x=>startOfDay(x.time).getTime()===day);const milkTotal=milk.reduce((s,x)=>s+(Number(x.amount)||0),0);const sleepTotal=sleep.reduce((s,x)=>s+Math.max(0,(new Date(x.end)-new Date(x.start))/3600000),0);cards.push(`<div class="feed-card"><h3>${d.toLocaleDateString('zh-CN',{month:'numeric',day:'numeric'})}</h3><ul><li>奶量：${milk.length} 次，共 ${milkTotal} ml。</li><li>睡眠：${sleep.length} 段，共 ${sleepTotal.toFixed(1)} 小时。</li><li>排便：${poop.length} 次。</li></ul><div class="small">${sleepAssessment(currentMonth(),sleepTotal)}</div></div>`)}historyCards.innerHTML=cards.join('')}
+function fileToDataURL(file){return new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>resolve(reader.result);reader.onerror=reject;reader.readAsDataURL(file)})}
+function loadImage(src){return new Promise((resolve,reject)=>{const img=new Image();img.onload=()=>resolve(img);img.onerror=reject;img.src=src})}
+let pendingPhotoFiles=[]
+function addPendingFiles(fileList){const files=[...(fileList||[])];if(!files.length)return;pendingPhotoFiles=[...pendingPhotoFiles,...files]}
+function removePendingPhoto(index){pendingPhotoFiles=pendingPhotoFiles.filter((_,i)=>i!==index);renderPhotoPreview()}
+async function renderPhotoPreview(){if(!window.photoPreviewCard)return;const files=pendingPhotoFiles;if(!files.length){photoPreviewCard.innerHTML=`<h3>待保存预览</h3><div class="small" style="display:block">还没有待保存的照片。你可以先从图库选择，或直接拍摄一张，再回来点保存。</div>`;return}const cards=[];for(const [i,file] of files.entries()){const src=await fileToDataURL(file);cards.push(`<div class="photo-preview-item"><img src="${src}" alt="待保存照片"><div class="photo-preview-meta">第 ${i+1} 张；${file.name||'拍摄照片'}<br>${Math.max(1,Math.round(file.size/1024))} KB</div><div class="photo-preview-actions"><button class="mini-btn warn" data-pending-photo-remove="${i}">移除这张</button></div></div>`)}photoPreviewCard.innerHTML=`<h3>待保存预览</h3><div class="small" style="display:block">确认这些就是今天要保存的照片；保存前也可以先移除其中某一张。</div><div class="photo-preview-grid">${cards.join('')}</div>`;document.querySelectorAll('[data-pending-photo-remove]').forEach(btn=>btn.onclick=()=>removePendingPhoto(Number(btn.dataset.pendingPhotoRemove)))}
+async function compressImageFile(file,maxSide=1600,quality=.78){const dataUrl=await fileToDataURL(file);const img=await loadImage(dataUrl);const scale=Math.min(1,maxSide/Math.max(img.width,img.height));const w=Math.max(1,Math.round(img.width*scale));const h=Math.max(1,Math.round(img.height*scale));const canvas=document.createElement('canvas');canvas.width=w;canvas.height=h;const ctx=canvas.getContext('2d');ctx.drawImage(img,0,0,w,h);return canvas.toDataURL('image/jpeg',quality)}
+async function saveTodayPhotos(){const files=pendingPhotoFiles;if(!files.length){alert('请先从图库选择或直接拍摄照片。');return}const note=photoNote.value.trim();const dayKey=startOfDay(new Date()).toISOString().slice(0,10);const newItems=[];for(const file of files){const dataUrl=await compressImageFile(file);newItems.push({id:uid(),dayKey,monthKey:dayKey.slice(0,7),src:dataUrl,note});}const prev=state.photos.slice();try{state.photos=[...state.photos,...newItems];pendingPhotoFiles=[];saveState();photoInput.value='';if(window.cameraInput)cameraInput.value='';photoNote.value='';renderPhotoPreview()}catch(e){state.photos=prev;alert('照片没有保存成功，可能是图片过大。系统已自动压缩；如果还是失败，请一次少传几张再试。')}}
+function renderPhotos(){const dayKey=startOfDay(new Date()).toISOString().slice(0,10);const todayPhotos=state.photos.filter(x=>x.dayKey===dayKey);todayPhotoGrid.innerHTML=todayPhotos.length?todayPhotos.map(p=>`<div class="photo-item"><img src="${p.src}" alt="宝宝照片"><div class="small">${p.note||'今日记录'}</div><div class="record-actions"><button class="mini-btn warn" data-photo-delete="${p.id}">删除</button></div></div>`).join(''):'<div class="hint">今天还没有照片记录。</div>';document.querySelectorAll('[data-photo-delete]').forEach(btn=>btn.onclick=()=>{const id=btn.dataset.photoDelete;state.photos=state.photos.filter(x=>x.id!==id);saveState()});renderPhotoPreview()}
+function currentMonthKey(){return new Date().toISOString().slice(0,7)}
+
+function monthlyObservationStats(monthKey){const items=state.observations.filter(x=>String(x.time).slice(0,7)===monthKey);const counts={movement:0,language:0,concentration:0,environment:0,care:0,social:0};items.forEach(x=>counts[x.area]=(counts[x.area]||0)+1);const sorted=Object.entries(counts).sort((a,b)=>b[1]-a[1]).filter(x=>x[1]>0);return {items,counts,sorted,topText:sorted.length?sorted.slice(0,3).map(x=>`${observationLabel(x[0])} ${x[1]} 次`).join('；'):'本月还没有观察记录。'}}
+function monthlyEnvironmentTips(sorted){if(!sorted.length)return ['先从每天 1 条观察开始，再决定要不要调整环境。','环境先简化，再观察宝宝是否更专注。'];const top=sorted[0][0];if(top==='movement')return ['优先扩大安全地面空间，减少长时间容器化停留。','活动材料保持少量，让宝宝能自由移动和重复。'];if(top==='language')return ['把更多命名和对话放进真实生活流程里。','减少背景噪音，让面对面交流更清楚。'];if(top==='concentration')return ['先减少材料数量，再观察专注是否变长。','看到重复练习时，不急着换项目或打断。'];if(top==='environment')return ['优先检查材料是否太多、太难或摆放太乱。','先改空间和陈列，再减少频繁制止。'];if(top==='care')return ['把换尿布、喂养、洗漱位置尽量固定。','照护动作提前说、慢一点做，让流程更可预期。'];return ['稳定回应和固定流程能增强安全感。','在分离和过渡前给出清楚提示，帮助宝宝预期。']}
+
+function getMonthlyData(){const monthKey=currentMonthKey();const photos=state.photos.filter(x=>x.monthKey===monthKey);const milk=state.milk.filter(x=>String(x.time).slice(0,7)===monthKey);const sleep=state.sleep.filter(x=>String(x.start).slice(0,7)===monthKey||String(x.end).slice(0,7)===monthKey);const poop=state.poop.filter(x=>String(x.time).slice(0,7)===monthKey);const obs=monthlyObservationStats(monthKey);const milkTotal=milk.reduce((s,x)=>s+(Number(x.amount)||0),0);const sleepTotal=sleep.reduce((s,x)=>s+Math.max(0,(new Date(x.end)-new Date(x.start))/3600000),0);return{monthKey,photos,milk,sleep,poop,observations:obs.items,observationStats:obs, milkTotal,sleepTotal}}
+function monthReportHtml(){const {monthKey,photos,milk,sleep,poop,observations,observationStats,milkTotal,sleepTotal}=getMonthlyData();const month=currentMonth();const g=guide(month);const mData=monthMontessori(month);const envTips=monthlyEnvironmentTips(observationStats.sorted);const photoHtml=photos.length?photos.map(p=>`<div style="break-inside:avoid;border:1px solid #d6ebdb;border-radius:14px;padding:8px;"><img src="${p.src}" style="width:100%;height:180px;object-fit:cover;border-radius:10px;"><div style="font-size:12px;color:#63806c;margin-top:6px;">${p.note||p.dayKey}</div></div>`).join(''):'<p>这个月还没有照片。</p>';const obsList=observations.length?observations.slice(-6).reverse().map(x=>`<li>${new Date(x.time).toLocaleDateString('zh-CN',{month:'numeric',day:'numeric'})} · ${observationLabel(x.area)}：${x.note}</li>`).join(''):'<li>本月还没有观察记录。</li>';return `<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>宝宝月报</title><style>body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC",sans-serif;margin:0;background:#f7fcf8;color:#234033;padding:20px}h1,h2{margin:0 0 10px}section{background:#fff;border:1px solid #d6ebdb;border-radius:18px;padding:16px;margin-bottom:14px}ul{margin:8px 0 0;padding-left:18px}li{margin:6px 0;line-height:1.5}.photos{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}@media print{body{background:#fff;padding:0}section{break-inside:avoid}}@media (max-width:720px){.grid,.photos{grid-template-columns:1fr}}</style></head><body><section><h1>${monthKey.replace('-',' 年 ')} 月宝宝成长月报</h1><div>${state.profile.babyName||'宝宝'} · 当前第 ${month} 个月</div></section><section><h2>本月记录</h2><ul><li>照片：${photos.length} 张</li><li>奶量记录：${milk.length} 次，共 ${milkTotal} ml</li><li>睡眠记录：${sleep.length} 段，共 ${sleepTotal.toFixed(1)} 小时</li><li>排便记录：${poop.length} 次</li><li>Montessori 观察：${observations.length} 条</li></ul></section><section><h2>本月发展主题</h2><ul><li>${g.focus}</li></ul><ul>${mData.focus.map(x=>`<li>${x}</li>`).join('')}</ul></section><section><h2>本月 Montessori 观察</h2><ul><li>${observationStats.topText}</li></ul><div class="grid"><section style="margin:0"><h2 style="font-size:18px">建议重点观察</h2><ul>${mData.activities.slice(0,3).map(x=>`<li>${x}</li>`).join('')}</ul></section><section style="margin:0"><h2 style="font-size:18px">家庭环境提醒</h2><ul>${envTips.map(x=>`<li>${x}</li>`).join('')}</ul></section></div></section><section><h2>最近观察记录</h2><ul>${obsList}</ul></section><section><h2>本月照片</h2><div class="photos">${photoHtml}</div></section>
+</body></html>`}
+function exportMonthHtml(){const blob=new Blob([monthReportHtml()],{type:'text/html;charset=utf-8'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=`baby-month-report-${currentMonthKey()}.html`;a.click();URL.revokeObjectURL(url)}
+function printMonthReport(){const w=window.open('','_blank');if(!w)return;w.document.open();w.document.write(monthReportHtml());w.document.close();setTimeout(()=>w.print(),400)}
+function downloadMonthPhotos(){const {monthKey,photos}=getMonthlyData();if(!photos.length){alert('这个月还没有照片。');return}photos.forEach((p,idx)=>{const a=document.createElement('a');a.href=p.src;a.download=`baby-${monthKey}-${idx+1}.jpg`;a.click()})}
+function renderMonthlyCard(){const {monthKey,photos,milk,sleep,poop,observations,observationStats,milkTotal,sleepTotal}=getMonthlyData();const month=currentMonth();const g=guide(month);const mData=monthMontessori(month);const envTips=monthlyEnvironmentTips(observationStats.sorted);monthlyCard.innerHTML=`<h3>${monthKey.replace('-',' 年 ')} 月成长记录</h3><ul><li>本月已记录照片：${photos.length} 张。</li><li>本月奶量记录：${milk.length} 次，共 ${milkTotal} ml。</li><li>本月睡眠记录：${sleep.length} 段，共 ${sleepTotal.toFixed(1)} 小时。</li><li>本月排便记录：${poop.length} 次。</li><li>本月 Montessori 观察：${observations.length} 条。</li></ul><div class="subhead">本月发展主题</div><ul><li>${g.focus}</li></ul><div class="subhead">观察趋势</div><ul><li>${observationStats.topText}</li></ul><div class="subhead">本月重点观察</div><ul>${mData.activities.slice(0,3).map(x=>`<li>${x}</li>`).join('')}</ul><div class="subhead">家庭环境提醒</div><ul>${envTips.map(x=>`<li>${x}</li>`).join('')}</ul>`;monthlyPhotoGrid.innerHTML=photos.length?photos.slice(-9).reverse().map(p=>`<div class="photo-item"><img src="${p.src}" alt="宝宝月度照片"><div class="small">${p.note||p.dayKey}</div></div>`).join(''):'<div class="hint">这个月还没有照片。</div>'}
+function renderVideoCards(targetId,items){document.getElementById(targetId).innerHTML=items.length?items.map(item=>`<div class="video-card"><iframe class="video-frame" src="https://www.youtube-nocookie.com/embed/${item.id}" title="${item.title}" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe><div class="video-meta"><h3>${item.title}</h3><div class="small">${item.note}${item.minutes?` · 约 ${item.minutes} 分钟`:''}</div><div class="record-actions"><a class="mini-btn primary" href="${item.link}" target="_blank" rel="noopener noreferrer">单独打开</a><a class="mini-btn" href="${item.link.replace('www.youtube.com','m.youtube.com')}" target="_blank" rel="noopener noreferrer">Safari 打开</a></div></div></div>`).join(''):'<div class="hint">当前筛选下还没有可显示的视频。</div>'}
+function renderSoothingMusic(){const age=activeMusicAgeGroup();if(window.musicMode)musicMode.value='calm';const slot='evening';const seed=state.soothingSeed||new Date().toISOString().slice(0,10);const pool=soothingVideos.filter(v=>v.id!=='oewj_XEM1js'&&v.ages.includes(age)&&v.modes.includes('calm')&&v.slots.includes(slot));const fallback=pool.length?pool:soothingVideos.filter(v=>v.id!=='oewj_XEM1js'&&v.modes.includes('calm'));renderVideoCards('soothingGrid',seededPick(fallback,seed,Math.min(3,fallback.length)))}
+function setupWhiteNoise(){if(!window.toggleWhiteNoiseBtn||window.__whiteNoiseReady)return;window.__whiteNoiseReady=true;let ctx=null,source=null,gain=null;const stop=()=>{if(source){try{source.stop()}catch(e){}source.disconnect();source=null}if(gain){try{gain.disconnect()}catch(e){}gain=null}if(ctx&&ctx.state!=='closed')ctx.close();ctx=null;toggleWhiteNoiseBtn.textContent='播放白噪音'};const start=async()=>{try{ctx=new (window.AudioContext||window.webkitAudioContext)();const bufferSize=2*ctx.sampleRate;const noiseBuffer=ctx.createBuffer(1,bufferSize,ctx.sampleRate);const output=noiseBuffer.getChannelData(0);for(let i=0;i<bufferSize;i++)output[i]=(Math.random()*2-1)*0.65;source=ctx.createBufferSource();source.buffer=noiseBuffer;source.loop=true;gain=ctx.createGain();gain.gain.value=0.18;source.connect(gain);gain.connect(ctx.destination);source.start();toggleWhiteNoiseBtn.textContent='停止白噪音'}catch(err){toggleWhiteNoiseBtn.textContent='当前设备不可播放'}};toggleWhiteNoiseBtn.onclick=()=>{if(source)stop();else start()}}
+function renderOrffVideos(){const age=activeMusicAgeGroup();if(window.musicMode)musicMode.value='active';const seed=state.orffSeed||new Date().toISOString().slice(0,10);let pool=orffVideoBank.filter(v=>v.ages.includes(age)&&v.slots.includes('morning'));if(pool.length<3)pool=orffVideoBank.filter(v=>v.ages.includes(age));if(pool.length<3)pool=orffVideoBank;renderVideoCards('orffGrid',seededPick(pool,seed,Math.min(3,pool.length)))}
+function copyText(text){if(navigator.clipboard&&window.isSecureContext&&navigator.clipboard.writeText){return navigator.clipboard.writeText(text)}const ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove();return Promise.resolve()}
+function openLibraryItem(item){if(item&&item.url)window.location.href=item.url}
+const bookTermsCatalog=[
+{group:'先懂这 8 个',items:[
+{term:'吸收性心智（absorbent mind）',plain:'宝宝会把周围环境整体吸收进去，所以你怎么说、怎么做都很重要。'},
+{term:'敏感期（sensitive periods）',plain:'某段时间宝宝会对某件事特别着迷，这时最适合顺势支持。'},
+{term:'观察（observation）',plain:'先看懂宝宝在练什么，再决定要不要帮、怎么帮。'},
+{term:'预备好的环境（prepared environment）',plain:'先把环境准备好，比一直提醒更有效。'},
+{term:'自由运动（free movement）',plain:'让宝宝自己发起和练习动作，而不是被大人摆姿势。'},
+{term:'可自由探索安全区（yes space）',plain:'一个你可以放心说“这里都可以探索”的安全区域。'},
+{term:'专注（concentration）',plain:'宝宝反复看、反复做时，常常是在认真工作，不是无聊。'},
+{term:'独立（independence）',plain:'独立不是突然放手，而是一步步让宝宝自己能做更多。'}]},
+{group:'环境创设',items:[
+{term:'环境是老师（environment as teacher）',plain:'环境布置本身就会教宝宝怎么动、怎么看、怎么选择。'},
+{term:'定向（orientation）',plain:'帮助宝宝知道自己在哪里、接下来会发生什么。'},
+{term:'秩序（order）',plain:'固定的位置和流程，会让宝宝更安心。'},
+{term:'活动区（movement area）',plain:'专门给宝宝自由活动、看镜子、看 mobile 的区域。'},
+{term:'活动垫（movement mat）',plain:'宝宝躺下自由活动四肢的地方。'},
+{term:'低镜子（low mirror）',plain:'让宝宝看见自己身体如何移动，帮助认识身体。'},
+{term:'横向镜子（horizontal mirror）',plain:'婴儿期常用横向镜子，更容易支持整体身体观察。'},
+{term:'吊饰挂点（mobile hanger）',plain:'用来挂 mobile 的位置，方便视觉追踪活动。'},
+{term:'低架、低篮（low shelf / low basket）',plain:'把少量活动放低，让宝宝慢慢学会自己选。'},
+{term:'地面床（floor bed）',plain:'贴近地面的睡床，帮助宝宝看见空间并逐步自己进出。'},
+{term:'睡眠参照点（point of reference）',plain:'熟悉的睡眠位置、画面、气味和流程会让宝宝更安心。'},
+{term:'无遮挡视野（unobstructed vision）',plain:'尽量不要总让宝宝隔着栏杆或容器看世界。'}]},
+{group:'材料与活动',items:[
+{term:'托蓬奇诺抱垫（topponcino）',plain:'帮助抱起和放下时更温和、更有熟悉感的小抱垫。'},
+{term:'Cestina 睡篮（cestina）',plain:'新生儿早期可用的小睡篮，帮助建立固定睡眠感。'},
+{term:'视觉吊饰（visual mobiles）',plain:'前几个月的重要材料，用来练习看、追踪和专注。'},
+{term:'触觉吊饰（tactile mobiles）',plain:'给较大一点宝宝练习伸手、够取和触摸的悬挂材料。'},
+{term:'观察、收纳、轮换（observe, store, rotate）',plain:'观察宝宝需要什么，只留少量材料，其余收起来轮换。'}]},
+{group:'动作发展',items:[
+{term:'身体图式（body schema）',plain:'宝宝慢慢知道自己的身体有哪些部分、怎么一起动。'},
+{term:'粗大动作（gross-motor skills）',plain:'翻身、爬、站、走等大动作。'},
+{term:'精细动作（fine-motor skills）',plain:'抓、放、转、捏等手部细动作。'},
+{term:'双指捏取（pincer grasp）',plain:'拇指和手指更精细地捏起小物的能力。'}]},
+{group:'语言发展',items:[
+{term:'等待时间（tarry time）',plain:'你说完先停一下，给宝宝回应机会。'},
+{term:'儿向语调（parentese）',plain:'语气可以温柔有节奏，但词语依然真实正确。'},
+{term:'丰富语言（rich language）',plain:'多说真实、具体、准确的词，而不是模糊婴儿语。'},
+{term:'积极语言（positive language）',plain:'告诉宝宝可以怎么做，而不只是说不要。'},
+{term:'真实主题图书（real-theme books）',plain:'优先选宝宝在生活中真的会遇到的人、物和情境。'}]},
+{group:'双语支持',items:[
+{term:'一人一语（OPOL）',plain:'不同照护者稳定使用不同语言。'},
+{term:'语言使用场域（Domains of Use）',plain:'按时间、地点或情境分配语言。'}]},
+{group:'照护与关系',items:[
+{term:'合作（collaboration）',plain:'照护时先预告、等回应、邀请参与，而不是直接操作。'},
+{term:'生活中的参与（practical life participation）',plain:'穿衣、吃饭、收放、洗漱本身就是学习。'},
+{term:'对称期（symbiotic period）',plain:'最初几周重点是联结、适应和安全感。'},
+{term:'帮助尽可能少、必要时尽可能多（as little help as possible, as much as necessary）',plain:'不替宝宝做掉成长机会，但也不让他们卡住放弃。'}]}
+];
+function renderBookTermsIndex(){if(!window.bookTermsIndex)return;const misconceptions=['蒙氏不等于买很多木头玩具，这本书反而强调 less is more，也就是少而合适。','蒙氏不等于放任不管，核心是先准备环境、认真观察，再给刚刚好的帮助。','蒙氏不等于逼宝宝提前独立，而是从依赖走向合作，再走向更多自己能做。','蒙氏不等于不停上课，换尿布、吃饭、穿衣、移动、看图书，本身就是学习。'];bookTermsIndex.innerHTML=`<div class="glossary-tip"><div class="t">常见误解</div><ul>${misconceptions.map(x=>`<li>${x}</li>`).join('')}</ul></div>`+bookTermsCatalog.map(section=>`<div class="subhead">${section.group}</div><div class="glossary-grid">${section.items.map(item=>`<div class="glossary-card"><div class="glossary-term"><span>${renderTermLabel(item.term)}</span><button class="term-note-btn" type="button" data-term="${item.term}" aria-label="${item.term} 原书说明">★</button></div><div class="glossary-plain">${item.plain}</div></div>`).join('')}</div>`).join('');document.querySelectorAll('#bookTermsIndex .term-note-btn').forEach(btn=>btn.onclick=e=>{e.stopPropagation();openTermNote(btn.dataset.term)});document.querySelectorAll('#bookTermsIndex [data-term-play]').forEach(el=>el.onclick=e=>{e.stopPropagation();speakEnglishTerm(el.dataset.termPlay)})}
+function renderVideoLibrary(){const list=Array.isArray(state.videoLibrary)?state.videoLibrary:[];videoLibraryList.innerHTML=list.length?list.slice().reverse().map(item=>`<div class="record-item library-card" data-library-open="${item.id}"><div class="record-title">${item.title}</div><div class="small">YouTube 视频</div><div class="library-open-tip">点卡片打开 YouTube 视频</div><div class="record-actions"><button class="mini-btn" data-library-copy="${item.id}">复制链接</button><button class="mini-btn warn" data-library-delete="${item.id}">删除</button></div></div>`).join(''):'<div class="hint">还没有收藏的 YouTube 视频。</div>';document.querySelectorAll('[data-library-open]').forEach(card=>card.onclick=()=>{const id=card.dataset.libraryOpen;const item=list.find(x=>x.id===id);if(item)openLibraryItem(item)});document.querySelectorAll('[data-library-delete]').forEach(btn=>btn.onclick=(e)=>{e.stopPropagation();const id=btn.dataset.libraryDelete;state.videoLibrary=list.filter(x=>x.id!==id);saveState()});document.querySelectorAll('[data-library-copy]').forEach(btn=>btn.onclick=(e)=>{e.stopPropagation();const id=btn.dataset.libraryCopy;const item=list.find(x=>x.id===id);if(!item)return;copyText(item.url).then(()=>alert('链接已复制')).catch(()=>alert('复制失败，请手动长按复制'))})}
+function renderAll(){setDefaults();syncProfileFold();renderTodayDashboard();renderToday();renderMilkRecommend();renderTodayCompact();renderTodayMonthQuick();renderMonthNav();renderNapRecommend();renderGuide();renderEarlyLearningGuide();renderEarlyToolGuide();renderMontessoriGuide();renderEnvironmentGuide();renderMontessoriMonthGuide();renderPlannerMilkPlan();renderFeedTable();renderFeedingStages();renderDailySummary();renderPlannerEnvironment();renderPlanner();renderRecords();renderObservations();renderHistory();renderPhotos();renderObservationGrowth();renderMonthlyCard();renderSoothingMusic();setupWhiteNoise();renderOrffVideos();renderBookTermsIndex();renderVideoLibrary();bindQuickJump();enhanceTermNotes()}
+function val(id){return document.getElementById(id).value.trim()}
+document.querySelectorAll('.tab').forEach(tab=>tab.onclick=()=>{if(tab.dataset.tab==='more'){openMoreMenu();return}openPanel(tab.dataset.tab,tab.dataset.tab)});
+saveProfileBtn.onclick=()=>{state.profile.babyName=val('babyName');state.profile.birthDate=birthDate.value;state.profile.weightKg=window.babyWeightKg?babyWeightKg.value.trim():'';state.profile.feedCount=window.babyFeedCount?babyFeedCount.value.trim():'';saveState();renderToday();renderMilkRecommend();renderNapRecommend();renderPlannerMilkPlan();if(window.profileFold&&(state.profile.birthDate||state.profile.babyName||state.profile.weightKg||state.profile.feedCount))profileFold.removeAttribute('open')};
+if(window.babyWeightKg){const syncMilkInputs=()=>{state.profile.weightKg=babyWeightKg.value.trim();if(window.babyFeedCount)state.profile.feedCount=babyFeedCount.value.trim();renderMilkRecommend();renderPlannerMilkPlan()};babyWeightKg.addEventListener('input',syncMilkInputs);babyWeightKg.addEventListener('change',syncMilkInputs);babyWeightKg.addEventListener('focus',()=>{if(window.profileFold)profileFold.setAttribute('open','')});if(window.babyFeedCount){babyFeedCount.addEventListener('input',syncMilkInputs);babyFeedCount.addEventListener('change',syncMilkInputs)}}
+if(window.pasteLibraryBtn){pasteLibraryBtn.onclick=async()=>{try{const text=await navigator.clipboard.readText();const url=(text||'').trim();if(!url)return alert('剪贴板里还没有链接。');if(!isYouTubeUrl(url))return alert('这里只支持 YouTube 链接。');libraryUrl.value=url;if(!libraryTitle.value.trim())libraryTitle.value=autoLibraryTitle(url)}catch{alert('读取剪贴板失败，请手动粘贴')}}};
+generatePlanBtn.onclick=generatePlan;resetDoneBtn.onclick=()=>{state.planner.doneMap={};saveState()};
+addMilkBtn.onclick=()=>{const time=milkTime.value;const amount=Number(val('milkAmount'));if(!time||!amount)return alert('请填写时间和奶量。');state.milk.push({id:uid(),time,amount});milkAmount.value='';milkTime.value=nowLocal();saveState()};
+addSleepBtn.onclick=()=>{const start=sleepStart.value;const end=sleepEnd.value;if(!start||!end)return alert('请填写开始和结束时间。');if(new Date(end)<=new Date(start))return alert('结束时间需要晚于开始时间。');state.sleep.push({id:uid(),start,end});sleepStart.value=nowLocal();sleepEnd.value=nowLocal();saveState()};
+addPoopBtn.onclick=()=>{const time=poopTime.value;if(!time)return alert('请填写时间。');state.poop.push({id:uid(),time,note:val('poopNote')});poopNote.value='';poopTime.value=nowLocal();saveState()};
+addObservationBtn.onclick=()=>{const time=observationTime.value;const area=observationArea.value;const note=val('observationNote');if(!time||!note)return alert('请填写时间和观察内容。');state.observations.push({id:uid(),time,area,note});observationNote.value='';observationTime.value=nowLocal();saveState()};
+savePhotosBtn.onclick=saveTodayPhotos;if(window.photoInput)photoInput.addEventListener('change',()=>{addPendingFiles(photoInput.files);photoInput.value='';renderPhotoPreview()});if(window.cameraInput)cameraInput.addEventListener('change',()=>{addPendingFiles(cameraInput.files);cameraInput.value='';renderPhotoPreview()});exportMonthHtmlBtn.onclick=exportMonthHtml;printMonthBtn.onclick=printMonthReport;downloadMonthPhotosBtn.onclick=downloadMonthPhotos;
+refreshSoothingBtn.onclick=()=>{state.musicMode='calm';state.soothingSeed=Date.now().toString();saveState()};refreshOrffBtn.onclick=()=>{state.musicMode='active';state.orffSeed=Date.now().toString()+Math.random().toString(36).slice(2,6);saveState()};if(window.musicAgeGroup)musicAgeGroup.onchange=()=>{state.musicAgeGroup=musicAgeGroup.value;saveState()};if(window.musicMode)musicMode.onchange=()=>{state.musicMode=musicMode.value;saveState()};if(window.musicTimeSlot)musicTimeSlot.onchange=()=>{state.musicTimeSlot=musicTimeSlot.value;saveState()};if(window.orffDuration)orffDuration.onchange=()=>{state.orffDuration=orffDuration.value;saveState()};saveLibraryBtn.onclick=()=>{const url=(libraryUrl.value||'').trim();const title=(libraryTitle.value||'').trim()||autoLibraryTitle(url);if(!url)return alert('请先点“从剪贴板粘贴”。');if(!isYouTubeUrl(url))return alert('这里只支持 YouTube 链接。');state.videoLibrary=Array.isArray(state.videoLibrary)?state.videoLibrary:[];state.videoLibrary.push({id:uid(),title,url,note:'',host:hostOf(url)});libraryTitle.value='';libraryUrl.value='';saveState()};
+renderAll();
+
+    
+    
+    
+    // ====== 增强成长册逻辑 =====
+    function safeGrowthDate(value, fallbackTime) {
+      if (!value) return null;
+      const d = new Date(value);
+      if (!isNaN(d.getTime())) return d;
+      if (typeof value === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(value)) {
+        const d2 = new Date(value + (fallbackTime || 'T12:00:00'));
+        return isNaN(d2.getTime()) ? null : d2;
+      }
+      return null;
+    }
+
+    function growthPhotoTime(photo) {
+      return safeGrowthDate(photo && (photo.timestamp || photo.dayKey), 'T12:00:00');
+    }
+
+    function growthInRange(date, start, end) {
+      return !!date && date.getTime() >= start.getTime() && date.getTime() <= end.getTime();
+    }
+
+    function growthOverlap(startDate, endDate, rangeStart, rangeEnd) {
+      if (!startDate && !endDate) return false;
+      const s = startDate || endDate;
+      const e = endDate || startDate;
+      return e.getTime() >= rangeStart.getTime() && s.getTime() <= rangeEnd.getTime();
+    }
+
+    function growthEscapeHtml(str) {
+      return String(str || '').replace(/[&<>"']/g, function(ch) {
+        return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch];
+      });
+    }
+
+    function growthFormatDateTime(date) {
+      return (date || new Date()).toLocaleString('zh-CN', {
+        year:'numeric', month:'numeric', day:'numeric', hour:'2-digit', minute:'2-digit'
+      });
+    }
+
+    function getGrowthExportRange() {
+      const modeEl = document.getElementById('growthExportMode');
+      const mode = modeEl ? modeEl.value : 'month';
+      const now = new Date();
+      let start, end, label;
+      if (mode === 'today') {
+        start = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0, 0);
+        end = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59, 999);
+        label = (now.getMonth() + 1) + '月' + now.getDate() + '日';
+      } else if (mode === 'week') {
+        const day = now.getDay() || 7;
+        start = new Date(now.getFullYear(), now.getMonth(), now.getDate() - day + 1, 0, 0, 0, 0);
+        end = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59, 999);
+        label = (start.getMonth() + 1) + '月' + start.getDate() + '日 至 ' + (end.getMonth() + 1) + '月' + end.getDate() + '日';
+      } else {
+        start = new Date(now.getFullYear(), now.getMonth(), 1, 0, 0, 0, 0);
+        end = new Date(now.getFullYear(), now.getMonth() + 1, 0, 23, 59, 59, 999);
+        label = now.getFullYear() + '年' + (now.getMonth() + 1) + '月';
+      }
+      const lbl = document.getElementById('growthExportLabel');
+      if (lbl) lbl.textContent = '当前导出范围：' + label;
+      return { mode: mode, start: start, end: end, label: label };
+    }
+
+    function summarizeGrowthObservations(items) {
+      const counts = {movement:0, language:0, concentration:0, environment:0, care:0, social:0};
+      (items || []).forEach(function(x) {
+        if (x && x.area && Object.prototype.hasOwnProperty.call(counts, x.area)) counts[x.area] += 1;
+      });
+      const sorted = Object.entries(counts).sort(function(a, b) { return b[1] - a[1]; }).filter(function(x) { return x[1] > 0; });
+      return {
+        items: items || [],
+        counts: counts,
+        sorted: sorted,
+        topText: sorted.length ? sorted.slice(0, 3).map(function(x) { return observationLabel(x[0]) + ' ' + x[1] + ' 次'; }).join('；') : '当前范围还没有观察记录。'
+      };
+    }
+
+    function getGrowthRangeData() {
+      const range = getGrowthExportRange();
+      const photos = (state.photos || []).filter(function(p) { return growthInRange(growthPhotoTime(p), range.start, range.end); }).sort(function(a, b) {
+        const bt = growthPhotoTime(b), at = growthPhotoTime(a);
+        return (bt ? bt.getTime() : 0) - (at ? at.getTime() : 0);
+      });
+      const milk = (state.milk || []).filter(function(x) { return growthInRange(safeGrowthDate(x && x.time), range.start, range.end); });
+      const sleep = (state.sleep || []).filter(function(x) { return growthOverlap(safeGrowthDate(x && x.start), safeGrowthDate(x && x.end), range.start, range.end); });
+      const poop = (state.poop || []).filter(function(x) { return growthInRange(safeGrowthDate(x && x.time), range.start, range.end); });
+      const observations = (state.observations || []).filter(function(x) { return growthInRange(safeGrowthDate(x && x.time), range.start, range.end); }).sort(function(a, b) {
+        const bt = safeGrowthDate(b.time), at = safeGrowthDate(a.time);
+        return (bt ? bt.getTime() : 0) - (at ? at.getTime() : 0);
+      });
+      const milkTotal = milk.reduce(function(sum, x) { return sum + (Number(x.amount) || 0); }, 0);
+      const sleepTotal = sleep.reduce(function(sum, x) {
+        const s = safeGrowthDate(x && x.start), e = safeGrowthDate(x && x.end);
+        return sum + (s && e ? Math.max(0, (e - s) / 3600000) : 0);
+      }, 0);
+      return { mode: range.mode, start: range.start, end: range.end, label: range.label, photos: photos, milk: milk, sleep: sleep, poop: poop, observations: observations, observationStats: summarizeGrowthObservations(observations), milkTotal: milkTotal, sleepTotal: sleepTotal };
+    }
+
+    function growthReportStyles() {
+      return 'body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC",sans-serif;margin:0;background:#f7fcf8;color:#234033;padding:20px}' +
+        '#growthExportCapture{max-width:920px;margin:0 auto}' +
+        '.report-section{background:#fff;border:1px solid #d6ebdb;border-radius:18px;padding:16px;margin-bottom:14px;box-shadow:0 8px 22px rgba(92,138,110,.05)}' +
+        '.report-title{margin:0 0 8px;color:#49795d}' +
+        '.report-sub{color:#688170;font-size:13px;line-height:1.7}' +
+        '.report-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}' +
+        '.report-photos{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}' +
+        '.report-photos.one{grid-template-columns:1fr}' +
+        '.report-list{margin:8px 0 0;padding-left:18px}' +
+        '.report-list li{margin:6px 0;line-height:1.5}' +
+        '.report-photo{break-inside:avoid;border:1px solid #d6ebdb;border-radius:16px;padding:10px;background:#fcfffd}' +
+        '.report-photo img{width:100%;height:240px;object-fit:cover;border-radius:12px;display:block;background:#eef6f1}' +
+        '.report-note{font-size:13px;color:#63806c;margin-top:8px;line-height:1.6}' +
+        '.report-kpi{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin-top:10px}' +
+        '.report-kpi .item{border:1px solid #dbe9df;border-radius:14px;padding:10px;background:#fcfffd;text-align:center}' +
+        '.report-kpi .k{font-size:12px;color:#688170;margin-bottom:6px}' +
+        '.report-kpi .v{font-size:18px;font-weight:800;color:#49795d}' +
+        '@media print{body{background:#fff;padding:0}.report-section{break-inside:avoid;box-shadow:none}}' +
+        '@media (max-width:720px){.report-grid,.report-photos,.report-kpi{grid-template-columns:1fr}}';
+    }
+
+    function buildGrowthReportMarkup(data) {
+      const month = currentMonth();
+      const g = guide(month);
+      const mData = monthMontessori(month);
+      const envTips = monthlyEnvironmentTips(data.observationStats.sorted);
+      const photosHtml = data.photos.length ? data.photos.map(function(p) {
+        return '<div class="report-photo"><img src="' + p.src + '" alt="成长照片"><div class="report-note">' + growthEscapeHtml(p.note || '成长记录') + '</div><div class="report-note">' + growthEscapeHtml(growthFormatDateTime(growthPhotoTime(p) || new Date())) + '</div></div>';
+      }).join('') : '<div class="report-note">当前范围还没有照片记录。</div>';
+      const obsHtml = data.observations.length ? data.observations.slice(0, 8).map(function(x) {
+        return '<li>' + growthEscapeHtml(growthFormatDateTime(safeGrowthDate(x.time) || new Date())) + ' · ' + growthEscapeHtml(observationLabel(x.area)) + '：' + growthEscapeHtml(x.note || '') + '</li>';
+      }).join('') : '<li>当前范围还没有观察记录。</li>';
+      return '<div id="growthExportCapture">' +
+        '<section class="report-section"><h1 class="report-title">' + growthEscapeHtml(data.label) + '成长记录</h1><div class="report-sub">' + growthEscapeHtml(state.profile.babyName || '宝宝') + ' · 当前第 ' + month + ' 个月 · 导出时间 ' + growthEscapeHtml(new Date().toLocaleString('zh-CN')) + '</div>' +
+        '<div class="report-kpi"><div class="item"><div class="k">照片</div><div class="v">' + data.photos.length + '</div></div><div class="item"><div class="k">奶量</div><div class="v">' + data.milk.length + '</div></div><div class="item"><div class="k">睡眠</div><div class="v">' + data.sleep.length + '</div></div><div class="item"><div class="k">排便</div><div class="v">' + data.poop.length + '</div></div><div class="item"><div class="k">观察</div><div class="v">' + data.observations.length + '</div></div></div></section>' +
+        '<section class="report-section"><h2 class="report-title">记录统计</h2><ul class="report-list"><li>奶量记录：' + data.milk.length + ' 次，共 ' + data.milkTotal + ' ml。</li><li>睡眠记录：' + data.sleep.length + ' 段，共 ' + data.sleepTotal.toFixed(1) + ' 小时。</li><li>排便记录：' + data.poop.length + ' 次。</li><li>Montessori 观察：' + data.observations.length + ' 条。</li></ul></section>' +
+        '<section class="report-section"><h2 class="report-title">发展主题</h2><ul class="report-list"><li>' + growthEscapeHtml(g.focus) + '</li></ul><ul class="report-list">' + (mData.focus || []).map(function(x) { return '<li>' + growthEscapeHtml(x) + '</li>'; }).join('') + '</ul></section>' +
+        '<section class="report-section"><h2 class="report-title">观察趋势</h2><ul class="report-list"><li>' + growthEscapeHtml(data.observationStats.topText) + '</li></ul><div class="report-grid"><section class="report-section" style="margin:0"><h3 class="report-title" style="font-size:18px">重点观察</h3><ul class="report-list">' + (mData.activities || []).slice(0, 3).map(function(x) { return '<li>' + growthEscapeHtml(x) + '</li>'; }).join('') + '</ul></section><section class="report-section" style="margin:0"><h3 class="report-title" style="font-size:18px">环境提醒</h3><ul class="report-list">' + (envTips || []).map(function(x) { return '<li>' + growthEscapeHtml(x) + '</li>'; }).join('') + '</ul></section></div></section>' +
+        '<section class="report-section"><h2 class="report-title">最近观察</h2><ul class="report-list">' + obsHtml + '</ul></section>' +
+        '<section class="report-section"><h2 class="report-title">照片记录</h2><div class="report-photos ' + (data.photos.length <= 1 ? 'one' : '') + '">' + photosHtml + '</div></section>' +
+        '</div>';
+    }
+
+    function buildGrowthReportHtml() {
+      const data = getGrowthRangeData();
+      return '<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>' + growthEscapeHtml(data.label) + '成长记录</title><style>' + growthReportStyles() + '</style></head><body>' + buildGrowthReportMarkup(data) + '</body></html>';
+    }
+
+    function growthHasContent(data) {
+      return !!(data.photos.length || data.milk.length || data.sleep.length || data.poop.length || data.observations.length);
+    }
+
+    function openGrowthPrintWindow() {
+      const w = window.open('', '_blank');
+      if (!w) {
+        alert('浏览器拦截了新窗口，请允许弹窗后重试。');
+        return null;
+      }
+      w.document.open();
+      w.document.write(buildGrowthReportHtml());
+      w.document.close();
+      return w;
+    }
+
+    function exportGrowthPdf() {
+      const data = getGrowthRangeData();
+      if (!growthHasContent(data)) {
+        alert('当前范围（' + data.label + '）还没有可导出的记录。');
+        return;
+      }
+      const w = openGrowthPrintWindow();
+      if (!w) return;
+      setTimeout(function() { w.focus(); w.print(); }, 500);
+    }
+
+    async function saveGrowthPhotosSafe() {
+      const files = pendingPhotoFiles || [];
+      if (!files.length) {
+        alert('请先从图库选择或直接拍摄照片。');
+        return;
+      }
+      const note = (window.photoNote ? photoNote.value : '').trim();
+      const dayKey = startOfDay(new Date()).toISOString().slice(0,10);
+      const prev = Array.isArray(state.photos) ? state.photos.slice() : [];
+      const attempts = [{maxSide:1280,quality:0.72},{maxSide:1080,quality:0.62},{maxSide:900,quality:0.52}];
+      for (const attempt of attempts) {
+        try {
+          const newItems = [];
+          for (const file of files) {
+            const dataUrl = await compressImageFile(file, attempt.maxSide, attempt.quality);
+            newItems.push({id:uid(),dayKey:dayKey,monthKey:dayKey.slice(0,7),src:dataUrl,note:note,timestamp:new Date().toISOString()});
+          }
+          state.photos = prev.concat(newItems);
+          pendingPhotoFiles = [];
+          saveState();
+          if (window.photoInput) photoInput.value = '';
+          if (window.cameraInput) cameraInput.value = '';
+          if (window.photoNote) photoNote.value = '';
+          renderPhotoPreview();
+          syncGrowthExportUI();
+          return;
+        } catch (e) {
+          state.photos = prev.slice();
+        }
+      }
+      alert('照片没有保存成功。通常是本地存储空间已满，或一次保存的图片太多。请一次少传几张，或先删除旧照片后再试。');
+    }
+
+    function deleteGrowthPhoto(photoId) {
+      state.photos = (state.photos || []).filter(function(p) { return p.id !== photoId; });
+      saveState();
+      syncGrowthExportUI();
+    }
+
+    function bindGrowthPhotoDelete() {
+      document.querySelectorAll('[data-growth-photo-delete]').forEach(function(btn) {
+        btn.onclick = function() { deleteGrowthPhoto(btn.dataset.growthPhotoDelete); };
+      });
+    }
+
+    function syncGrowthExportUI() {
+      const htmlBtn = document.getElementById('exportMonthHtmlBtn');
+      const pdfBtn = document.getElementById('printMonthBtn');
+      const imageBtn = document.getElementById('downloadMonthPhotosBtn');
+      const modeEl = document.getElementById('growthExportMode');
+      const data = getGrowthRangeData();
+      if (htmlBtn) htmlBtn.style.display = 'none';
+      if (pdfBtn) {
+        pdfBtn.textContent = '导出为PDF';
+        pdfBtn.onclick = exportGrowthPdf;
+      }
+      if (imageBtn) imageBtn.style.display = 'none';
+      if (modeEl && !modeEl.dataset.growthBound) {
+        modeEl.addEventListener('change', syncGrowthExportUI);
+        modeEl.dataset.growthBound = '1';
+      }
+      const card = document.getElementById('monthlyCard');
+      const grid = document.getElementById('monthlyPhotoGrid');
+      if (card) {
+        const envTips = monthlyEnvironmentTips(data.observationStats.sorted);
+        card.innerHTML = '<h3>' + growthEscapeHtml(data.label) + '成长记录</h3>' +
+          '<ul><li>已记录照片：' + data.photos.length + ' 张。</li><li>奶量记录：' + data.milk.length + ' 次，共 ' + data.milkTotal + ' ml。</li><li>睡眠记录：' + data.sleep.length + ' 段，共 ' + data.sleepTotal.toFixed(1) + ' 小时。</li><li>排便记录：' + data.poop.length + ' 次。</li><li>Montessori 观察：' + data.observations.length + ' 条。</li></ul>' +
+          '<div class="subhead">本阶段发展主题</div><ul><li>' + growthEscapeHtml(guide(currentMonth()).focus) + '</li></ul>' +
+          '<div class="subhead">观察趋势</div><ul><li>' + growthEscapeHtml(data.observationStats.topText) + '</li></ul>' +
+          '<div class="subhead">家庭环境提醒</div><ul>' + envTips.map(function(x) { return '<li>' + growthEscapeHtml(x) + '</li>'; }).join('') + '</ul>';
+      }
+      if (grid) {
+        grid.innerHTML = data.photos.length ? data.photos.slice(0, 9).map(function(p) {
+          return '<div class="photo-item"><img src="' + p.src + '" alt="成长照片"><div class="small">' + growthEscapeHtml(p.note || growthFormatDateTime(growthPhotoTime(p) || new Date())) + '</div><div class="record-actions"><button class="mini-btn warn" data-growth-photo-delete="' + p.id + '">删除</button></div></div>';
+        }).join('') : '<div class="hint">当前范围还没有照片记录。</div>';
+      }
+      bindGrowthPhotoDelete();
+    }
+
+    const __originalRenderAll = renderAll;
+    renderAll = function() {
+      __originalRenderAll();
+      setTimeout(syncGrowthExportUI, 0);
+    };
+
+    setTimeout(function() {
+      const modeEl = document.getElementById('growthExportMode');
+      if (modeEl && modeEl.options && modeEl.options[0] && modeEl.options[0].textContent === '本日') modeEl.options[0].textContent = '今日';
+      if (window.savePhotosBtn) savePhotosBtn.onclick = saveGrowthPhotosSafe;
+      syncGrowthExportUI();
+    }, 0);
+    // ===========================
+
+
+
+    
+</script>
+</body>
+</html>
